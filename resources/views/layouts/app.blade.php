@@ -87,7 +87,7 @@
                             PT. ERICKMAN SARANA ABADI<span class="text-brand-600">.</span>
                         </span>
                         <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
-                            Energy & Logistics
+                            Energy & Transportation
                         </span>
                     </div>
                 </a>

@@ -17,6 +17,7 @@ class ErickmanAppTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('PT. Erickman Sarana Abadi');
+        $response->assertSee('Energy & Transportation', false);
         $response->assertSee('2211210015706'); // NIB Resmi
         $response->assertSee('18 Office Park'); // Alamat Resmi
         $response->assertSee('truck-cng-green.jpg');
