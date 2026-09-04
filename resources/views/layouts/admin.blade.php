@@ -62,7 +62,9 @@
                         </div>
                         <div>
                             <span class="block font-black text-sm tracking-tight text-white leading-snug">PT. ERICKMAN<br>SARANA ABADI<span class="text-brand-500">.</span></span>
-                            <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">Admin Panel</span>
+                            <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
+                                {{ Auth::user()->role === 'keuangan' ? 'Portal Keuangan' : 'Admin Panel' }}
+                            </span>
                         </div>
                     </a>
                     <button @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white">
@@ -72,6 +74,7 @@
 
                 <!-- Navigation Links -->
                 <nav class="mt-6 space-y-6">
+                    @if(Auth::user()->role === 'superadmin')
                     <!-- Dashboard -->
                     <div>
                         <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.dashboard') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
@@ -83,33 +86,37 @@
                     <!-- Fleet Dashboard -->
                     <div class="space-y-1">
                         <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Dashboard Armada</div>
-                        <a href="{{ route('admin.fleets.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.fleets.*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.fleets.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.fleets.index', 'admin.fleets.show', 'admin.fleets.edit') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-truck-moving w-5 text-center"></i>
                             <span>Kelola Data Armada</span>
                         </a>
-                        <a href="{{ route('admin.fleets.create') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-900 transition">
+                        <a href="{{ route('admin.fleets.create') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.fleets.create') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-plus w-5 text-center text-xs"></i>
                             <span>Tambah Unit Truk</span>
                         </a>
                     </div>
+                    @endif
 
-                    <!-- Finance Dashboard -->
+                    <!-- Finance Dashboard (Accessible by superadmin & keuangan) -->
                     <div class="space-y-1">
-                        <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Dashboard Keuangan</div>
-                        <a href="{{ route('admin.finance.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.finance.index') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                            {{ Auth::user()->role === 'keuangan' ? 'Menu Keuangan' : 'Dashboard Keuangan' }}
+                        </div>
+                        <a href="{{ route('admin.finance.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.finance.index', 'admin.finance.edit') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-wallet w-5 text-center"></i>
                             <span>Arus Kas & Transaksi</span>
                         </a>
-                        <a href="{{ route('admin.finance.create') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-900 transition">
+                        <a href="{{ route('admin.finance.create') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.finance.create') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-file-invoice-dollar w-5 text-center text-xs"></i>
                             <span>Catat Transaksi</span>
                         </a>
-                        <a href="{{ route('admin.finance.report') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-900 transition">
+                        <a href="{{ route('admin.finance.report') }}" target="_blank" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.finance.report') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-print w-5 text-center text-xs"></i>
                             <span>Laporan Cetak</span>
                         </a>
                     </div>
 
+                    @if(Auth::user()->role === 'superadmin')
                     <!-- Email Module -->
                     <div class="space-y-1">
                         <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Modul Email</div>
@@ -125,11 +132,11 @@
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500 text-white">{{ $unread }}</span>
                             @endif
                         </a>
-                        <a href="{{ route('admin.email.compose') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.compose') ? 'bg-brand-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.email.compose') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.compose') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-paper-plane w-5 text-center"></i>
                             <span>Kirim Email (SMTP)</span>
                         </a>
-                        <a href="{{ route('admin.email.outbox') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.outbox') ? 'bg-brand-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.email.outbox') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.outbox') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
                             <span>Riwayat Terkirim</span>
                         </a>
@@ -138,19 +145,29 @@
                     <!-- CMS Web Content -->
                     <div class="space-y-1">
                         <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">CMS Konten Website</div>
-                        <a href="{{ route('admin.content.settings') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.settings') ? 'bg-brand-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.content.settings') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.settings') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-sliders w-5 text-center"></i>
                             <span>Profil & Legalitas (NIB)</span>
                         </a>
-                        <a href="{{ route('admin.content.banners') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.banners') ? 'bg-brand-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.content.banners') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.banners') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-images w-5 text-center"></i>
                             <span>Banner Slider Foto</span>
                         </a>
-                        <a href="{{ route('admin.content.services') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.services*') ? 'bg-brand-600 text-white' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.content.services') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.services*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-briefcase w-5 text-center"></i>
                             <span>Layanan & KBLI</span>
                         </a>
                     </div>
+
+                    <!-- User Management -->
+                    <div class="space-y-1">
+                        <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Pengaturan Sistem</div>
+                        <a href="{{ route('admin.users.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.users.*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                            <i class="fa-solid fa-users-gear w-5 text-center"></i>
+                            <span>Manajemen Pengguna</span>
+                        </a>
+                    </div>
+                    @endif
                 </nav>
             </div>
 
@@ -184,11 +201,16 @@
 
                 <div class="flex items-center gap-4">
                     <div class="text-right hidden sm:block">
-                        <span class="block text-xs font-bold text-navy-900">{{ Auth::user()->name ?? 'Administrator' }}</span>
+                        <div class="flex items-center justify-end gap-2">
+                            <span class="block text-xs font-bold text-navy-900">{{ Auth::user()->name ?? 'Administrator' }}</span>
+                            <span class="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider {{ Auth::user()->role === 'keuangan' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800' }}">
+                                {{ Auth::user()->role === 'keuangan' ? 'Keuangan' : 'Admin' }}
+                            </span>
+                        </div>
                         <span class="block text-[10px] text-slate-500">{{ Auth::user()->email ?? 'admin@erickman.co.id' }}</span>
                     </div>
-                    <div class="w-9 h-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center text-xs shadow-sm">
-                        <i class="fa-solid fa-user-shield"></i>
+                    <div class="w-9 h-9 rounded-full {{ Auth::user()->role === 'keuangan' ? 'bg-amber-600' : 'bg-brand-600' }} text-white font-bold flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid {{ Auth::user()->role === 'keuangan' ? 'fa-wallet' : 'fa-user-shield' }}"></i>
                     </div>
                 </div>
             </header>

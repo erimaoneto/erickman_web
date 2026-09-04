@@ -47,6 +47,11 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
+
+            if (Auth::user()->role === 'keuangan') {
+                return redirect()->intended(route('admin.finance.index'))->with('success', 'Selamat datang di Modul Keuangan Erickman!');
+            }
+
             return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat datang kembali di Admin Panel Erickman!');
         }
 

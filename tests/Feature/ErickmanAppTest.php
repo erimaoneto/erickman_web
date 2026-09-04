@@ -134,5 +134,135 @@ class ErickmanAppTest extends TestCase
         $response->assertSessionHasErrors(['email']);
         $this->assertGuest();
     }
+
+    public function test_keuangan_user_login_and_finance_access()
+    {
+        $keuangan = User::where('email', 'keuangan@erickman.co.id')->first();
+        $this->assertNotNull($keuangan);
+
+        // Login as keuangan
+        $loginResponse = $this->post('/login', [
+            'email' => 'keuangan@erickman.co.id',
+            'password' => 'keuangan123',
+        ]);
+        $loginResponse->assertRedirect(route('admin.finance.index'));
+
+        // Access finance index
+        $financeResponse = $this->actingAs($keuangan)->get('/admin/finance');
+        $financeResponse->assertStatus(200);
+        $financeResponse->assertSee('Portal Keuangan');
+        $financeResponse->assertSee('Arus Kas & Transaksi', false);
+
+        // Keuangan inputs a new transaction
+        $createTrxResponse = $this->actingAs($keuangan)->post('/admin/finance', [
+            'type' => 'pemasukan',
+            'category' => 'Distribusi Gas CNG',
+            'amount' => 25000000,
+            'transaction_date' => now()->toDateString(),
+            'reference_invoice' => 'INV-TEST-KEUANGAN-01',
+            'description' => 'Pembayaran batch pengadaan CNG PT Surya',
+        ]);
+        $createTrxResponse->assertRedirect(route('admin.finance.index'));
+
+        $this->assertDatabaseHas('transactions', [
+            'reference_invoice' => 'INV-TEST-KEUANGAN-01',
+            'created_by' => $keuangan->id,
+        ]);
+    }
+
+    public function test_keuangan_user_restricted_from_superadmin_modules()
+    {
+        $keuangan = User::where('email', 'keuangan@erickman.co.id')->first();
+
+        // Keuangan cannot access dashboard
+        $response = $this->actingAs($keuangan)->get('/admin');
+        $response->assertRedirect(route('admin.finance.index'));
+
+        // Keuangan cannot access user management
+        $responseUsers = $this->actingAs($keuangan)->get('/admin/users');
+        $responseUsers->assertRedirect(route('admin.finance.index'));
+    }
+
+    public function test_superadmin_can_view_edit_and_delete_keuangan_transactions()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+        $keuangan = User::where('email', 'keuangan@erickman.co.id')->first();
+
+        $trx = Transaction::create([
+            'code' => 'TRX-TEST-999',
+            'type' => 'pengeluaran',
+            'category' => 'BBM & Bahan Bakar',
+            'amount' => 5000000,
+            'transaction_date' => now()->toDateString(),
+            'reference_invoice' => 'REF-KEUANGAN-999',
+            'description' => 'Biaya BBM Truk',
+            'created_by' => $keuangan->id,
+        ]);
+
+        // Admin sees the transaction and that it was created by Keuangan
+        $indexResponse = $this->actingAs($admin)->get('/admin/finance');
+        $indexResponse->assertStatus(200);
+        $indexResponse->assertSee('TRX-TEST-999');
+        $indexResponse->assertSee($keuangan->name);
+
+        // Admin can edit the transaction
+        $editResponse = $this->actingAs($admin)->put("/admin/finance/{$trx->id}", [
+            'type' => 'pengeluaran',
+            'category' => 'BBM & Bahan Bakar',
+            'amount' => 5500000,
+            'transaction_date' => now()->toDateString(),
+            'reference_invoice' => 'REF-KEUANGAN-999-REV',
+            'description' => 'Biaya BBM Truk Revisi Admin',
+        ]);
+        $editResponse->assertRedirect(route('admin.finance.index'));
+        $this->assertDatabaseHas('transactions', [
+            'id' => $trx->id,
+            'amount' => 5500000,
+            'reference_invoice' => 'REF-KEUANGAN-999-REV',
+        ]);
+
+        // Admin can delete the transaction
+        $deleteResponse = $this->actingAs($admin)->delete("/admin/finance/{$trx->id}");
+        $deleteResponse->assertRedirect(route('admin.finance.index'));
+        $this->assertDatabaseMissing('transactions', ['id' => $trx->id]);
+    }
+
+    public function test_superadmin_user_management_crud()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Admin visits user management
+        $response = $this->actingAs($admin)->get('/admin/users');
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Akun Pengguna');
+
+        // Admin creates a new user
+        $createResponse = $this->actingAs($admin)->post('/admin/users', [
+            'name' => 'Staf Operasional',
+            'email' => 'ops@erickman.co.id',
+            'password' => 'ops123456',
+            'role' => 'keuangan',
+            'phone' => '+62 813 9999 8888',
+        ]);
+        $createResponse->assertRedirect(route('admin.users.index'));
+        $this->assertDatabaseHas('users', ['email' => 'ops@erickman.co.id']);
+
+        $newUser = User::where('email', 'ops@erickman.co.id')->first();
+
+        // Admin edits the user
+        $updateResponse = $this->actingAs($admin)->put("/admin/users/{$newUser->id}", [
+            'name' => 'Staf Operasional Senior',
+            'email' => 'ops@erickman.co.id',
+            'role' => 'keuangan',
+            'phone' => '+62 813 9999 7777',
+        ]);
+        $updateResponse->assertRedirect(route('admin.users.index'));
+        $this->assertDatabaseHas('users', ['name' => 'Staf Operasional Senior']);
+
+        // Admin deletes the user
+        $deleteResponse = $this->actingAs($admin)->delete("/admin/users/{$newUser->id}");
+        $deleteResponse->assertRedirect(route('admin.users.index'));
+        $this->assertDatabaseMissing('users', ['id' => $newUser->id]);
+    }
 }
 

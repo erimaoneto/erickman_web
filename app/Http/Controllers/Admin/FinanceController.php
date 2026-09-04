@@ -33,6 +33,9 @@ class FinanceController extends Controller
         if ($request->filled('fleet_id')) {
             $query->where('fleet_id', $request->fleet_id);
         }
+        if ($request->filled('created_by')) {
+            $query->where('created_by', $request->created_by);
+        }
 
         // Clone query for sums
         $incomeTotal = (clone $query)->where('type', 'pemasukan')->sum('amount');
@@ -41,6 +44,7 @@ class FinanceController extends Controller
 
         $transactions = $query->orderBy('transaction_date', 'desc')->latest()->paginate(15);
         $fleets = Fleet::orderBy('vehicle_name')->get();
+        $creators = \App\Models\User::orderBy('name')->get();
 
         $categories = [
             'pemasukan' => ['Distribusi Gas CNG', 'Sewa Truk', 'Penjualan Gas & Bahan Bakar', 'Jasa Kontrak Logistik', 'Lain-lain'],
@@ -50,6 +54,7 @@ class FinanceController extends Controller
         return view('admin.finance.index', compact(
             'transactions',
             'fleets',
+            'creators',
             'incomeTotal',
             'expenseTotal',
             'netProfit',
@@ -87,12 +92,39 @@ class FinanceController extends Controller
         return redirect()->route('admin.finance.index')->with('success', 'Transaksi keuangan berhasil dicatat!');
     }
 
+    public function edit($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        $fleets = Fleet::orderBy('vehicle_name')->get();
+        return view('admin.finance.form', compact('transaction', 'fleets'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        $validated = $request->validate([
+            'type' => 'required|in:pemasukan,pengeluaran',
+            'category' => 'required|string|max:100',
+            'amount' => 'required|numeric|min:1',
+            'transaction_date' => 'required|date',
+            'fleet_id' => 'nullable|exists:fleets,id',
+            'reference_invoice' => 'nullable|string|max:100',
+            'description' => 'nullable|string',
+        ]);
+
+        $transaction->update($validated);
+
+        return redirect()->route('admin.finance.index')->with('success', "Transaksi {$transaction->code} berhasil diperbarui!");
+    }
+
     public function destroy($id)
     {
         $transaction = Transaction::findOrFail($id);
+        $code = $transaction->code;
         $transaction->delete();
 
-        return redirect()->route('admin.finance.index')->with('success', 'Transaksi berhasil dihapus!');
+        return redirect()->route('admin.finance.index')->with('success', "Transaksi {$code} berhasil dihapus!");
     }
 
     public function report(Request $request)

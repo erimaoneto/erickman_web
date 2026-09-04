@@ -26,7 +26,7 @@
 
         <!-- Filter Bar -->
         <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-            <form action="{{ route('admin.finance.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <form action="{{ route('admin.finance.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
                 <div>
                     <select name="month" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600">
                         @for($m = 1; $m <= 12; $m++)
@@ -58,6 +58,15 @@
                         <option value="">-- Terkait Armada --</option>
                         @foreach($fleets as $f)
                         <option value="{{ $f->id }}" {{ request('fleet_id') == $f->id ? 'selected' : '' }}>{{ $f->plate_number }} ({{ $f->vehicle_name }})</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <select name="created_by" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600">
+                        <option value="">-- Diinput Oleh --</option>
+                        @foreach($creators as $cr)
+                        <option value="{{ $cr->id }}" {{ request('created_by') == $cr->id ? 'selected' : '' }}>{{ $cr->name }} ({{ ucfirst($cr->role) }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -123,6 +132,7 @@
                             <th class="py-3 px-4">Tipe</th>
                             <th class="py-3 px-4">Kategori & Armada</th>
                             <th class="py-3 px-4">Keterangan / Ref</th>
+                            <th class="py-3 px-4">Diinput Oleh</th>
                             <th class="py-3 px-4 text-right">Jumlah (IDR)</th>
                             <th class="py-3 px-4 text-right">Aksi</th>
                         </tr>
@@ -151,22 +161,33 @@
                                 @endif
                                 <span>{{ $trx->description ?? '-' }}</span>
                             </td>
+                            <td class="py-3.5 px-4">
+                                <span class="font-semibold block text-slate-800">{{ $trx->creator->name ?? 'Administrator' }}</span>
+                                <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider {{ ($trx->creator->role ?? 'superadmin') === 'keuangan' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800' }}">
+                                    {{ ($trx->creator->role ?? 'superadmin') === 'keuangan' ? 'Keuangan' : 'Admin' }}
+                                </span>
+                            </td>
                             <td class="py-3.5 px-4 text-right font-black {{ $trx->type === 'pemasukan' ? 'text-emerald-600' : 'text-rose-600' }} text-sm">
                                 {{ $trx->type === 'pemasukan' ? '+' : '-' }} Rp {{ number_format($trx->amount, 0, ',', '.') }}
                             </td>
                             <td class="py-3.5 px-4 text-right">
-                                <form action="{{ route('admin.finance.destroy', $trx->id) }}" method="POST" onsubmit="return confirm('Hapus transaksi {{ $trx->code }}?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-1.5 text-rose-500 hover:text-rose-700">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </form>
+                                <div class="flex items-center justify-end gap-2">
+                                    <a href="{{ route('admin.finance.edit', $trx->id) }}" class="p-1.5 text-slate-400 hover:text-brand-600 transition" title="Edit Transaksi">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('admin.finance.destroy', $trx->id) }}" method="POST" onsubmit="return confirm('Hapus transaksi {{ $trx->code }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-1.5 text-rose-500 hover:text-rose-700" title="Hapus Transaksi">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="py-8 text-center text-slate-400">Tidak ada transaksi ditemukan pada periode ini.</td>
+                            <td colspan="7" class="py-8 text-center text-slate-400">Tidak ada transaksi ditemukan pada periode ini.</td>
                         </tr>
                         @endforelse
                     </tbody>

@@ -29,6 +29,17 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
+        // 2. Akun Keuangan Default
+        $keuangan = User::updateOrCreate(
+            ['email' => 'keuangan@erickman.co.id'],
+            [
+                'name' => 'Staf Keuangan Erickman',
+                'password' => Hash::make('keuangan123'),
+                'role' => 'keuangan',
+                'phone' => '+62 812 8888 5678',
+            ]
+        );
+
         // 2. Site Settings
         $settings = [
             // Company Info
