@@ -57,13 +57,18 @@
 
             <form action="{{ route('login') }}" method="POST" class="space-y-4">
                 @csrf
+                <!-- Honeypot for bot protection -->
+                <div class="hidden" aria-hidden="true" style="display:none;">
+                    <input type="text" name="_hp_security_check" tabindex="-1" autocomplete="off">
+                </div>
+
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Email Admin</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-envelope text-sm"></i>
                         </div>
-                        <input type="email" name="email" value="{{ old('email', 'admin@erickman.co.id') }}" required autofocus placeholder="admin@erickman.co.id" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-sm">
+                        <input type="email" name="email" value="{{ old('email') }}" required autofocus placeholder="nama@erickman.co.id" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-sm">
                     </div>
                 </div>
 
@@ -73,7 +78,10 @@
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                             <i class="fa-solid fa-lock text-sm"></i>
                         </div>
-                        <input type="password" name="password" value="admin12345" required placeholder="••••••••" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-sm">
+                        <input type="password" id="password" name="password" required placeholder="••••••••" class="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-600 focus:border-brand-600 text-sm">
+                        <button type="button" onclick="togglePasswordVisibility()" aria-label="Tampilkan kata sandi" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                            <i id="togglePasswordIcon" class="fa-solid fa-eye text-sm"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -86,20 +94,33 @@
 
                 <div class="pt-3">
                     <button type="submit" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md shadow-brand-600/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <i class="fa-solid fa-shield-halved"></i>
                         <span>Masuk ke Admin Panel</span>
                     </button>
                 </div>
             </form>
 
-            <!-- Default Login Info Helper -->
-            <div class="mt-6 pt-5 border-t border-slate-100 text-center">
-                <span class="text-[11px] font-semibold text-slate-400 block mb-1">Kredensial Default Login:</span>
-                <div class="inline-block bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-600 font-mono">
-                    admin@erickman.co.id / admin12345
-                </div>
+            <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-400 font-medium">
+                <i class="fa-solid fa-lock text-emerald-600"></i>
+                <span>Koneksi Aman SSL 256-bit & Proteksi Anti Brute-Force</span>
             </div>
         </div>
+
+        <script>
+            function togglePasswordVisibility() {
+                const passInput = document.getElementById('password');
+                const passIcon = document.getElementById('togglePasswordIcon');
+                if (passInput.type === 'password') {
+                    passInput.type = 'text';
+                    passIcon.classList.remove('fa-eye');
+                    passIcon.classList.add('fa-eye-slash');
+                } else {
+                    passInput.type = 'password';
+                    passIcon.classList.remove('fa-eye-slash');
+                    passIcon.classList.add('fa-eye');
+                }
+            }
+        </script>
 
         <div class="text-center mt-6">
             <a href="{{ route('home') }}" class="text-xs font-semibold text-slate-500 hover:text-navy-900 transition flex items-center justify-center gap-1.5">

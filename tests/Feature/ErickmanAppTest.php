@@ -111,4 +111,27 @@ class ErickmanAppTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('2211210015706');
     }
+
+    public function test_login_page_does_not_expose_credentials()
+    {
+        $response = $this->get('/login');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('admin12345');
+        $response->assertDontSee('Kredensial Default Login');
+        $response->assertSee('Proteksi Anti Brute-Force');
+    }
+
+    public function test_login_honeypot_blocks_automated_submissions()
+    {
+        $response = $this->post('/login', [
+            'email' => 'admin@erickman.co.id',
+            'password' => 'admin12345',
+            '_hp_security_check' => 'im_a_bot',
+        ]);
+
+        $response->assertSessionHasErrors(['email']);
+        $this->assertGuest();
+    }
 }
+
