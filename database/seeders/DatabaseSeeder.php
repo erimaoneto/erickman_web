@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\SiteSetting;
 use App\Models\Banner;
@@ -18,6 +19,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         // 1. Admin Default
         $admin = User::firstOrCreate(
             ['email' => 'admin@erickman.co.id'],
@@ -182,6 +185,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // 5. Fleets (Armada Realistis Sesuai Dokumen & Foto)
+        FleetMaintenance::truncate();
         Fleet::truncate();
         $fleet1 = Fleet::create([
             'plate_number' => 'B 9108 UEM',
@@ -373,5 +377,7 @@ class DatabaseSeeder extends Seeder
             'is_read' => true,
             'replied_at' => Carbon::now()->subDay(),
         ]);
+
+        Schema::enableForeignKeyConstraints();
     }
 }
