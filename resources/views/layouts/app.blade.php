@@ -175,7 +175,7 @@
                         <li><a href="{{ route('home') }}#tentang" class="hover:text-white transition">Profil Perusahaan & NIB</a></li>
                         <li><a href="{{ route('home') }}#layanan" class="hover:text-white transition">Daftar Layanan Industri</a></li>
                         <li><a href="{{ route('home') }}#armada" class="hover:text-white transition">Spesifikasi Armada Truk</a></li>
-                        <li><a href="{{ route('home') }}#kontak" class="hover:text-white transition">Form Permintaan Penawaran</a></li>
+                        <li><a href="{{ route('home') }}#kontak" class="hover:text-white transition">Kontak &amp; Kantor Operasional</a></li>
                         <li><a href="{{ route('login') }}" class="hover:text-brand-400 transition text-xs flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Login Admin Panel</a></li>
                     </ul>
                 </div>

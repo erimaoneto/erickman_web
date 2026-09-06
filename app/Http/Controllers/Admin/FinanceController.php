@@ -82,9 +82,19 @@ class FinanceController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        // Generate unique code
-        $countToday = Transaction::whereDate('created_at', Carbon::today())->count() + 1;
-        $validated['code'] = 'TRX-' . Carbon::now()->format('Ym') . '-' . str_pad($countToday, 3, '0', STR_PAD_LEFT);
+        // Generate unique collision-proof code
+        $prefix = 'TRX-' . Carbon::now()->format('Ym') . '-';
+        $latestTrx = Transaction::where('code', 'like', $prefix . '%')->orderBy('id', 'desc')->first();
+        $nextNumber = 1;
+        if ($latestTrx && preg_match('/TRX-\d{6}-(\d+)/', $latestTrx->code, $matches)) {
+            $nextNumber = intval($matches[1]) + 1;
+        }
+        $code = $prefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        while (Transaction::where('code', $code)->exists()) {
+            $nextNumber++;
+            $code = $prefix . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+        }
+        $validated['code'] = $code;
         $validated['created_by'] = Auth::id();
 
         Transaction::create($validated);

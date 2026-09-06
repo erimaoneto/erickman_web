@@ -400,125 +400,159 @@
         </div>
     </section>
 
-    <!-- Formulir Permintaan Penawaran & Kontak -->
+    <!-- Kontak & Kantor Operasional (Formulir RFQ Disembunyikan Sementara) -->
     <section id="kontak" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <!-- Kontak Info & Peta Info -->
-                <div class="lg:col-span-5 space-y-8">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider mb-3">
-                            Hubungi Kami
-                        </div>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                            Minta Penawaran Resmi & Konsultasi Armada
-                        </h2>
-                        <p class="text-slate-600 text-sm mt-3 leading-relaxed">
-                            Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas alam, kontrak pengiriman khusus, atau persewaan truk komersial.
-                        </p>
-                    </div>
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider mb-3">
+                    <i class="fa-solid fa-headset text-xs"></i> Hubungi Kami
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-tight">
+                    Kontak Resmi &amp; Kantor Operasional
+                </h2>
+                <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                    Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas alam, kontrak pengiriman khusus, atau persewaan truk komersial.
+                </p>
+            </div>
 
+            <!-- 3 Kolom Kartu Kontak -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Alamat Kantor Pusat -->
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
                     <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                            <div class="w-10 h-10 rounded-lg bg-brand-600 text-white flex items-center justify-center text-lg flex-shrink-0">
-                                <i class="fa-solid fa-building"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-sm text-navy-900">Alamat Kantor Pusat</h4>
-                                <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                                    {{ $settings['company_address'] ?? '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Jakarta Selatan 12520' }}
-                                </p>
-                            </div>
+                        <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl shadow-md shadow-brand-600/20">
+                            <i class="fa-solid fa-building"></i>
                         </div>
-
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                            <div class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-lg flex-shrink-0">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-sm text-navy-900">Hotline WhatsApp & Telepon</h4>
-                                <p class="text-xs text-slate-600 mt-1">
-                                    WhatsApp: <strong class="text-emerald-700">{{ $settings['company_whatsapp'] ?? '+62 811 8888 1234' }}</strong><br>
-                                    Telp Kantor: {{ $settings['company_phone'] ?? '+62 21 2278 1818' }}
-                                </p>
-                            </div>
+                        <h3 class="font-bold text-lg text-navy-900">Kantor Pusat</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            {{ $settings['company_address'] ?? '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Jakarta Selatan 12520' }}
+                        </p>
+                        <div class="pt-2">
+                            <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-slate-200 text-brand-700 font-mono text-[11px] font-bold">
+                                NIB: {{ $settings['company_nib'] ?? '2211210015706' }}
+                            </span>
                         </div>
-
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
-                            <div class="w-10 h-10 rounded-lg bg-sky-600 text-white flex items-center justify-center text-lg flex-shrink-0">
-                                <i class="fa-solid fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-sm text-navy-900">Korespondensi Email</h4>
-                                <p class="text-xs text-slate-600 mt-1">
-                                    {{ $settings['company_email'] ?? 'info@erickman.co.id' }}
-                                </p>
-                            </div>
-                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-slate-200 mt-6 text-xs text-slate-500 font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-brand-600"></i>
+                        <span>{{ $settings['operational_hours'] ?? 'Senin - Sabtu: 08.00 - 17.00 WIB' }}</span>
                     </div>
                 </div>
 
-                <!-- Form Card -->
-                <div class="lg:col-span-7">
-                    <div class="bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg shadow-slate-100">
-                        <h3 class="font-bold text-xl text-navy-900 mb-2">Formulir Permintaan Penawaran (RFQ)</h3>
-                        <p class="text-xs text-slate-500 mb-6">Silakan lengkapi rincian kebutuhan Anda di bawah ini, pesan akan langsung masuk ke Admin Panel kami.</p>
-
-                        <form action="{{ route('inquiry.submit') }}" method="POST" class="space-y-4">
-                            @csrf
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nama Lengkap *</label>
-                                    <input type="text" name="name" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Perusahaan / Instansi</label>
-                                    <input type="text" name="company" placeholder="Contoh: PT Manufaktur Jaya" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Alamat Email *</label>
-                                    <input type="email" name="email" required placeholder="nama@perusahaan.co.id" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">No. WhatsApp / HP</label>
-                                    <input type="text" name="phone" placeholder="0812xxxxxxx" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Layanan yang Diminati</label>
-                                    <select name="service_interest" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                        <option value="">-- Pilih Layanan --</option>
-                                        @foreach($services as $s)
-                                        <option value="{{ $s->title }}">{{ $s->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Subjek Permintaan *</label>
-                                    <input type="text" name="subject" required placeholder="Contoh: Penawaran Pasokan Gas CNG" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
-                                </div>
-                            </div>
-
+                <!-- Hotline WhatsApp & Telepon -->
+                <div class="p-8 rounded-3xl bg-emerald-50/70 border border-emerald-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md shadow-emerald-600/20">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy-900">Hotline &amp; Telepon</h3>
+                        <div class="space-y-3 text-xs text-slate-600">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Detail Kebutuhan / Pesan *</label>
-                                <textarea name="message" rows="4" required placeholder="Tuliskan detail muatan, volume kubikasi gas, rute tujuan, durasi sewa, atau spesifikasi yang diinginkan..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white"></textarea>
+                                <span class="text-slate-400 font-semibold block text-[11px] uppercase">WhatsApp Hotline</span>
+                                <strong class="text-emerald-700 text-base font-extrabold block">{{ $settings['company_whatsapp'] ?? '+62 811 8888 1234' }}</strong>
                             </div>
+                            <div>
+                                <span class="text-slate-400 font-semibold block text-[11px] uppercase">Telepon Kantor</span>
+                                <strong class="text-navy-900 text-sm font-bold block">{{ $settings['company_phone'] ?? '+62 21 2278 1818' }}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-emerald-200 mt-6">
+                        <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings['company_whatsapp'] ?? '6281188881234') }}?text=Halo%20PT.%20Erickman%20Sarana%20Abadi,%20saya%20tertarik%20dengan%20layanan%20transportasi%20dan%20armada%20Anda." target="_blank" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition transform hover:-translate-y-0.5">
+                            <i class="fa-brands fa-whatsapp text-sm"></i>
+                            <span>Chat WhatsApp Sekarang</span>
+                        </a>
+                    </div>
+                </div>
 
-                            <div class="pt-2">
-                                <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm tracking-wide shadow-md shadow-brand-600/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                                    <i class="fa-regular fa-paper-plane"></i>
-                                    <span>Kirim Permintaan Penawaran Sekarang</span>
-                                </button>
-                            </div>
-                        </form>
+                <!-- Korespondensi Email -->
+                <div class="p-8 rounded-3xl bg-sky-50/70 border border-sky-200 shadow-sm flex flex-col justify-between hover:shadow-md transition">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center text-xl shadow-md shadow-sky-600/20">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-navy-900">Korespondensi Email</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Kirimkan surat resmi, permintaan penawaran harga, atau korespondensi bisnis ke email resmi kami:
+                        </p>
+                        <p class="text-sm font-bold text-sky-800 font-mono bg-white p-2.5 rounded-xl border border-sky-200 text-center">
+                            {{ $settings['company_email'] ?? 'info@erickman.co.id' }}
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-sky-200 mt-6">
+                        <a href="mailto:{{ $settings['company_email'] ?? 'info@erickman.co.id' }}" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition transform hover:-translate-y-0.5">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Kirim Email Resmi</span>
+                        </a>
                     </div>
                 </div>
             </div>
+
+            {{-- 
+                ========================================================================
+                FORMULIR PERMINTAAN PENAWARAN (RFQ) - SEMENTARA DISEMBUNYIKAN ATAS PERMINTAAN USER
+                Untuk mengaktifkan kembali, cukup ubah @if(false) menjadi @if(true)
+                ========================================================================
+            --}}
+            @if(false)
+            <div class="mt-16 bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg shadow-slate-100">
+                <h3 class="font-bold text-xl text-navy-900 mb-2">Formulir Permintaan Penawaran (RFQ)</h3>
+                <p class="text-xs text-slate-500 mb-6">Silakan lengkapi rincian kebutuhan Anda di bawah ini, pesan akan langsung masuk ke Admin Panel kami.</p>
+
+                <form action="{{ route('inquiry.submit') }}" method="POST" class="space-y-4">
+                    @csrf
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nama Lengkap *</label>
+                            <input type="text" name="name" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Perusahaan / Instansi</label>
+                            <input type="text" name="company" placeholder="Contoh: PT Manufaktur Jaya" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Alamat Email *</label>
+                            <input type="email" name="email" required placeholder="nama@perusahaan.co.id" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">No. WhatsApp / HP</label>
+                            <input type="text" name="phone" placeholder="0812xxxxxxx" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Layanan yang Diminati</label>
+                            <select name="service_interest" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                                <option value="">-- Pilih Layanan --</option>
+                                @foreach($services as $s)
+                                <option value="{{ $s->title }}">{{ $s->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Subjek Permintaan *</label>
+                            <input type="text" name="subject" required placeholder="Contoh: Penawaran Pasokan Gas CNG" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Detail Kebutuhan / Pesan *</label>
+                        <textarea name="message" rows="4" required placeholder="Tuliskan detail muatan, volume kubikasi gas, rute tujuan, durasi sewa, atau spesifikasi yang diinginkan..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-sm bg-white"></textarea>
+                    </div>
+
+                    <div class="pt-2">
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm tracking-wide shadow-md shadow-brand-600/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <i class="fa-regular fa-paper-plane"></i>
+                            <span>Kirim Permintaan Penawaran Sekarang</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            @endif
         </div>
     </section>
 
