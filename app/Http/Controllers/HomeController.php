@@ -8,6 +8,10 @@ use App\Models\Service;
 use App\Models\Fleet;
 use App\Models\SiteSetting;
 use App\Models\Inquiry;
+use App\Models\KeyMetric;
+use App\Models\AboutPillar;
+use App\Models\HseItem;
+use App\Models\Partner;
 
 class HomeController extends Controller
 {
@@ -16,10 +20,14 @@ class HomeController extends Controller
         $banners = Banner::where('is_active', true)->orderBy('order', 'asc')->get();
         $services = Service::where('is_active', true)->orderBy('order', 'asc')->get();
         $fleets = Fleet::where('status', '!=', 'Non-Aktif')->take(6)->get();
+        $keyMetrics = KeyMetric::where('is_active', true)->orderBy('order', 'asc')->get();
+        $aboutPillars = AboutPillar::where('is_active', true)->orderBy('order', 'asc')->get();
+        $hseItems = HseItem::where('is_active', true)->orderBy('order', 'asc')->get();
+        $partners = Partner::where('is_active', true)->orderBy('order', 'asc')->get();
         
         $settings = SiteSetting::pluck('value', 'key')->all();
 
-        return view('frontend.index', compact('banners', 'services', 'fleets', 'settings'));
+        return view('frontend.index', compact('banners', 'services', 'fleets', 'settings', 'keyMetrics', 'aboutPillars', 'hseItems', 'partners'));
     }
 
     public function serviceDetail($slug)

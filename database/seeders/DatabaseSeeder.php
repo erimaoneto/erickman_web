@@ -13,6 +13,11 @@ use App\Models\Fleet;
 use App\Models\FleetMaintenance;
 use App\Models\Transaction;
 use App\Models\Inquiry;
+use App\Models\NavMenu;
+use App\Models\KeyMetric;
+use App\Models\AboutPillar;
+use App\Models\HseItem;
+use App\Models\Partner;
 use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
@@ -68,10 +73,150 @@ class DatabaseSeeder extends Seeder
             ['key' => 'stat_cng_delivered', 'value' => '1.500.000+', 'group' => 'stats', 'type' => 'text', 'label' => 'MMSCF Gas Terdistribusi'],
             ['key' => 'stat_ontime_rate', 'value' => '99.4%', 'group' => 'stats', 'type' => 'text', 'label' => 'Tingkat Ketepatan Waktu'],
             ['key' => 'stat_safety_record', 'value' => '100% Zero Accident', 'group' => 'stats', 'type' => 'text', 'label' => 'Rekor Keselamatan Kerja'],
+
+            // CMS Section Settings & Images
+            ['key' => 'about_image_main', 'value' => '/images/truck-cng-green.jpg', 'group' => 'about', 'type' => 'text', 'label' => 'Foto Utama Tentang Kami'],
+            ['key' => 'about_image_secondary', 'value' => '/images/truck-box-red.jpg', 'group' => 'about', 'type' => 'text', 'label' => 'Foto Mengambang Tentang Kami'],
+            ['key' => 'about_badge_text', 'value' => 'Legalitas & Integritas Terjamin', 'group' => 'about', 'type' => 'text', 'label' => 'Badge Tentang Kami'],
+            ['key' => 'about_heading_text', 'value' => 'Pendistribusian Gas LPG, CNG, & Transportasi Migas', 'group' => 'about', 'type' => 'text', 'label' => 'Judul Tentang Kami'],
+            ['key' => 'section_layanan_badge', 'value' => 'Solusi Komprehensif', 'group' => 'sections', 'type' => 'text', 'label' => 'Badge Layanan'],
+            ['key' => 'section_layanan_title', 'value' => 'Layanan & Klasifikasi Bidang Usaha (KBLI)', 'group' => 'sections', 'type' => 'text', 'label' => 'Judul Layanan'],
+            ['key' => 'section_layanan_desc', 'value' => 'Seluruh operasional kami memiliki izin usaha legal berbasis risiko yang diterbitkan oleh Pemerintah Republik Indonesia melalui sistem OSS.', 'group' => 'sections', 'type' => 'textarea', 'label' => 'Deskripsi Layanan'],
+            ['key' => 'section_armada_badge', 'value' => 'Armada Andal & Tangguh', 'group' => 'sections', 'type' => 'text', 'label' => 'Badge Armada'],
+            ['key' => 'section_armada_title', 'value' => 'Spesifikasi Kendaraan Operasional', 'group' => 'sections', 'type' => 'text', 'label' => 'Judul Armada'],
+            ['key' => 'section_armada_desc', 'value' => 'Didukung oleh armada modern dengan perawatan berkala, sertifikasi uji KIR aktif, dan pengawasan GPS 24 jam.', 'group' => 'sections', 'type' => 'textarea', 'label' => 'Deskripsi Armada'],
+            ['key' => 'section_hse_badge', 'value' => 'Safety First (HSE)', 'group' => 'sections', 'type' => 'text', 'label' => 'Badge HSE'],
+            ['key' => 'section_hse_title', 'value' => 'Komitmen Keselamatan & Keamanan Tertinggi', 'group' => 'sections', 'type' => 'text', 'label' => 'Judul HSE'],
+            ['key' => 'section_hse_desc', 'value' => 'Transportasi gas bertekanan dan kargo khusus menuntut kepatuhan protokol tanpa toleransi kesalahan.', 'group' => 'sections', 'type' => 'textarea', 'label' => 'Deskripsi HSE'],
+            ['key' => 'section_rekanan_badge', 'value' => 'Rekanan & Kemitraan Strategis', 'group' => 'sections', 'type' => 'text', 'label' => 'Badge Rekanan'],
+            ['key' => 'section_rekanan_title', 'value' => 'Rekanan Kami', 'group' => 'sections', 'type' => 'text', 'label' => 'Judul Rekanan'],
+            ['key' => 'section_rekanan_desc', 'value' => 'PT. Erickman Sarana Abadi dipercaya oleh berbagai perusahaan energi dan logistik terkemuka dalam rantai pasok gas dan transportasi migas.', 'group' => 'sections', 'type' => 'textarea', 'label' => 'Deskripsi Rekanan'],
+            ['key' => 'rekanan_banner_image', 'value' => '/images/rekanan-kami-logos.png', 'group' => 'sections', 'type' => 'text', 'label' => 'Banner Strip Logo Rekanan'],
+            ['key' => 'section_kontak_badge', 'value' => 'Hubungi Kami', 'group' => 'sections', 'type' => 'text', 'label' => 'Badge Kontak'],
+            ['key' => 'section_kontak_title', 'value' => 'Kontak Resmi & Kantor Operasional', 'group' => 'sections', 'type' => 'text', 'label' => 'Judul Kontak'],
+            ['key' => 'section_kontak_desc', 'value' => 'Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas LPG (HARIGAS), gas CNG industri, atau transportasi migas & batu bara.', 'group' => 'sections', 'type' => 'textarea', 'label' => 'Deskripsi Kontak'],
+            ['key' => 'show_rfq_form', 'value' => '0', 'group' => 'toggles', 'type' => 'boolean', 'label' => 'Tampilkan Form RFQ'],
+            ['key' => 'show_stats_section', 'value' => '1', 'group' => 'toggles', 'type' => 'boolean', 'label' => 'Tampilkan Counter Metrik'],
+            ['key' => 'show_hse_section', 'value' => '1', 'group' => 'toggles', 'type' => 'boolean', 'label' => 'Tampilkan Modul HSE'],
+            ['key' => 'show_rekanan_section', 'value' => '1', 'group' => 'toggles', 'type' => 'boolean', 'label' => 'Tampilkan Modul Rekanan'],
+            ['key' => 'show_armada_section', 'value' => '1', 'group' => 'toggles', 'type' => 'boolean', 'label' => 'Tampilkan Modul Armada'],
         ];
 
         foreach ($settings as $setting) {
             SiteSetting::updateOrCreate(['key' => $setting['key']], $setting);
+        }
+
+        // Nav Menus
+        NavMenu::truncate();
+        $navMenus = [
+            ['title' => 'Beranda', 'url' => '#beranda', 'order' => 1, 'is_active' => true],
+            ['title' => 'Tentang Kami', 'url' => '#tentang', 'order' => 2, 'is_active' => true],
+            ['title' => 'Layanan & KBLI', 'url' => '#layanan', 'order' => 3, 'is_active' => true],
+            ['title' => 'Armada Kami', 'url' => '#armada', 'order' => 4, 'is_active' => true],
+            ['title' => 'Rekanan Kami', 'url' => '#rekanan', 'order' => 5, 'is_active' => true],
+            ['title' => 'Keunggulan HSE', 'url' => '#keunggulan', 'order' => 6, 'is_active' => true],
+            ['title' => 'Kontak', 'url' => '#kontak', 'order' => 7, 'is_active' => true],
+        ];
+        foreach ($navMenus as $menu) {
+            NavMenu::create($menu);
+        }
+
+        // Key Metrics Counter
+        KeyMetric::truncate();
+        $metrics = [
+            ['number_value' => '50+', 'label' => 'Unit Armada Prima', 'color_theme' => 'brand', 'order' => 1, 'is_active' => true],
+            ['number_value' => '1.500.000+', 'label' => 'MMSCF Gas Terdistribusi', 'color_theme' => 'navy', 'order' => 2, 'is_active' => true],
+            ['number_value' => '99.4%', 'label' => 'Ketepatan Waktu', 'color_theme' => 'brand', 'order' => 3, 'is_active' => true],
+            ['number_value' => '100%', 'label' => 'Zero Accident (HSE)', 'color_theme' => 'emerald', 'order' => 4, 'is_active' => true],
+        ];
+        foreach ($metrics as $metric) {
+            KeyMetric::create($metric);
+        }
+
+        // About Pillars
+        AboutPillar::truncate();
+        $pillars = [
+            [
+                'title' => 'Distributor Resmi Gas LPG (HARIGAS)',
+                'description' => 'Pengadaan LPG merk HARIGAS untuk industri dan retail di area JABODETABEK & Jawa Barat.',
+                'icon' => 'fa-solid fa-fire-flame-simple',
+                'color_theme' => 'orange',
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Pengadaan Gas CNG & Peralatan Sistem',
+                'description' => 'Solusi gas CNG hemat dan ramah lingkungan beserta instalasi PRS/skid untuk kebutuhan manufaktur.',
+                'icon' => 'fa-solid fa-gauge-high',
+                'color_theme' => 'blue',
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Transportasi Migas & Batu Bara (Darat & Laut)',
+                'description' => 'Armada prime mover, tangki bulk, gas trailer, serta tongkang/barge pengangkutan batu bara.',
+                'icon' => 'fa-solid fa-truck-moving',
+                'color_theme' => 'emerald',
+                'order' => 3,
+                'is_active' => true,
+            ],
+        ];
+        foreach ($pillars as $pillar) {
+            AboutPillar::create($pillar);
+        }
+
+        // HSE Items
+        HseItem::truncate();
+        $hseList = [
+            [
+                'title' => 'Inspeksi Tekanan CNG 250 Bar',
+                'description' => 'Pemeriksaan manifold pipa, katup pengaman (safety relief valve), dan integritas silinder gas sebelum dispatch.',
+                'icon' => 'fa-solid fa-gauge-high',
+                'color_theme' => 'brand',
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Driver Bersertifikasi B3',
+                'description' => 'Seluruh pengemudi dibekali pelatihan defensive driving, sertifikasi penanganan gas berbahaya, dan bebas narkoba.',
+                'icon' => 'fa-solid fa-id-card-clip',
+                'color_theme' => 'emerald',
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'GPS Telematika 24/7',
+                'description' => 'Sistem pelacakan rute real-time, monitoring kecepatan armada, serta komunikasi kontrol pool terpusat.',
+                'icon' => 'fa-solid fa-satellite',
+                'color_theme' => 'sky',
+                'order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Protokol Tanggap Darurat',
+                'description' => 'Setiap unit dilengkapi APAR gas khusus, grounding antistatik, kotak P3K, dan tim tanggap insiden 24 jam.',
+                'icon' => 'fa-solid fa-fire-extinguisher',
+                'color_theme' => 'red',
+                'order' => 4,
+                'is_active' => true,
+            ],
+        ];
+        foreach ($hseList as $hse) {
+            HseItem::create($hse);
+        }
+
+        // Partners
+        Partner::truncate();
+        $partners = [
+            ['name' => 'd-gas', 'subtitle' => 'PT Citra Dwi Gas', 'icon' => 'fa-solid fa-fire-flame-curved', 'color_theme' => 'orange', 'order' => 1, 'is_active' => true],
+            ['name' => 'Waskita Precast', 'subtitle' => 'PT Waskita Beton Precast Tbk', 'icon' => 'fa-solid fa-industry', 'color_theme' => 'red', 'order' => 2, 'is_active' => true],
+            ['name' => 'Cipta Niaga Gas', 'subtitle' => 'Distribusi Gas CNG', 'icon' => 'fa-solid fa-gas-pump', 'color_theme' => 'sky', 'order' => 3, 'is_active' => true],
+            ['name' => 'TIS', 'subtitle' => 'PT Transportasi Industri Serasi', 'icon' => 'fa-solid fa-truck-moving', 'color_theme' => 'blue', 'order' => 4, 'is_active' => true],
+            ['name' => 'Pertamina Gas', 'subtitle' => 'Mitra Distribusi LPG', 'icon' => 'fa-solid fa-oil-well', 'color_theme' => 'emerald', 'order' => 5, 'is_active' => true],
+            ['name' => 'VTP Logistics', 'subtitle' => 'Mitra Solusi Logistik', 'icon' => 'fa-solid fa-boxes-packing', 'color_theme' => 'amber', 'order' => 6, 'is_active' => true],
+        ];
+        foreach ($partners as $partner) {
+            Partner::create($partner);
         }
 
         // 3. Banners

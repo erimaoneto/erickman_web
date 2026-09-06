@@ -96,13 +96,21 @@
 
                 <!-- Desktop Menu -->
                 <nav class="hidden lg:flex items-center gap-5 xl:gap-7 2xl:gap-8 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
-                    <a href="{{ route('home') }}#beranda" class="hover:text-brand-600 transition py-2">Beranda</a>
-                    <a href="{{ route('home') }}#tentang" class="hover:text-brand-600 transition py-2">Tentang Kami</a>
-                    <a href="{{ route('home') }}#layanan" class="hover:text-brand-600 transition py-2">Layanan &amp; KBLI</a>
-                    <a href="{{ route('home') }}#armada" class="hover:text-brand-600 transition py-2">Armada Kami</a>
-                    <a href="{{ route('home') }}#rekanan" class="hover:text-brand-600 transition py-2">Rekanan Kami</a>
-                    <a href="{{ route('home') }}#keunggulan" class="hover:text-brand-600 transition py-2">Keunggulan HSE</a>
-                    <a href="{{ route('home') }}#kontak" class="hover:text-brand-600 transition py-2">Kontak</a>
+                    @if(isset($navMenus) && $navMenus->count() > 0)
+                        @foreach($navMenus as $navItem)
+                            <a href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="hover:text-brand-600 transition py-2">
+                                {{ $navItem->title }}
+                            </a>
+                        @endforeach
+                    @else
+                        <a href="{{ route('home') }}#beranda" class="hover:text-brand-600 transition py-2">Beranda</a>
+                        <a href="{{ route('home') }}#tentang" class="hover:text-brand-600 transition py-2">Tentang Kami</a>
+                        <a href="{{ route('home') }}#layanan" class="hover:text-brand-600 transition py-2">Layanan &amp; KBLI</a>
+                        <a href="{{ route('home') }}#armada" class="hover:text-brand-600 transition py-2">Armada Kami</a>
+                        <a href="{{ route('home') }}#rekanan" class="hover:text-brand-600 transition py-2">Rekanan Kami</a>
+                        <a href="{{ route('home') }}#keunggulan" class="hover:text-brand-600 transition py-2">Keunggulan HSE</a>
+                        <a href="{{ route('home') }}#kontak" class="hover:text-brand-600 transition py-2">Kontak</a>
+                    @endif
                 </nav>
 
                 <!-- Admin Portal Login Icon -->
@@ -126,13 +134,21 @@
 
         <!-- Mobile Menu Dropdown -->
         <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
-            <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Tentang Kami</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#layanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Layanan &amp; KBLI</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#armada" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Armada Kami</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Rekanan Kami</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Keunggulan HSE</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Kontak</a>
+            @if(isset($navMenus) && $navMenus->count() > 0)
+                @foreach($navMenus as $navItem)
+                    <a @click="mobileMenu = false" href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">
+                        {{ $navItem->title }}
+                    </a>
+                @endforeach
+            @else
+                <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Tentang Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#layanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Layanan &amp; KBLI</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#armada" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Armada Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Rekanan Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Keunggulan HSE</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Kontak</a>
+            @endif
         </div>
     </header>
 

@@ -62,6 +62,36 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
             Route::get('/services/{id}/edit', [ContentController::class, 'editService'])->name('services.edit');
             Route::put('/services/{id}', [ContentController::class, 'updateService'])->name('services.update');
             Route::delete('/services/{id}', [ContentController::class, 'deleteService'])->name('services.delete');
+
+            // Navigation Menus
+            Route::get('/menus', [ContentController::class, 'menus'])->name('menus');
+            Route::post('/menus', [ContentController::class, 'storeMenu'])->name('menus.store');
+            Route::put('/menus/{id}', [ContentController::class, 'updateMenu'])->name('menus.update');
+            Route::delete('/menus/{id}', [ContentController::class, 'deleteMenu'])->name('menus.delete');
+
+            // Key Metrics
+            Route::get('/metrics', [ContentController::class, 'metrics'])->name('metrics');
+            Route::post('/metrics', [ContentController::class, 'storeMetric'])->name('metrics.store');
+            Route::put('/metrics/{id}', [ContentController::class, 'updateMetric'])->name('metrics.update');
+            Route::delete('/metrics/{id}', [ContentController::class, 'deleteMetric'])->name('metrics.delete');
+
+            // About Pillars
+            Route::get('/pillars', [ContentController::class, 'pillars'])->name('pillars');
+            Route::post('/pillars', [ContentController::class, 'storePillar'])->name('pillars.store');
+            Route::put('/pillars/{id}', [ContentController::class, 'updatePillar'])->name('pillars.update');
+            Route::delete('/pillars/{id}', [ContentController::class, 'deletePillar'])->name('pillars.delete');
+
+            // HSE Items
+            Route::get('/hse', [ContentController::class, 'hse'])->name('hse');
+            Route::post('/hse', [ContentController::class, 'storeHse'])->name('hse.store');
+            Route::put('/hse/{id}', [ContentController::class, 'updateHse'])->name('hse.update');
+            Route::delete('/hse/{id}', [ContentController::class, 'deleteHse'])->name('hse.delete');
+
+            // Partners
+            Route::get('/partners', [ContentController::class, 'partners'])->name('partners');
+            Route::post('/partners', [ContentController::class, 'storePartner'])->name('partners.store');
+            Route::put('/partners/{id}', [ContentController::class, 'updatePartner'])->name('partners.update');
+            Route::delete('/partners/{id}', [ContentController::class, 'deletePartner'])->name('partners.delete');
         });
 
         // Fleet Dashboard & Management

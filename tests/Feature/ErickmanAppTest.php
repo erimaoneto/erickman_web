@@ -267,5 +267,238 @@ class ErickmanAppTest extends TestCase
         $deleteResponse->assertRedirect(route('admin.users.index'));
         $this->assertDatabaseMissing('users', ['id' => $newUser->id]);
     }
+
+    public function test_admin_can_crud_nav_menus()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Index
+        $response = $this->actingAs($admin)->get('/admin/content/menus');
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Menu Navigasi Header');
+
+        // Create
+        $create = $this->actingAs($admin)->post('/admin/content/menus', [
+            'title' => 'Galeri Operasi',
+            'url' => '#galeri',
+            'order' => 8,
+            'is_active' => '1',
+        ]);
+        $create->assertRedirect(route('admin.content.menus'));
+        $this->assertDatabaseHas('nav_menus', ['title' => 'Galeri Operasi', 'url' => '#galeri']);
+
+        $menu = \App\Models\NavMenu::where('title', 'Galeri Operasi')->first();
+
+        // Update
+        $update = $this->actingAs($admin)->put("/admin/content/menus/{$menu->id}", [
+            'title' => 'Galeri Foto & Video',
+            'url' => '#galeri-media',
+            'order' => 9,
+            'is_active' => '1',
+        ]);
+        $update->assertRedirect(route('admin.content.menus'));
+        $this->assertDatabaseHas('nav_menus', ['title' => 'Galeri Foto & Video']);
+
+        // Delete
+        $delete = $this->actingAs($admin)->delete("/admin/content/menus/{$menu->id}");
+        $delete->assertRedirect(route('admin.content.menus'));
+        $this->assertDatabaseMissing('nav_menus', ['id' => $menu->id]);
+    }
+
+    public function test_admin_can_crud_key_metrics()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Index
+        $response = $this->actingAs($admin)->get('/admin/content/metrics');
+        $response->assertStatus(200);
+        $response->assertSee('Metrik Pencapaian');
+
+        // Create
+        $create = $this->actingAs($admin)->post('/admin/content/metrics', [
+            'number_value' => '250+',
+            'label' => 'Klien Korporat',
+            'color_theme' => 'brand',
+            'order' => 5,
+            'is_active' => '1',
+        ]);
+        $create->assertRedirect(route('admin.content.metrics'));
+        $this->assertDatabaseHas('key_metrics', ['number_value' => '250+']);
+
+        $metric = \App\Models\KeyMetric::where('number_value', '250+')->first();
+
+        // Update
+        $update = $this->actingAs($admin)->put("/admin/content/metrics/{$metric->id}", [
+            'number_value' => '300+',
+            'label' => 'Klien Industri Nasional',
+            'color_theme' => 'emerald',
+            'order' => 5,
+            'is_active' => '1',
+        ]);
+        $update->assertRedirect(route('admin.content.metrics'));
+        $this->assertDatabaseHas('key_metrics', ['number_value' => '300+']);
+
+        // Delete
+        $delete = $this->actingAs($admin)->delete("/admin/content/metrics/{$metric->id}");
+        $delete->assertRedirect(route('admin.content.metrics'));
+        $this->assertDatabaseMissing('key_metrics', ['id' => $metric->id]);
+    }
+
+    public function test_admin_can_crud_about_pillars()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Index
+        $response = $this->actingAs($admin)->get('/admin/content/pillars');
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Pilar Bisnis Utama');
+
+        // Create
+        $create = $this->actingAs($admin)->post('/admin/content/pillars', [
+            'title' => 'Pengadaan LNG Mini Regasifikasi',
+            'description' => 'Solusi regasifikasi LNG untuk pabrik terpencil di luar jangkauan pipa gas.',
+            'icon' => 'fa-solid fa-snowflake',
+            'color_theme' => 'blue',
+            'order' => 4,
+            'is_active' => '1',
+        ]);
+        $create->assertRedirect(route('admin.content.pillars'));
+        $this->assertDatabaseHas('about_pillars', ['title' => 'Pengadaan LNG Mini Regasifikasi']);
+
+        $pillar = \App\Models\AboutPillar::where('title', 'Pengadaan LNG Mini Regasifikasi')->first();
+
+        // Update
+        $update = $this->actingAs($admin)->put("/admin/content/pillars/{$pillar->id}", [
+            'title' => 'Solusi LNG & ISO Tank',
+            'description' => 'Penyediaan tabung ISO tank dan regasifikasi LNG.',
+            'icon' => 'fa-solid fa-snowflake',
+            'color_theme' => 'blue',
+            'order' => 4,
+            'is_active' => '1',
+        ]);
+        $update->assertRedirect(route('admin.content.pillars'));
+        $this->assertDatabaseHas('about_pillars', ['title' => 'Solusi LNG & ISO Tank']);
+
+        // Delete
+        $delete = $this->actingAs($admin)->delete("/admin/content/pillars/{$pillar->id}");
+        $delete->assertRedirect(route('admin.content.pillars'));
+        $this->assertDatabaseMissing('about_pillars', ['id' => $pillar->id]);
+    }
+
+    public function test_admin_can_crud_hse_items()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Index
+        $response = $this->actingAs($admin)->get('/admin/content/hse');
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Standar Keselamatan (HSE / K3)');
+
+        // Create
+        $create = $this->actingAs($admin)->post('/admin/content/hse', [
+            'title' => 'Pemeriksaan KIR & Emisi Berkala',
+            'description' => 'Uji kelayakan kendaraan operasional setiap 6 bulan sesuai Dishub.',
+            'icon' => 'fa-solid fa-certificate',
+            'color_theme' => 'brand',
+            'order' => 5,
+            'is_active' => '1',
+        ]);
+        $create->assertRedirect(route('admin.content.hse'));
+        $this->assertDatabaseHas('hse_items', ['title' => 'Pemeriksaan KIR & Emisi Berkala']);
+
+        $hse = \App\Models\HseItem::where('title', 'Pemeriksaan KIR & Emisi Berkala')->first();
+
+        // Update
+        $update = $this->actingAs($admin)->put("/admin/content/hse/{$hse->id}", [
+            'title' => 'KIR & Uji Emisi Dishub',
+            'description' => 'Sertifikasi kelaikan jalan terintegrasi.',
+            'icon' => 'fa-solid fa-certificate',
+            'color_theme' => 'emerald',
+            'order' => 5,
+            'is_active' => '1',
+        ]);
+        $update->assertRedirect(route('admin.content.hse'));
+        $this->assertDatabaseHas('hse_items', ['title' => 'KIR & Uji Emisi Dishub']);
+
+        // Delete
+        $delete = $this->actingAs($admin)->delete("/admin/content/hse/{$hse->id}");
+        $delete->assertRedirect(route('admin.content.hse'));
+        $this->assertDatabaseMissing('hse_items', ['id' => $hse->id]);
+    }
+
+    public function test_admin_can_crud_partners()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // Index
+        $response = $this->actingAs($admin)->get('/admin/content/partners');
+        $response->assertStatus(200);
+        $response->assertSee('Daftar Rekanan');
+
+        // Create
+        $create = $this->actingAs($admin)->post('/admin/content/partners', [
+            'name' => 'Krakatau Steel',
+            'subtitle' => 'PT Krakatau Steel Tbk',
+            'icon' => 'fa-solid fa-industry',
+            'color_theme' => 'red',
+            'order' => 7,
+            'is_active' => '1',
+        ]);
+        $create->assertRedirect(route('admin.content.partners'));
+        $this->assertDatabaseHas('partners', ['name' => 'Krakatau Steel']);
+
+        $partner = \App\Models\Partner::where('name', 'Krakatau Steel')->first();
+
+        // Update
+        $update = $this->actingAs($admin)->put("/admin/content/partners/{$partner->id}", [
+            'name' => 'Krakatau Steel Group',
+            'subtitle' => 'Industri Baja & Manufaktur',
+            'icon' => 'fa-solid fa-industry',
+            'color_theme' => 'red',
+            'order' => 7,
+            'is_active' => '1',
+        ]);
+        $update->assertRedirect(route('admin.content.partners'));
+        $this->assertDatabaseHas('partners', ['name' => 'Krakatau Steel Group']);
+
+        // Delete
+        $delete = $this->actingAs($admin)->delete("/admin/content/partners/{$partner->id}");
+        $delete->assertRedirect(route('admin.content.partners'));
+        $this->assertDatabaseMissing('partners', ['id' => $partner->id]);
+    }
+
+    public function test_admin_can_toggle_landing_page_modules_and_rfq_form()
+    {
+        $admin = User::where('email', 'admin@erickman.co.id')->first();
+
+        // 1. Enable RFQ form
+        $response = $this->actingAs($admin)->post('/admin/content/settings', [
+            'company_name' => 'PT. Erickman Sarana Abadi',
+            'show_rfq_form' => '1',
+            'show_stats_section' => '1',
+            'show_hse_section' => '1',
+            'show_rekanan_section' => '1',
+            'show_armada_section' => '1',
+        ]);
+        $response->assertRedirect();
+
+        // Verify homepage shows RFQ form
+        $homeResponse = $this->get('/');
+        $homeResponse->assertStatus(200);
+        $homeResponse->assertSee('Formulir Permintaan Penawaran (RFQ)');
+
+        // 2. Disable RFQ form
+        $response2 = $this->actingAs($admin)->post('/admin/content/settings', [
+            'company_name' => 'PT. Erickman Sarana Abadi',
+            // without show_rfq_form checkbox
+            'show_stats_section' => '1',
+        ]);
+        $response2->assertRedirect();
+
+        // Verify homepage hides RFQ form
+        $homeResponse2 = $this->get('/');
+        $homeResponse2->assertStatus(200);
+        $homeResponse2->assertDontSee('Formulir Permintaan Penawaran (RFQ)');
+    }
 }
 

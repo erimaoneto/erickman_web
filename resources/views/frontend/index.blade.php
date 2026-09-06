@@ -118,26 +118,20 @@
     </section>
 
     <!-- Key Metrics & Counter Banner -->
+    @if(($settings['show_stats_section'] ?? '1') == '1' && isset($keyMetrics) && $keyMetrics->count() > 0)
     <section class="relative z-20 -mt-8 max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
-        <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 sm:p-8 grid grid-cols-2 md:grid-cols-{{ min(4, $keyMetrics->count()) }} gap-6 text-center">
+            @foreach($keyMetrics as $km)
             <div class="border-r border-slate-100 last:border-0 p-2">
-                <div class="text-3xl sm:text-4xl font-black text-brand-600 tracking-tight">{{ $settings['stat_fleet_count'] ?? '50+' }}</div>
-                <div class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Unit Armada Prima</div>
+                <div class="text-3xl sm:text-4xl font-black tracking-tight {{ $km->color_theme === 'emerald' ? 'text-emerald-600' : ($km->color_theme === 'navy' ? 'text-navy-900' : ($km->color_theme === 'sky' ? 'text-sky-600' : 'text-brand-600')) }}">
+                    {{ $km->number_value }}
+                </div>
+                <div class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">{{ $km->label }}</div>
             </div>
-            <div class="border-r border-slate-100 last:border-0 p-2">
-                <div class="text-3xl sm:text-4xl font-black text-navy-900 tracking-tight">{{ $settings['stat_cng_delivered'] ?? '1.500.000+' }}</div>
-                <div class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">MMSCF Gas Terdistribusi</div>
-            </div>
-            <div class="border-r border-slate-100 last:border-0 p-2">
-                <div class="text-3xl sm:text-4xl font-black text-brand-600 tracking-tight">{{ $settings['stat_ontime_rate'] ?? '99.4%' }}</div>
-                <div class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Ketepatan Waktu</div>
-            </div>
-            <div class="p-2">
-                <div class="text-3xl sm:text-4xl font-black text-emerald-600 tracking-tight">{{ $settings['stat_safety_record'] ?? '100%' }}</div>
-                <div class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 uppercase tracking-wider">Zero Accident (HSE)</div>
-            </div>
+            @endforeach
         </div>
     </section>
+    @endif
 
     <!-- Tentang Kami & Legalitas Resmi (NIB) -->
     <section id="tentang" class="py-16 sm:py-20 lg:py-24 bg-slate-50">
@@ -146,11 +140,11 @@
                 <!-- Visual / Photo Collage -->
                 <div class="lg:col-span-6 relative">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                        <img src="{{ asset('/images/truck-cng-green.jpg') }}" alt="Truk CNG PT Erickman" class="w-full h-80 sm:h-96 object-cover">
+                        <img src="{{ asset($settings['about_image_main'] ?? '/images/truck-cng-green.jpg') }}" alt="Foto Utama PT Erickman" class="w-full h-80 sm:h-96 object-cover">
                     </div>
                     <!-- Secondary Floating Image -->
                     <div class="hidden sm:block absolute -bottom-8 -right-6 z-20 w-64 rounded-xl overflow-hidden shadow-2xl border-4 border-white">
-                        <img src="{{ asset('/images/truck-box-red.jpg') }}" alt="Armada Boks PT Erickman" class="w-full h-44 object-cover">
+                        <img src="{{ asset($settings['about_image_secondary'] ?? '/images/truck-box-red.jpg') }}" alt="Foto Armada PT Erickman" class="w-full h-44 object-cover">
                     </div>
                     <!-- Floating Badge NIB -->
                     <div class="absolute -top-6 -left-6 z-30 bg-navy-900 text-white p-5 rounded-2xl shadow-xl border border-slate-800">
@@ -169,49 +163,33 @@
                 <!-- Story & Compliance Content -->
                 <div class="lg:col-span-6 space-y-6">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
-                        <i class="fa-solid fa-building-shield"></i> Legalitas & Integritas Terjamin
+                        <i class="fa-solid fa-building-shield"></i> {{ $settings['about_badge_text'] ?? 'Legalitas & Integritas Terjamin' }}
                     </div>
 
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                        Pendistribusian Gas LPG, CNG, &amp; Transportasi Migas
+                        {{ $settings['about_heading_text'] ?? 'Pendistribusian Gas LPG, CNG, & Transportasi Migas' }}
                     </h2>
 
                     <p class="text-slate-600 leading-relaxed text-base">
                         {{ $settings['about_story'] ?? 'PT. Erickman Sarana Abadi berkedudukan dan berkantor pusat di kota Jakarta adalah perusahaan yang bergerak di bidang pendistribusian gas LPG (Liquified Petroleum Gas) dan CNG (Compressed Natural Gas), juga penyedia sarana transportasi migas.' }}
                     </p>
 
-                    <!-- 3 Pilar Bisnis Utama -->
+                    <!-- Pilar Bisnis Utama (Dinamis dari CMS) -->
+                    @if(isset($aboutPillars) && $aboutPillars->count() > 0)
                     <div class="space-y-2.5 pt-1">
+                        @foreach($aboutPillars as $pillar)
                         <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
-                                <i class="fa-solid fa-fire-flame-simple"></i>
+                            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold mt-0.5 {{ $pillar->color_theme === 'orange' ? 'bg-orange-100 text-orange-700' : ($pillar->color_theme === 'blue' ? 'bg-blue-100 text-blue-700' : ($pillar->color_theme === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-brand-100 text-brand-700')) }}">
+                                <i class="{{ $pillar->icon }}"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Distributor Resmi Gas LPG (HARIGAS)</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Pengadaan LPG merk HARIGAS untuk industri dan retail di area JABODETABEK & Jawa Barat.</p>
+                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">{{ $pillar->title }}</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">{{ $pillar->description }}</p>
                             </div>
                         </div>
-
-                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
-                                <i class="fa-solid fa-gauge-high"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Pengadaan Gas CNG &amp; Peralatan Sistem</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Solusi gas CNG hemat dan ramah lingkungan beserta instalasi PRS/skid untuk kebutuhan manufaktur.</p>
-                            </div>
-                        </div>
-
-                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
-                                <i class="fa-solid fa-truck-moving"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Transportasi Migas &amp; Batu Bara (Darat &amp; Laut)</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">Armada prime mover, tangki bulk, gas trailer, serta tongkang/barge pengangkutan batu bara.</p>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    @endif
 
                     <!-- Office Location Badge -->
                     <div class="p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
@@ -254,13 +232,13 @@
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
-                    Solusi Komprehensif
+                    {{ $settings['section_layanan_badge'] ?? 'Solusi Komprehensif' }}
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight">
-                    Layanan & Klasifikasi Bidang Usaha (KBLI)
+                    {{ $settings['section_layanan_title'] ?? 'Layanan & Klasifikasi Bidang Usaha (KBLI)' }}
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base">
-                    Seluruh operasional kami memiliki izin usaha legal berbasis risiko yang diterbitkan oleh Pemerintah Republik Indonesia melalui sistem OSS.
+                    {{ $settings['section_layanan_desc'] ?? 'Seluruh operasional kami memiliki izin usaha legal berbasis risiko yang diterbitkan oleh Pemerintah Republik Indonesia melalui sistem OSS.' }}
                 </p>
             </div>
 
@@ -302,18 +280,19 @@
     </section>
 
     <!-- Armada Kami (Fleet Showcase) -->
+    @if(($settings['show_armada_section'] ?? '1') == '1')
     <section id="armada" class="py-16 sm:py-20 lg:py-24 bg-slate-50">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                 <div class="max-w-2xl space-y-3">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
-                        Armada Andal & Tangguh
+                        {{ $settings['section_armada_badge'] ?? 'Armada Andal & Tangguh' }}
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight">
-                        Spesifikasi Kendaraan Operasional
+                        {{ $settings['section_armada_title'] ?? 'Spesifikasi Kendaraan Operasional' }}
                     </h2>
                     <p class="text-slate-600 text-sm sm:text-base">
-                        Didukung oleh armada modern dengan perawatan berkala, sertifikasi uji KIR aktif, dan pengawasan GPS 24 jam.
+                        {{ $settings['section_armada_desc'] ?? 'Didukung oleh armada modern dengan perawatan berkala, sertifikasi uji KIR aktif, dan pengawasan GPS 24 jam.' }}
                     </p>
                 </div>
                 <div>
@@ -372,159 +351,100 @@
             </div>
         </div>
     </section>
+    @endif
 
     <!-- Standar Keselamatan (HSE & K3) -->
+    @if(($settings['show_hse_section'] ?? '1') == '1' && isset($hseItems) && $hseItems->count() > 0)
     <section id="keunggulan" class="py-16 sm:py-20 lg:py-24 bg-navy-950 text-white relative overflow-hidden">
         <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 relative z-10">
             <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-500/20 text-brand-300 text-xs font-bold uppercase tracking-wider">
-                    Safety First (HSE)
+                    {{ $settings['section_hse_badge'] ?? 'Safety First (HSE)' }}
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-                    Komitmen Keselamatan & Keamanan Tertinggi
+                    {{ $settings['section_hse_title'] ?? 'Komitmen Keselamatan & Keamanan Tertinggi' }}
                 </h2>
                 <p class="text-slate-400 text-sm sm:text-base">
-                    Transportasi gas bertekanan dan kargo khusus menuntut kepatuhan protokol tanpa toleransi kesalahan.
+                    {{ $settings['section_hse_desc'] ?? 'Transportasi gas bertekanan dan kargo khusus menuntut kepatuhan protokol tanpa toleransi kesalahan.' }}
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-{{ min(4, max(1, count($hseItems))) }} gap-6">
+                @foreach($hseItems as $hse)
                 <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-brand-600/20 text-brand-400 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-gauge-high"></i>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl font-bold {{ $hse->color_theme === 'emerald' ? 'bg-emerald-600/20 text-emerald-400' : ($hse->color_theme === 'sky' ? 'bg-sky-600/20 text-sky-400' : ($hse->color_theme === 'red' ? 'bg-red-600/20 text-red-400' : 'bg-brand-600/20 text-brand-400')) }}">
+                        <i class="{{ $hse->icon }}"></i>
                     </div>
-                    <h3 class="font-bold text-base text-white">Inspeksi Tekanan CNG 250 Bar</h3>
+                    <h3 class="font-bold text-base text-white">{{ $hse->title }}</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Pemeriksaan manifold pipa, katup pengaman (safety relief valve), dan integritas silinder gas sebelum dispatch.
+                        {{ $hse->description }}
                     </p>
                 </div>
-
-                <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-id-card-clip"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Driver Bersertifikasi B3</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Seluruh pengemudi dibekali pelatihan defensive driving, sertifikasi penanganan gas berbahaya, dan bebas narkoba.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-sky-600/20 text-sky-400 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-satellite"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">GPS Telematika 24/7</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Sistem pelacakan rute real-time, monitoring kecepatan armada, serta komunikasi kontrol pool terpusat.
-                    </p>
-                </div>
-
-                <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 space-y-3">
-                    <div class="w-12 h-12 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center text-2xl font-bold">
-                        <i class="fa-solid fa-fire-extinguisher"></i>
-                    </div>
-                    <h3 class="font-bold text-base text-white">Protokol Tanggap Darurat</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Setiap unit dilengkapi APAR gas khusus, grounding antistatik, kotak P3K, dan tim tanggap insiden 24 jam.
-                    </p>
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
+    @endif
 
     <!-- Rekanan Kami (Partner & Client Network) -->
+    @if(($settings['show_rekanan_section'] ?? '1') == '1' && isset($partners) && $partners->count() > 0)
     <section id="rekanan" class="py-16 sm:py-20 lg:py-24 bg-slate-50 border-t border-slate-200">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
-                    <i class="fa-solid fa-handshake-simple text-xs"></i> Rekanan &amp; Kemitraan Strategis
+                    <i class="fa-solid fa-handshake-simple text-xs"></i> {{ $settings['section_rekanan_badge'] ?? 'Rekanan & Kemitraan Strategis' }}
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight">
-                    Rekanan Kami
+                    {{ $settings['section_rekanan_title'] ?? 'Rekanan Kami' }}
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base">
-                    PT. Erickman Sarana Abadi dipercaya oleh berbagai perusahaan energi dan logistik terkemuka dalam rantai pasok gas dan transportasi migas.
+                    {{ $settings['section_rekanan_desc'] ?? 'PT. Erickman Sarana Abadi dipercaya oleh berbagai perusahaan energi dan logistik terkemuka dalam rantai pasok gas dan transportasi migas.' }}
                 </p>
             </div>
 
-            <!-- 6 Partner Cards -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
-                <!-- Partner 1: d-gas -->
+            <!-- Partner Cards List -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-{{ min(6, max(2, count($partners))) }} gap-4 sm:gap-6">
+                @foreach($partners as $partner)
                 <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition {{ $partner->color_theme === 'orange' ? 'bg-orange-50 text-orange-600' : ($partner->color_theme === 'red' ? 'bg-red-50 text-red-600' : ($partner->color_theme === 'sky' ? 'bg-sky-50 text-sky-600' : ($partner->color_theme === 'emerald' ? 'bg-emerald-50 text-emerald-600' : ($partner->color_theme === 'amber' ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600')))) }}">
+                        @if($partner->logo_path)
+                        <img src="{{ asset($partner->logo_path) }}" alt="{{ $partner->name }}" class="max-h-8 max-w-8 object-contain">
+                        @else
+                        <i class="{{ $partner->icon ?: 'fa-solid fa-building' }}"></i>
+                        @endif
                     </div>
-                    <h4 class="font-extrabold text-sm text-navy-900">d-gas</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">PT Citra Dwi Gas</span>
+                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">{{ $partner->name }}</h4>
+                    @if($partner->subtitle)
+                    <span class="text-[11px] text-slate-500 mt-1 line-clamp-2">{{ $partner->subtitle }}</span>
+                    @endif
                 </div>
-
-                <!-- Partner 2: Waskita Precast -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-industry"></i>
-                    </div>
-                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Waskita Precast</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">PT Waskita Beton Precast Tbk</span>
-                </div>
-
-                <!-- Partner 3: Cipta Niaga Gas -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-gas-pump"></i>
-                    </div>
-                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Cipta Niaga Gas</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">Distribusi Gas CNG</span>
-                </div>
-
-                <!-- Partner 4: TIS -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-truck-moving"></i>
-                    </div>
-                    <h4 class="font-extrabold text-sm text-navy-900">TIS</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">PT Transportasi Industri Serasi</span>
-                </div>
-
-                <!-- Partner 5: Pertamina Gas / LPG -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-oil-well"></i>
-                    </div>
-                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Pertamina Gas</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">Mitra Distribusi LPG</span>
-                </div>
-
-                <!-- Partner 6: VTP Logistics -->
-                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
-                        <i class="fa-solid fa-boxes-packing"></i>
-                    </div>
-                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">VTP Logistics</h4>
-                    <span class="text-[11px] text-slate-500 mt-1">Mitra Solusi Logistik</span>
-                </div>
+                @endforeach
             </div>
 
+            @if(!empty($settings['rekanan_banner_image']))
             <!-- Banner Logo Asli Dokumen Company Profile PDF -->
             <div class="mt-10 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 text-center max-w-4xl mx-auto shadow-sm">
                 <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Logo Rekanan Resmi Sesuai Profil Perusahaan</div>
-                <img src="{{ asset('/images/rekanan-kami-logos.png') }}" alt="Logo Rekanan Resmi PT Erickman Sarana Abadi" class="mx-auto max-h-20 sm:max-h-24 w-auto object-contain">
+                <img src="{{ asset($settings['rekanan_banner_image']) }}" alt="Logo Rekanan Resmi PT Erickman Sarana Abadi" class="mx-auto max-h-20 sm:max-h-24 w-auto object-contain">
             </div>
+            @endif
         </div>
     </section>
+    @endif
 
-    <!-- Kontak & Kantor Operasional (Formulir RFQ Disembunyikan Sementara) -->
+    <!-- Kontak & Kantor Operasional -->
     <section id="kontak" class="py-16 sm:py-20 lg:py-24 bg-white">
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider mb-3">
-                    <i class="fa-solid fa-headset text-xs"></i> Hubungi Kami
+                    <i class="fa-solid fa-headset text-xs"></i> {{ $settings['section_kontak_badge'] ?? 'Hubungi Kami' }}
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                    Kontak Resmi &amp; Kantor Operasional
+                    {{ $settings['section_kontak_title'] ?? 'Kontak Resmi & Kantor Operasional' }}
                 </h2>
                 <p class="text-slate-600 text-sm mt-3 leading-relaxed">
-                    Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas LPG (HARIGAS), gas CNG industri, atau transportasi migas &amp; batu bara.
+                    {{ $settings['section_kontak_desc'] ?? 'Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas LPG (HARIGAS), gas CNG industri, atau transportasi migas & batu bara.' }}
                 </p>
             </div>
 
@@ -601,13 +521,8 @@
                 </div>
             </div>
 
-            {{-- 
-                ========================================================================
-                FORMULIR PERMINTAAN PENAWARAN (RFQ) - SEMENTARA DISEMBUNYIKAN ATAS PERMINTAAN USER
-                Untuk mengaktifkan kembali, cukup ubah @if(false) menjadi @if(true)
-                ========================================================================
-            --}}
-            @if(false)
+            <!-- FORMULIR PERMINTAAN PENAWARAN (RFQ) - DIKONTROL DARI ADMIN PANEL (CMS TOGGLE) -->
+            @if(($settings['show_rfq_form'] ?? '0') == '1')
             <div class="mt-16 bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-lg shadow-slate-100">
                 <h3 class="font-bold text-xl text-navy-900 mb-2">Formulir Permintaan Penawaran (RFQ)</h3>
                 <p class="text-xs text-slate-500 mb-6">Silakan lengkapi rincian kebutuhan Anda di bawah ini, pesan akan langsung masuk ke Admin Panel kami.</p>
