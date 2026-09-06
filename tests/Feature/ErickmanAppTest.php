@@ -499,6 +499,14 @@ class ErickmanAppTest extends TestCase
         $homeResponse2 = $this->get('/');
         $homeResponse2->assertStatus(200);
         $homeResponse2->assertDontSee('Formulir Permintaan Penawaran (RFQ)');
+
+        // 3. Toggle floating secondary image
+        $response3 = $this->actingAs($admin)->post('/admin/content/settings', [
+            'company_name' => 'PT. Erickman Sarana Abadi',
+            'show_about_secondary_image' => '1',
+        ]);
+        $response3->assertRedirect();
+        $this->assertEquals('1', \App\Models\SiteSetting::where('key', 'show_about_secondary_image')->value('value'));
     }
 }
 

@@ -143,9 +143,11 @@
                         <img src="{{ asset($settings['about_image_main'] ?? '/images/truck-cng-green.jpg') }}" alt="Foto Utama PT Erickman" class="w-full h-64 sm:h-96 object-cover">
                     </div>
                     <!-- Secondary Floating Image -->
+                    @if(($settings['show_about_secondary_image'] ?? '1') == '1')
                     <div class="hidden sm:block absolute -bottom-8 -right-6 z-20 w-64 rounded-xl overflow-hidden shadow-2xl border-4 border-white">
                         <img src="{{ asset($settings['about_image_secondary'] ?? '/images/truck-box-red.jpg') }}" alt="Foto Armada PT Erickman" class="w-full h-44 object-cover">
                     </div>
+                    @endif
                     <!-- Floating Badge NIB -->
                     <div class="absolute -top-4 left-3 sm:-top-6 sm:-left-6 z-30 bg-navy-900 text-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl shadow-xl border border-slate-800">
                         <div class="flex items-center gap-2.5 sm:gap-3">

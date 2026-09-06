@@ -118,10 +118,29 @@
                 </div>
 
                 <!-- Foto Mengambang Tentang Kami -->
-                <div class="space-y-3 p-4 rounded-xl border border-slate-200 bg-slate-50">
-                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Foto Mengambang (Kecil)</label>
-                    <div class="h-40 rounded-xl overflow-hidden bg-slate-200 border">
+                <div class="space-y-3 p-4 rounded-xl border {{ $getVal('show_about_secondary_image', '1') == '1' ? 'border-emerald-300 bg-emerald-50/20' : 'border-slate-200 bg-slate-50' }} transition">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Foto Mengambang (Kecil)</label>
+                            <span class="text-[10px] text-slate-500">Tampilkan di atas foto utama</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer ml-2">
+                            <input type="checkbox" name="show_about_secondary_image" value="1" {{ $getVal('show_about_secondary_image', '1') == '1' ? 'checked' : '' }} class="sr-only peer">
+                            <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-600"></div>
+                            <span class="ml-2 text-xs font-bold text-slate-500 peer-checked:text-emerald-700">
+                                {{ $getVal('show_about_secondary_image', '1') == '1' ? 'Aktif' : 'Inaktif' }}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="h-40 rounded-xl overflow-hidden bg-slate-200 border relative">
                         <img src="{{ asset($getVal('about_image_secondary', '/images/truck-box-red.jpg')) }}" alt="Foto Mengambang" class="w-full h-full object-cover">
+                        @if($getVal('show_about_secondary_image', '1') != '1')
+                        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-[1px] flex items-center justify-center p-3 text-center">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 shadow">
+                                <i class="fa-solid fa-eye-slash text-amber-400"></i> Status: Inaktif (Tersembunyi)
+                            </span>
+                        </div>
+                        @endif
                     </div>
                     <input type="file" name="about_image_secondary_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100">
                 </div>

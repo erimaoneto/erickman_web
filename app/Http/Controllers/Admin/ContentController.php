@@ -50,7 +50,7 @@ class ContentController extends Controller
         }
 
         // Toggles (checkboxes send value only if checked)
-        $toggles = ['show_rfq_form', 'show_stats_section', 'show_hse_section', 'show_rekanan_section', 'show_armada_section'];
+        $toggles = ['show_rfq_form', 'show_stats_section', 'show_hse_section', 'show_rekanan_section', 'show_armada_section', 'show_about_secondary_image'];
         foreach ($toggles as $toggle) {
             $data[$toggle] = $request->has($toggle) ? '1' : '0';
         }
