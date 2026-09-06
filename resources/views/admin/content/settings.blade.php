@@ -165,27 +165,6 @@
                     </div>
                 </div>
 
-                <!-- Section Layanan -->
-                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-4">
-                    <h4 class="font-bold text-sm text-navy-900 flex items-center gap-2">
-                        <i class="fa-solid fa-briefcase text-brand-600"></i> Section: Layanan & KBLI
-                    </h4>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Badge Atas</label>
-                            <input type="text" name="section_layanan_badge" value="{{ $getVal('section_layanan_badge', 'Solusi Komprehensif') }}" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Judul Utama</label>
-                            <input type="text" name="section_layanan_title" value="{{ $getVal('section_layanan_title', 'Layanan & Klasifikasi Bidang Usaha (KBLI)') }}" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">
-                        </div>
-                        <div class="sm:col-span-3">
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Deskripsi Singkat</label>
-                            <textarea name="section_layanan_desc" rows="2" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm">{{ $getVal('section_layanan_desc') }}</textarea>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Section Armada -->
                 <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-4">
                     <h4 class="font-bold text-sm text-navy-900 flex items-center gap-2">

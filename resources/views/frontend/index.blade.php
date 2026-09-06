@@ -201,57 +201,6 @@
         </div>
     </section>
 
-    <!-- Layanan & KBLI Resmi Perusahaan -->
-    <section id="layanan" class="py-12 sm:py-20 lg:py-24 bg-white border-y border-slate-100">
-        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
-            <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-3">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
-                    {{ $settings['section_layanan_badge'] ?? 'Solusi Komprehensif' }}
-                </div>
-                <h2 class="text-2xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-snug sm:leading-tight">
-                    {{ $settings['section_layanan_title'] ?? 'Layanan & Klasifikasi Bidang Usaha (KBLI)' }}
-                </h2>
-                <p class="text-slate-600 text-xs sm:text-base leading-relaxed">
-                    {{ $settings['section_layanan_desc'] ?? 'Seluruh operasional kami memiliki izin usaha legal berbasis risiko yang diterbitkan oleh Pemerintah Republik Indonesia melalui sistem OSS.' }}
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                @foreach($services as $service)
-                <div class="group bg-slate-50 rounded-2xl overflow-hidden border border-slate-200/70 hover:border-brand-500/50 hover:shadow-xl transition duration-300 flex flex-col justify-between">
-                    <div>
-                        <!-- Service Image -->
-                        <div class="h-44 sm:h-48 overflow-hidden relative">
-                            <img src="{{ asset($service->image_path ?? '/images/truck-cng-green.jpg') }}" alt="{{ $service->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            @if($service->kbli_code)
-                            <div class="absolute top-3 left-3 bg-navy-900/90 backdrop-blur-sm text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded border border-slate-700 shadow-sm">
-                                {{ $service->kbli_code }}
-                            </div>
-                            @endif
-                        </div>
-
-                        <!-- Service Body -->
-                        <div class="p-5 sm:p-6 space-y-2.5 sm:space-y-3">
-                            <h3 class="font-bold text-base sm:text-lg text-navy-900 group-hover:text-brand-600 transition leading-snug">
-                                {{ $service->title }}
-                            </h3>
-                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                                {{ $service->short_description }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="p-5 sm:p-6 pt-0">
-                        <a href="{{ route('service.detail', $service->slug) }}" class="inline-flex items-center gap-2 text-xs font-bold text-brand-600 hover:text-brand-700 uppercase tracking-wider">
-                            <span>Pelajari Selengkapnya</span>
-                            <i class="fa-solid fa-arrow-right text-[10px] group-hover:translate-x-1 transition transform"></i>
-                        </a>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
 
     <!-- Armada Kami (Fleet Showcase) -->
     @if(($settings['show_armada_section'] ?? '1') == '1')

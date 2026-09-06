@@ -27,7 +27,6 @@
                     Gunakan tautan anchor berikut untuk mengarahkan ke section di beranda:
                     <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#beranda</code>,
                     <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#tentang</code>,
-                    <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#layanan</code>,
                     <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#armada</code>,
                     <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#rekanan</code>,
                     <code class="bg-blue-100 px-1.5 py-0.5 rounded font-mono text-[11px]">#keunggulan</code>,

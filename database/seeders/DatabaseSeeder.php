@@ -111,11 +111,10 @@ class DatabaseSeeder extends Seeder
         $navMenus = [
             ['title' => 'Beranda', 'url' => '#beranda', 'order' => 1, 'is_active' => true],
             ['title' => 'Tentang Kami', 'url' => '#tentang', 'order' => 2, 'is_active' => true],
-            ['title' => 'Layanan & KBLI', 'url' => '#layanan', 'order' => 3, 'is_active' => true],
-            ['title' => 'Armada Kami', 'url' => '#armada', 'order' => 4, 'is_active' => true],
-            ['title' => 'Rekanan Kami', 'url' => '#rekanan', 'order' => 5, 'is_active' => true],
-            ['title' => 'Keunggulan HSE', 'url' => '#keunggulan', 'order' => 6, 'is_active' => true],
-            ['title' => 'Kontak', 'url' => '#kontak', 'order' => 7, 'is_active' => true],
+            ['title' => 'Armada Kami', 'url' => '#armada', 'order' => 3, 'is_active' => true],
+            ['title' => 'Rekanan Kami', 'url' => '#rekanan', 'order' => 4, 'is_active' => true],
+            ['title' => 'Keunggulan HSE', 'url' => '#keunggulan', 'order' => 5, 'is_active' => true],
+            ['title' => 'Kontak', 'url' => '#kontak', 'order' => 6, 'is_active' => true],
         ];
         foreach ($navMenus as $menu) {
             NavMenu::create($menu);
@@ -197,8 +196,8 @@ class DatabaseSeeder extends Seeder
             'tagline' => 'Oil, Gas, & Transportation',
             'description' => 'Pendistribusian gas LPG (Distributor Resmi HARIGAS), pengadaan gas CNG, serta penyedia sarana transportasi migas & batu bara jalur darat dan laut.',
             'image_path' => '/images/refinery-migas.jpg',
-            'button_text' => 'Lihat Layanan Kami',
-            'button_url' => '#layanan',
+            'button_text' => 'Lihat Armada Kami',
+            'button_url' => '#armada',
             'order' => 1,
             'is_active' => true,
         ]);
@@ -208,8 +207,8 @@ class DatabaseSeeder extends Seeder
             'tagline' => 'Solusi Pasokan Energi Andal JABODETABEK & Jawa Barat',
             'description' => 'Distributor resmi Gas LPG merk HARIGAS untuk kebutuhan industri & retail serta pengadaan peralatan dan Gas CNG berkualitas tinggi.',
             'image_path' => '/images/service-lpg-harigas.jpg',
-            'button_text' => 'Pelajari Layanan Gas',
-            'button_url' => '#layanan',
+            'button_text' => 'Hubungi Kami',
+            'button_url' => '#kontak',
             'order' => 2,
             'is_active' => true,
         ]);
