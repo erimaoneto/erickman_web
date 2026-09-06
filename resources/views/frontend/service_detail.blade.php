@@ -8,7 +8,7 @@
         <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 relative z-10">
             <div class="max-w-3xl space-y-4">
                 @if($service->kbli_code)
-                <span class="inline-block px-3 py-1 rounded bg-brand-500/20 text-brand-300 font-mono text-xs font-bold border border-brand-500/30">
+                <span class="inline-block px-3 py-1 rounded bg-brand-500/20 text-white font-mono text-xs font-bold border border-brand-500/30">
                     {{ $service->kbli_code }}
                 </span>
                 @endif
