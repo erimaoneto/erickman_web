@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin Panel') - PT. Erickman Sarana Abadi</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,16 +60,11 @@
             <div class="p-6 overflow-y-auto">
                 <!-- Brand Header -->
                 <div class="flex items-center justify-between pb-6 border-b border-slate-800">
-                    <a href="{{ Auth::user()->role === 'keuangan' ? route('admin.finance.index') : route('admin.dashboard') }}" class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
-                            <i class="fa-solid fa-truck-fast"></i>
-                        </div>
-                        <div>
-                            <span class="block font-black text-sm tracking-tight text-white leading-snug">PT. ERICKMAN<br>SARANA ABADI<span class="text-brand-500">.</span></span>
-                            <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mt-0.5">
-                                {{ Auth::user()->role === 'keuangan' ? 'Portal Keuangan' : 'Admin Panel' }}
-                            </span>
-                        </div>
+                    <a href="{{ Auth::user()->role === 'keuangan' ? route('admin.finance.index') : route('admin.dashboard') }}" class="flex flex-col gap-1.5 group">
+                        <img src="{{ asset('/images/logo-erickman-white.png') }}" alt="PT. Erickman Sarana Abadi" class="h-8 w-auto object-contain brightness-110 group-hover:scale-105 transition">
+                        <span class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                            {{ Auth::user()->role === 'keuangan' ? 'Portal Keuangan' : 'Admin Panel' }}
+                        </span>
                     </a>
                     <button @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white">
                         <i class="fa-solid fa-xmark text-lg"></i>

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin Panel - PT. Erickman Sarana Abadi</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}">
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -27,14 +32,10 @@
     <div class="max-w-md w-full">
         <!-- Brand Header -->
         <div class="text-center mb-8">
-            <a href="{{ route('home') }}" class="inline-flex items-center gap-3 group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-emerald-500/20 flex-shrink-0">
-                    <i class="fa-solid fa-truck-fast"></i>
-                </div>
-                <div class="text-left">
-                    <span class="block font-black text-lg sm:text-xl tracking-tight text-navy-900 leading-tight">PT. ERICKMAN<br>SARANA ABADI<span class="text-brand-600">.</span></span>
-                    <span class="block text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Admin Portal</span>
-                </div>
+            <a href="{{ route('home') }}" class="inline-flex flex-col items-center gap-2 group">
+                <img src="{{ asset('/images/logo-erickman.png') }}" alt="PT. Erickman Sarana Abadi" class="h-11 sm:h-12 w-auto object-contain group-hover:scale-105 transition">
+                <div class="text-xs font-bold text-navy-900 tracking-wide mt-1">PT. ERICKMAN SARANA ABADI</div>
+                <span class="block text-[10px] font-bold uppercase tracking-widest text-slate-500">Portal Operasional &amp; Keuangan</span>
             </a>
             <p class="text-xs text-slate-500 mt-2">Masuk untuk mengelola konten, armada, keuangan, dan email.</p>
         </div>

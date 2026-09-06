@@ -6,6 +6,10 @@
     <title>@yield('title', 'PT. Erickman Sarana Abadi - Transportasi Gas Alam & Logistik Khusus')</title>
     <meta name="description" content="@yield('meta_description', 'PT. Erickman Sarana Abadi - Solusi Transportasi Gas Alam (CNG/LNG), Angkutan Barang Khusus & Sewa Armada Truk Terpercaya di Indonesia.')">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('/images/favicon.ico') }}">
+    
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,14 +83,12 @@
             <div class="flex justify-between items-center h-20 gap-4 lg:gap-8">
                 <!-- Brand Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group flex-shrink-0">
-                    <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white font-bold text-xl sm:text-2xl shadow-md shadow-brand-500/20 group-hover:scale-105 transition flex-shrink-0">
-                        <i class="fa-solid fa-truck-fast"></i>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-extrabold text-sm sm:text-base lg:text-lg tracking-tight text-navy-900 group-hover:text-brand-600 transition leading-tight whitespace-nowrap">
-                            PT. ERICKMAN SARANA ABADI<span class="text-brand-600">.</span>
+                    <img src="{{ asset('/images/logo-erickman.png') }}" alt="{{ $settings['company_name'] ?? 'PT. Erickman Sarana Abadi' }}" class="h-9 sm:h-11 w-auto object-contain group-hover:scale-105 transition">
+                    <div class="hidden sm:flex flex-col border-l border-slate-200 pl-3">
+                        <span class="font-extrabold text-xs sm:text-sm tracking-tight text-navy-900 group-hover:text-brand-600 transition leading-tight whitespace-nowrap">
+                            PT. ERICKMAN SARANA ABADI
                         </span>
-                        <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
+                        <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
                             Oil, Gas, &amp; Transportation
                         </span>
                     </div>
@@ -153,11 +155,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
                 <!-- Company Profile -->
                 <div class="space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white font-bold text-xl">
-                            <i class="fa-solid fa-truck-fast"></i>
-                        </div>
-                        <span class="font-black text-xl tracking-tight text-white leading-tight">PT. ERICKMAN<br>SARANA ABADI<span class="text-brand-500">.</span></span>
+                    <div class="space-y-2">
+                        <img src="{{ asset('/images/logo-erickman-white.png') }}" alt="{{ $settings['company_name'] ?? 'PT. Erickman Sarana Abadi' }}" class="h-9 w-auto object-contain brightness-110">
+                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-400">Oil, Gas, &amp; Transportation</span>
                     </div>
                     <p class="text-sm text-slate-400 leading-relaxed">
                         {{ $settings['company_description'] ?? 'Penyedia terpercaya untuk pengadaan dan transportasi gas alam (CNG/LNG), angkutan khusus berisiko tinggi, serta penyewaan armada truk berstandar keselamatan prima.' }}
