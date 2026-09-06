@@ -160,10 +160,6 @@
                             <i class="fa-solid fa-chart-simple w-5 text-center"></i>
                             <span>Metrik & Statistik</span>
                         </a>
-                        <a href="{{ route('admin.content.pillars') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.pillars') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
-                            <i class="fa-solid fa-layer-group w-5 text-center"></i>
-                            <span>Pilar Bisnis (Tentang)</span>
-                        </a>
                         <a href="{{ route('admin.content.services') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.content.services*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <i class="fa-solid fa-briefcase w-5 text-center"></i>
                             <span>Layanan & KBLI</span>

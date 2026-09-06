@@ -174,33 +174,7 @@
                         {{ $settings['about_story'] ?? 'PT. Erickman Sarana Abadi berkedudukan dan berkantor pusat di kota Jakarta adalah perusahaan yang bergerak di bidang pendistribusian gas LPG (Liquified Petroleum Gas) dan CNG (Compressed Natural Gas), juga penyedia sarana transportasi migas.' }}
                     </p>
 
-                    <!-- Pilar Bisnis Utama (Dinamis dari CMS) -->
-                    @if(isset($aboutPillars) && $aboutPillars->count() > 0)
-                    <div class="space-y-2.5 pt-1">
-                        @foreach($aboutPillars as $pillar)
-                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-sm font-bold mt-0.5 {{ $pillar->color_theme === 'orange' ? 'bg-orange-100 text-orange-700' : ($pillar->color_theme === 'blue' ? 'bg-blue-100 text-blue-700' : ($pillar->color_theme === 'emerald' ? 'bg-emerald-100 text-emerald-700' : 'bg-brand-100 text-brand-700')) }}">
-                                <i class="{{ $pillar->icon }}"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">{{ $pillar->title }}</h4>
-                                <p class="text-xs text-slate-500 mt-0.5">{{ $pillar->description }}</p>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                    @endif
 
-                    <!-- Office Location Badge -->
-                    <div class="p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
-                        <i class="fa-solid fa-location-dot text-brand-600 text-xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-sm text-navy-900">Kantor Pusat Resmi:</h4>
-                            <p class="text-xs text-slate-600 mt-0.5 leading-normal">
-                                {{ $settings['company_address'] ?? '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, Pasar Minggu, Jakarta Selatan (12520)' }}
-                            </p>
-                        </div>
-                    </div>
 
                     <!-- Vision & Mission Tabs -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">

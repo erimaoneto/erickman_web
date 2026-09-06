@@ -133,37 +133,8 @@ class DatabaseSeeder extends Seeder
             KeyMetric::create($metric);
         }
 
-        // About Pillars
+        // About Pillars (Cleared)
         AboutPillar::truncate();
-        $pillars = [
-            [
-                'title' => 'Distributor Resmi Gas LPG (HARIGAS)',
-                'description' => 'Pengadaan LPG merk HARIGAS untuk industri dan retail di area JABODETABEK & Jawa Barat.',
-                'icon' => 'fa-solid fa-fire-flame-simple',
-                'color_theme' => 'orange',
-                'order' => 1,
-                'is_active' => true,
-            ],
-            [
-                'title' => 'Pengadaan Gas CNG & Peralatan Sistem',
-                'description' => 'Solusi gas CNG hemat dan ramah lingkungan beserta instalasi PRS/skid untuk kebutuhan manufaktur.',
-                'icon' => 'fa-solid fa-gauge-high',
-                'color_theme' => 'blue',
-                'order' => 2,
-                'is_active' => true,
-            ],
-            [
-                'title' => 'Transportasi Migas & Batu Bara (Darat & Laut)',
-                'description' => 'Armada prime mover, tangki bulk, gas trailer, serta tongkang/barge pengangkutan batu bara.',
-                'icon' => 'fa-solid fa-truck-moving',
-                'color_theme' => 'emerald',
-                'order' => 3,
-                'is_active' => true,
-            ],
-        ];
-        foreach ($pillars as $pillar) {
-            AboutPillar::create($pillar);
-        }
 
         // HSE Items
         HseItem::truncate();
