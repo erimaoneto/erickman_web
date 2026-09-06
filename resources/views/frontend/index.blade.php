@@ -250,7 +250,7 @@
                         <div class="h-44 sm:h-48 overflow-hidden relative">
                             <img src="{{ asset($service->image_path ?? '/images/truck-cng-green.jpg') }}" alt="{{ $service->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             @if($service->kbli_code)
-                            <div class="absolute top-3 left-3 bg-navy-900/90 backdrop-blur-sm text-brand-400 font-mono text-[11px] font-bold px-2.5 py-1 rounded border border-slate-700">
+                            <div class="absolute top-3 left-3 bg-navy-900/90 backdrop-blur-sm text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded border border-slate-700 shadow-sm">
                                 {{ $service->kbli_code }}
                             </div>
                             @endif
