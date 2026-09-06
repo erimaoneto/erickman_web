@@ -6,7 +6,7 @@
 
     <!-- Flash Message Notification -->
     @if(session('success_inquiry'))
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+    <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-6">
         <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-start gap-3 shadow-sm">
             <i class="fa-solid fa-circle-check text-emerald-600 text-xl mt-0.5"></i>
             <div>
@@ -36,7 +36,7 @@
              @mouseenter="stopAutoplay()"
              @mouseleave="startAutoplay()">
         
-        <div class="relative min-h-[580px] lg:min-h-[660px] flex items-center">
+        <div class="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] 2xl:min-h-[700px] flex items-center">
             @foreach($banners as $index => $banner)
             <div x-show="activeSlide === {{ $index }}" 
                  x-transition:enter="transition ease-out duration-700"
@@ -55,8 +55,8 @@
                 <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"></div>
 
                 <!-- Slide Content in Sleek Frosted Glass Container -->
-                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center pt-8 pb-16">
-                    <div class="max-w-xl lg:max-w-2xl text-white space-y-5 bg-navy-950/70 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/15 shadow-2xl">
+                <div class="relative max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-full flex items-center pt-8 pb-16">
+                    <div class="max-w-xl lg:max-w-2xl 2xl:max-w-3xl text-white space-y-5 bg-navy-950/75 backdrop-blur-md p-6 sm:p-8 lg:p-10 rounded-3xl border border-white/15 shadow-2xl">
                         @if($banner->tagline)
                         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-500/20 border border-brand-400/30 text-brand-300 text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
                             <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
@@ -91,7 +91,7 @@
 
         <!-- Slider Controls & Dots -->
         <div class="absolute bottom-6 inset-x-0 z-20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between">
                 <!-- Dots Indicator -->
                 <div class="flex items-center gap-2.5">
                     @foreach($banners as $index => $banner)
@@ -118,7 +118,7 @@
     </section>
 
     <!-- Key Metrics & Counter Banner -->
-    <section class="relative z-20 -mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative z-20 -mt-8 max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
         <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div class="border-r border-slate-100 last:border-0 p-2">
                 <div class="text-3xl sm:text-4xl font-black text-brand-600 tracking-tight">{{ $settings['stat_fleet_count'] ?? '50+' }}</div>
@@ -140,8 +140,8 @@
     </section>
 
     <!-- Tentang Kami & Legalitas Resmi (NIB) -->
-    <section id="tentang" class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="tentang" class="py-16 sm:py-20 lg:py-24 bg-slate-50">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Visual / Photo Collage -->
                 <div class="lg:col-span-6 relative">
@@ -250,9 +250,9 @@
     </section>
 
     <!-- Layanan & KBLI Resmi Perusahaan -->
-    <section id="layanan" class="py-24 bg-white border-y border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+    <section id="layanan" class="py-16 sm:py-20 lg:py-24 bg-white border-y border-slate-100">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
                     Solusi Komprehensif
                 </div>
@@ -302,8 +302,8 @@
     </section>
 
     <!-- Armada Kami (Fleet Showcase) -->
-    <section id="armada" class="py-24 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="armada" class="py-16 sm:py-20 lg:py-24 bg-slate-50">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                 <div class="max-w-2xl space-y-3">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
@@ -374,10 +374,10 @@
     </section>
 
     <!-- Standar Keselamatan (HSE & K3) -->
-    <section id="keunggulan" class="py-24 bg-navy-950 text-white relative overflow-hidden">
+    <section id="keunggulan" class="py-16 sm:py-20 lg:py-24 bg-navy-950 text-white relative overflow-hidden">
         <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-500/20 text-brand-300 text-xs font-bold uppercase tracking-wider">
                     Safety First (HSE)
                 </div>
@@ -434,9 +434,9 @@
     </section>
 
     <!-- Rekanan Kami (Partner & Client Network) -->
-    <section id="rekanan" class="py-24 bg-slate-50 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+    <section id="rekanan" class="py-16 sm:py-20 lg:py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+            <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
                     <i class="fa-solid fa-handshake-simple text-xs"></i> Rekanan &amp; Kemitraan Strategis
                 </div>
@@ -514,8 +514,8 @@
     </section>
 
     <!-- Kontak & Kantor Operasional (Formulir RFQ Disembunyikan Sementara) -->
-    <section id="kontak" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="kontak" class="py-16 sm:py-20 lg:py-24 bg-white">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider mb-3">
                     <i class="fa-solid fa-headset text-xs"></i> Hubungi Kami

@@ -5,7 +5,7 @@
 @section('content')
     <!-- Header Banner -->
     <div class="relative bg-navy-950 py-20 text-white overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 relative z-10">
             <div class="max-w-3xl space-y-4">
                 @if($service->kbli_code)
                 <span class="inline-block px-3 py-1 rounded bg-brand-500/20 text-brand-300 font-mono text-xs font-bold border border-brand-500/30">
@@ -23,7 +23,7 @@
 
     <!-- Main Detail Section -->
     <div class="py-16 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 <!-- Content Area -->
                 <div class="lg:col-span-8 space-y-8 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
@@ -53,7 +53,7 @@
                             <p class="text-xs text-emerald-800">Dapatkan penawaran harga terbaik dan konsultasi teknis gratis dengan tim kami.</p>
                         </div>
                         <a href="{{ route('home') }}#kontak" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-600/30 transition flex-shrink-0">
-                            Minta Penawaran
+                            Hubungi Tim Kami
                         </a>
                     </div>
                 </div>

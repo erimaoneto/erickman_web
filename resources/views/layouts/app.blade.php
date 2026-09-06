@@ -59,7 +59,7 @@
 
     <!-- Topbar Info -->
     <div class="bg-navy-950 text-slate-300 text-xs py-2 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-2">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex flex-col md:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-4 flex-wrap justify-center md:justify-start">
                 <span><i class="fa-solid fa-certificate text-brand-500 mr-1.5"></i> NIB Resmi: <strong class="text-white">{{ $settings['company_nib'] ?? '2211210015706' }}</strong></span>
                 <span class="hidden sm:inline text-slate-600">|</span>
@@ -79,7 +79,7 @@
 
     <!-- Main Navigation Bar -->
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 transition duration-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="flex justify-between items-center h-20 gap-4 lg:gap-8">
                 <!-- Brand Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3 group flex-shrink-0">
@@ -95,7 +95,7 @@
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
+                <nav class="hidden lg:flex items-center gap-5 xl:gap-7 2xl:gap-8 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
                     <a href="{{ route('home') }}#beranda" class="hover:text-brand-600 transition py-2">Beranda</a>
                     <a href="{{ route('home') }}#tentang" class="hover:text-brand-600 transition py-2">Tentang Kami</a>
                     <a href="{{ route('home') }}#layanan" class="hover:text-brand-600 transition py-2">Layanan &amp; KBLI</a>
@@ -105,12 +105,9 @@
                     <a href="{{ route('home') }}#kontak" class="hover:text-brand-600 transition py-2">Kontak</a>
                 </nav>
 
-                <!-- Action Button & Login -->
-                <div class="hidden lg:flex items-center gap-3 flex-shrink-0">
-                    <a href="{{ route('home') }}#kontak" class="px-4 xl:px-5 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-xs xl:text-sm hover:bg-brand-700 shadow-md shadow-brand-600/20 hover:shadow-lg transition transform hover:-translate-y-0.5 whitespace-nowrap">
-                        Minta Penawaran
-                    </a>
-                    <a href="{{ route('login') }}" class="p-2.5 rounded-lg text-slate-500 hover:text-navy-900 hover:bg-slate-100 transition" title="Portal Admin Erickman">
+                <!-- Admin Portal Login Icon -->
+                <div class="hidden lg:flex items-center flex-shrink-0">
+                    <a href="{{ route('login') }}" class="p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 transition" title="Portal Admin Erickman">
                         <i class="fa-solid fa-lock text-base"></i>
                     </a>
                 </div>
@@ -136,11 +133,6 @@
             <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Rekanan Kami</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Keunggulan HSE</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Kontak</a>
-            <div class="pt-3">
-                <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="w-full block text-center px-4 py-2.5 rounded-lg bg-brand-600 text-white font-semibold text-sm">
-                    Minta Penawaran Cepat
-                </a>
-            </div>
         </div>
     </header>
 
@@ -151,7 +143,7 @@
 
     <!-- Footer -->
     <footer class="bg-navy-950 text-slate-300 pt-16 pb-8 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
                 <!-- Company Profile -->
                 <div class="space-y-4">
