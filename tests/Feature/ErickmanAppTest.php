@@ -30,6 +30,9 @@ class ErickmanAppTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('LPG (Liquified Petroleum Gas)', false);
+
+        $legacy = $this->get('/layanan/distribusi-pengadaan-gas-alam');
+        $legacy->assertRedirect('/layanan/cng-compressed-natural-gas');
     }
 
     public function test_public_contact_form_submits_inquiry()

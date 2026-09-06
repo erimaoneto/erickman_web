@@ -12,6 +12,9 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         if (Auth::check()) {
+            if (Auth::user()->role === 'keuangan') {
+                return redirect()->route('admin.finance.index');
+            }
             return redirect()->route('admin.dashboard');
         }
         return view('auth.login');
@@ -49,7 +52,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role === 'keuangan') {
-                return redirect()->intended(route('admin.finance.index'))->with('success', 'Selamat datang di Modul Keuangan Erickman!');
+                return redirect()->route('admin.finance.index')->with('success', 'Selamat datang di Modul Keuangan Erickman!');
             }
 
             return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat datang kembali di Admin Panel Erickman!');

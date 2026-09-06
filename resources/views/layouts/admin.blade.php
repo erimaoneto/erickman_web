@@ -56,7 +56,7 @@
             <div class="p-6 overflow-y-auto">
                 <!-- Brand Header -->
                 <div class="flex items-center justify-between pb-6 border-b border-slate-800">
-                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3">
+                    <a href="{{ Auth::user()->role === 'keuangan' ? route('admin.finance.index') : route('admin.dashboard') }}" class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-700 to-emerald-500 flex items-center justify-center text-white text-xl font-bold flex-shrink-0">
                             <i class="fa-solid fa-truck-fast"></i>
                         </div>

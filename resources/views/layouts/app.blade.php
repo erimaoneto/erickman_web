@@ -126,7 +126,7 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
+        <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
             <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Tentang Kami</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#layanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Layanan &amp; KBLI</a>

@@ -23,6 +23,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // --- ADMIN PANEL ROUTES (PROTECTED) ---
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
+    // Admin root entry point: smart redirect based on user role
+    Route::get('/', function () {
+        if (auth()->user()->role === 'keuangan') {
+            return redirect()->route('admin.finance.index');
+        }
+        return redirect()->route('admin.dashboard');
+    });
+
     // Finance Dashboard & Management (Accessible by superadmin and keuangan)
     Route::middleware(['role:superadmin,keuangan'])->prefix('finance')->name('finance.')->group(function () {
         Route::get('/', [FinanceController::class, 'index'])->name('index');
@@ -36,8 +44,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Modules Restricted Exclusively to Superadmin
     Route::middleware(['role:superadmin'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/dashboard', [DashboardController::class, 'index']);
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // Content Management (CMS)
         Route::prefix('content')->name('content.')->group(function () {

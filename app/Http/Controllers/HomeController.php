@@ -24,7 +24,21 @@ class HomeController extends Controller
 
     public function serviceDetail($slug)
     {
-        $service = Service::where('slug', $slug)->where('is_active', true)->firstOrFail();
+        $legacyRedirects = [
+            'distribusi-pengadaan-gas-alam' => 'cng-compressed-natural-gas',
+            'angkutan-barang-khusus-b3' => 'transportasi-migas-dan-batu-bara',
+        ];
+
+        if (isset($legacyRedirects[$slug])) {
+            return redirect()->route('service.detail', $legacyRedirects[$slug], 301);
+        }
+
+        $service = Service::where('slug', $slug)->where('is_active', true)->first();
+
+        if (!$service) {
+            return redirect()->route('home');
+        }
+
         $allServices = Service::where('is_active', true)->orderBy('order', 'asc')->get();
         $settings = SiteSetting::pluck('value', 'key')->all();
 
