@@ -87,7 +87,7 @@
                             PT. ERICKMAN SARANA ABADI<span class="text-brand-600">.</span>
                         </span>
                         <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">
-                            Energy & Transportation
+                            Oil, Gas, &amp; Transportation
                         </span>
                     </div>
                 </a>
@@ -96,8 +96,9 @@
                 <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
                     <a href="{{ route('home') }}#beranda" class="hover:text-brand-600 transition py-2">Beranda</a>
                     <a href="{{ route('home') }}#tentang" class="hover:text-brand-600 transition py-2">Tentang Kami</a>
-                    <a href="{{ route('home') }}#layanan" class="hover:text-brand-600 transition py-2">Layanan & KBLI</a>
+                    <a href="{{ route('home') }}#layanan" class="hover:text-brand-600 transition py-2">Layanan &amp; KBLI</a>
                     <a href="{{ route('home') }}#armada" class="hover:text-brand-600 transition py-2">Armada Kami</a>
+                    <a href="{{ route('home') }}#rekanan" class="hover:text-brand-600 transition py-2">Rekanan Kami</a>
                     <a href="{{ route('home') }}#keunggulan" class="hover:text-brand-600 transition py-2">Keunggulan HSE</a>
                     <a href="{{ route('home') }}#kontak" class="hover:text-brand-600 transition py-2">Kontak</a>
                 </nav>
@@ -128,8 +129,9 @@
         <div x-show="mobileMenu" x-cloak class="md:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
             <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Tentang Kami</a>
-            <a @click="mobileMenu = false" href="{{ route('home') }}#layanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Layanan & KBLI</a>
+            <a @click="mobileMenu = false" href="{{ route('home') }}#layanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Layanan &amp; KBLI</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#armada" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Armada Kami</a>
+            <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Rekanan Kami</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Keunggulan HSE</a>
             <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Kontak</a>
             <div class="pt-3">
@@ -175,6 +177,7 @@
                         <li><a href="{{ route('home') }}#tentang" class="hover:text-white transition">Profil Perusahaan & NIB</a></li>
                         <li><a href="{{ route('home') }}#layanan" class="hover:text-white transition">Daftar Layanan Industri</a></li>
                         <li><a href="{{ route('home') }}#armada" class="hover:text-white transition">Spesifikasi Armada Truk</a></li>
+                        <li><a href="{{ route('home') }}#rekanan" class="hover:text-white transition">Rekanan &amp; Mitra Kerja</a></li>
                         <li><a href="{{ route('home') }}#kontak" class="hover:text-white transition">Kontak &amp; Kantor Operasional</a></li>
                         <li><a href="{{ route('login') }}" class="hover:text-brand-400 transition text-xs flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Login Admin Panel</a></li>
                     </ul>
@@ -213,7 +216,7 @@
                     <div class="space-y-3 text-sm text-slate-400">
                         <div class="flex items-start gap-3">
                             <i class="fa-solid fa-location-dot text-brand-500 mt-1"></i>
-                            <span>{{ $settings['company_address'] ?? '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, Jakarta Selatan 12520' }}</span>
+                            <span>{{ $settings['company_address'] ?? '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, Pasar Minggu, Jakarta Selatan (12520)' }}</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-phone text-brand-500"></i>

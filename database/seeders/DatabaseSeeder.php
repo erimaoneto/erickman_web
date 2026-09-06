@@ -44,21 +44,21 @@ class DatabaseSeeder extends Seeder
         $settings = [
             // Company Info
             ['key' => 'company_name', 'value' => 'PT. Erickman Sarana Abadi', 'group' => 'company', 'type' => 'text', 'label' => 'Nama Perusahaan'],
-            ['key' => 'company_tagline', 'value' => 'Solusi Transportasi Gas Alam & Logistik Armada Khusus', 'group' => 'company', 'type' => 'text', 'label' => 'Tagline Perusahaan'],
-            ['key' => 'company_description', 'value' => 'Penyedia terpercaya untuk solusi pengadaan dan transportasi gas alam (CNG/LNG), angkutan barang khusus, serta penyewaan armada truk berstandar keselamatan tinggi di Indonesia.', 'group' => 'company', 'type' => 'textarea', 'label' => 'Deskripsi Singkat'],
+            ['key' => 'company_tagline', 'value' => 'Oil, Gas, & Transportation', 'group' => 'company', 'type' => 'text', 'label' => 'Tagline Perusahaan'],
+            ['key' => 'company_description', 'value' => 'Perusahaan yang berkedudukan dan berkantor pusat di kota Jakarta, bergerak di bidang pendistribusian gas LPG (Liquified Petroleum Gas) dan CNG (Compressed Natural Gas), juga penyedia sarana transportasi migas dan batu bara (darat & laut).', 'group' => 'company', 'type' => 'textarea', 'label' => 'Deskripsi Singkat'],
             ['key' => 'company_nib', 'value' => '2211210015706', 'group' => 'company', 'type' => 'text', 'label' => 'Nomor Induk Berusaha (NIB)'],
             
-            // Contact & Address (From Authentic NIB Document)
-            ['key' => 'company_address', 'value' => '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, DKI Jakarta 12520', 'group' => 'contact', 'type' => 'textarea', 'label' => 'Alamat Kantor Pusat'],
+            // Contact & Address (Official Company Profile PDF)
+            ['key' => 'company_address', 'value' => '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, DKI Jakarta 12520', 'group' => 'contact', 'type' => 'textarea', 'label' => 'Alamat Kantor Pusat'],
             ['key' => 'company_phone', 'value' => '+62 21 2278 1818', 'group' => 'contact', 'type' => 'text', 'label' => 'Nomor Telepon'],
             ['key' => 'company_email', 'value' => 'info@erickman.co.id', 'group' => 'contact', 'type' => 'text', 'label' => 'Email Resmi'],
             ['key' => 'company_whatsapp', 'value' => '+6281188881234', 'group' => 'contact', 'type' => 'text', 'label' => 'WhatsApp Hotline'],
             ['key' => 'operational_hours', 'value' => 'Senin - Sabtu: 08.00 - 17.00 WIB (Layanan Dispatch Armada 24/7)', 'group' => 'contact', 'type' => 'text', 'label' => 'Jam Operasional'],
 
-            // About & Vision Mission
-            ['key' => 'about_story', 'value' => 'Didirikan dengan komitmen kuat terhadap ketahanan energi dan efisiensi rantai pasok industri, PT Erickman beroperasi di bawah legalitas Perizinan Berusaha Berbasis Risiko (NIB 2211210015706) yang berpusat di 18 Office Park Simatupang Jakarta Selatan. Kami mengedepankan standar keselamatan tinggi (HSE/K3), armada modern berteknologi terkini, dan pengemudi tersertifikasi.', 'group' => 'about', 'type' => 'textarea', 'label' => 'Cerita Perusahaan'],
-            ['key' => 'company_vision', 'value' => 'Menjadi perusahaan transportasi energi gas dan logistik armada khusus terdepan di Indonesia yang berorientasi pada kepuasan pelanggan, zero accident, dan efisiensi operasional prima.', 'group' => 'about', 'type' => 'textarea', 'label' => 'Visi'],
-            ['key' => 'company_mission', 'value' => "1. Memberikan layanan distribusi gas alam dan logistik barang berstandar keselamatan (HSE) tertinggi.\n2. Mengoperasikan armada modern terawat dengan sistem pemantauan berkala.\n3. Menjadi mitra strategis rantai pasok energi bersih yang andal bagi industri nasional.\n4. Menjunjung kepatuhan regulasi pemerintah dan nilai profesionalisme tinggi.", 'group' => 'about', 'type' => 'textarea', 'label' => 'Misi'],
+            // About & Vision Mission (Official Company Profile PDF)
+            ['key' => 'about_story', 'value' => 'PT. Erickman Sarana Abadi berkedudukan dan berkantor pusat di kota Jakarta (18 Office Park 21st Floor) adalah perusahaan yang bergerak di bidang pendistribusian gas LPG (distributor resmi Gas LPG merk HARIGAS) dan CNG (Compressed Natural Gas), juga penyedia sarana transportasi migas (LPG, CNG, Crude Oil) & Batu Bara, baik jalur darat maupun laut.', 'group' => 'about', 'type' => 'textarea', 'label' => 'Cerita Perusahaan'],
+            ['key' => 'company_vision', 'value' => 'Menjadi perusahaan distribusi energi migas dan penyedia transportasi logistik terdepan di Indonesia yang andal, berstandar keselamatan prima, dan berorientasi pada kepuasan pelanggan.', 'group' => 'about', 'type' => 'textarea', 'label' => 'Visi'],
+            ['key' => 'company_mission', 'value' => "1. Memberikan layanan distribusi gas LPG (HARIGAS) dan gas CNG berkualitas tinggi untuk industri dan retail di area Jabodetabek dan Jawa Barat.\n2. Menyediakan sarana transportasi migas (LPG, CNG, Crude Oil) dan batu bara jalur darat dan laut yang andal dan tepat waktu.\n3. Mengoperasikan armada modern dengan standar keselamatan HSE (K3) migas tertinggi.\n4. Menjadi mitra strategis energi terpercaya bagi sektor industri nasional.", 'group' => 'about', 'type' => 'textarea', 'label' => 'Misi'],
             
             // Statistics Counter
             ['key' => 'stat_fleet_count', 'value' => '50+', 'group' => 'stats', 'type' => 'text', 'label' => 'Unit Armada Aktif'],
@@ -71,64 +71,86 @@ class DatabaseSeeder extends Seeder
             SiteSetting::updateOrCreate(['key' => $setting['key']], $setting);
         }
 
-        // 3. Banners (Menggunakan Foto Truk Hijau CNG & Truk Merah Boks yang diunggah)
+        // 3. Banners
         Banner::truncate();
         Banner::create([
-            'title' => 'Transportasi & Distribusi Gas Alam (CNG / LNG)',
-            'tagline' => 'Solusi Pasokan Energi Andal & Ramah Lingkungan',
-            'description' => 'Didukung armada prime mover tangguh dengan cradle tabung silinder CNG berstandar keselamatan internasional untuk suplai gas industri yang stabil tanpa henti.',
-            'image_path' => '/images/truck-cng-green.jpg',
-            'button_text' => 'Konsultasi Pengadaan Gas',
-            'button_url' => '#kontak',
+            'title' => 'PT. Erickman Sarana Abadi',
+            'tagline' => 'Oil, Gas, & Transportation',
+            'description' => 'Pendistribusian gas LPG (Distributor Resmi HARIGAS), pengadaan gas CNG, serta penyedia sarana transportasi migas & batu bara jalur darat dan laut.',
+            'image_path' => '/images/refinery-migas.jpg',
+            'button_text' => 'Lihat Layanan Kami',
+            'button_url' => '#layanan',
             'order' => 1,
             'is_active' => true,
         ]);
 
         Banner::create([
-            'title' => 'Sewa Truk & Logistik Angkutan Barang Khusus',
-            'tagline' => 'Armada Prima, Terawat, & Tepat Waktu',
-            'description' => 'Menyediakan beragam pilihan truk boks dan bak terbuka dengan uji KIR rutin serta pemeliharaan terjadwal untuk menjamin keamanan kargo industri Anda.',
-            'image_path' => '/images/truck-box-red.jpg',
-            'button_text' => 'Pesan Layanan Armada',
+            'title' => 'Distribusi Gas LPG (HARIGAS) & CNG Industri',
+            'tagline' => 'Solusi Pasokan Energi Andal JABODETABEK & Jawa Barat',
+            'description' => 'Distributor resmi Gas LPG merk HARIGAS untuk kebutuhan industri & retail serta pengadaan peralatan dan Gas CNG berkualitas tinggi.',
+            'image_path' => '/images/service-lpg-harigas.jpg',
+            'button_text' => 'Pelajari Layanan Gas',
             'button_url' => '#layanan',
             'order' => 2,
             'is_active' => true,
         ]);
 
-        // 4. Services (Sesuai KBLI resmi NIB)
+        Banner::create([
+            'title' => 'Transportasi Migas & Batu Bara (Darat & Laut)',
+            'tagline' => 'Distribusi LPG, CNG, Crude Oil, & Batu Bara',
+            'description' => 'Layanan transportasi untuk keperluan distribusi migas dan batu bara, baik jalur darat dengan truk tangki dan prime mover, maupun jalur laut dengan armada kapal tongkang.',
+            'image_path' => '/images/service-transportasi-cng.jpg',
+            'button_text' => 'Hubungi Kami',
+            'button_url' => '#kontak',
+            'order' => 3,
+            'is_active' => true,
+        ]);
+
+        // 4. Services (Sesuai Company Profile PDF)
         Service::truncate();
         $services = [
             [
-                'title' => 'Distribusi & Pengadaan Gas Alam (CNG / LNG)',
-                'slug' => 'distribusi-pengadaan-gas-alam',
-                'kbli_code' => 'KBLI 35201 & 35202',
+                'title' => 'LPG (Liquified Petroleum Gas)',
+                'slug' => 'lpg-liquified-petroleum-gas',
+                'kbli_code' => 'Distributor Resmi HARIGAS',
                 'icon' => 'flame',
-                'image_path' => '/images/truck-cng-green.jpg',
-                'short_description' => 'Layanan suplai dan transportasi gas alam terkompresi (CNG) untuk kebutuhan pabrik, hotel, rumah sakit, dan sentra industri.',
-                'description' => 'Kami melayani rantai pengadaan dan distribusi gas alam terkompresi (CNG) dan gas cair (LNG). Dilengkapi armada trailer dengan tabung bertekanan tinggi yang terkalibrasi secara ketat dan diawasi oleh tim teknis profesional bersertifikasi Migas.',
+                'image_path' => '/images/service-lpg-harigas.jpg',
+                'short_description' => 'Distributor resmi yang memberikan layanan pengadaan Gas LPG merk HARIGAS untuk berbagai kebutuhan industri dan Retail di area JABODETABEK dan Jawa Barat.',
+                'description' => 'PT. Erickman Sarana Abadi merupakan distributor resmi yang memberikan layanan pengadaan Gas LPG merk HARIGAS untuk berbagai kebutuhan industri dan Retail di area JABODETABEK dan Jawa Barat. Didukung manajemen rantai pasok tabung berkualitas, pengiriman tepat waktu, serta standar keselamatan penyimpanan dan pengisian.',
                 'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'Angkutan Bermotor untuk Barang Khusus & B3',
-                'slug' => 'angkutan-barang-khusus',
-                'kbli_code' => 'KBLI 49432',
-                'icon' => 'shield-check',
-                'image_path' => '/images/truck-cng-green.jpg',
-                'short_description' => 'Pengangkutan kargo berisiko tinggi, tabung gas bertekanan, dan bahan bakar industri dengan standar SOP ketat.',
-                'description' => 'Pelayanan angkutan barang berbahaya dan gas dengan pengemudi terlatih yang memiliki sertifikasi pengangkutan bahan berbahaya beracun serta armada yang dilengkapi peralatan APAR dan tanggap darurat.',
+                'title' => 'CNG (Compressed Natural Gas)',
+                'slug' => 'cng-compressed-natural-gas',
+                'kbli_code' => 'Pengadaan Peralatan & Gas CNG',
+                'icon' => 'gauge-high',
+                'image_path' => '/images/service-cng-trailer.jpg',
+                'short_description' => 'Layanan pengadaan peralatan dan Gas CNG untuk berbagai kebutuhan industri dan Retail di area JABODETABEK dan Jawa Barat.',
+                'description' => 'PT. Erickman Sarana Abadi memberikan layanan pengadaan peralatan dan Gas CNG untuk berbagai kebutuhan industri dan Retail di area JABODETABEK dan Jawa Barat. Solusi energi ramah lingkungan dengan efisiensi tinggi bagi pabrik manufaktur, hotel, rumah sakit, dan sentra komersial.',
                 'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Aktivitas Penyewaan Truk & Armada Operasional',
+                'title' => 'Transportasi Migas & Batu Bara',
+                'slug' => 'transportasi-migas-dan-batu-bara',
+                'kbli_code' => 'Distribusi Jalur Darat & Laut',
+                'icon' => 'truck-fast',
+                'image_path' => '/images/service-transportasi-cng.jpg',
+                'short_description' => 'Layanan transportasi untuk keperluan distribusi migas (LPG, CNG, Crude Oil) & Batu Bara, baik jalur darat maupun laut.',
+                'description' => 'PT. Erickman Sarana Abadi memberikan layanan transportasi untuk keperluan distribusi migas (LPG, CNG, Crude Oil) & Batu Bara, baik jalur darat (truk tangki, prime mover trailer) maupun jalur laut (kapal tongkang/barge) dengan standar HSE dan perizinan resmi.',
+                'order' => 3,
+                'is_active' => true,
+            ],
+            [
+                'title' => 'Penyewaan Truk & Armada Komersial',
                 'slug' => 'penyewaan-truk-armada',
                 'kbli_code' => 'KBLI 77100 & 77399',
                 'icon' => 'truck',
                 'image_path' => '/images/truck-box-red.jpg',
-                'short_description' => 'Rental truk boks engkel, double, fuso, hingga prime mover untuk kontrak harian, bulanan, maupun tahunan.',
-                'description' => 'Solusi sewa guna usaha armada komersial bagi korporasi dan logistik B2B. Semua unit mendapatkan servis rutin, asuransi komprehensif, dan opsi layanan pengemudi berpengalaman.',
-                'order' => 3,
+                'short_description' => 'Rental truk boks, armada khusus, dan prime mover berstandar keselamatan tinggi untuk kontrak korporasi.',
+                'description' => 'Solusi sewa guna armada komersial bagi korporasi dan logistik B2B. Semua unit mendapatkan servis rutin, asuransi komprehensif, dan opsi layanan pengemudi berpengalaman.',
+                'order' => 4,
                 'is_active' => true,
             ],
             [
@@ -139,7 +161,7 @@ class DatabaseSeeder extends Seeder
                 'image_path' => '/images/truck-box-red.jpg',
                 'short_description' => 'Distribusi barang komersial, FMCG, suku cadang, dan bahan baku manufaktur antarkota dan antarpulau.',
                 'description' => 'Jasa ekspedisi dan pengiriman barang umum skala besar ke berbagai destinasi strategis di pulau Jawa dan sekitarnya dengan jaminan keamanan muatan hingga titik tujuan.',
-                'order' => 4,
+                'order' => 5,
                 'is_active' => true,
             ],
             [
@@ -150,7 +172,7 @@ class DatabaseSeeder extends Seeder
                 'image_path' => '/images/truck-cng-green.jpg',
                 'short_description' => 'Penyediaan komersial bahan bakar padat, cair, dan gas untuk sektor industri dan manufaktur berskala besar.',
                 'description' => 'Perdagangan besar resmi untuk kebutuhan energi industri dengan skema kontrak terpercaya, kualitas teruji di laboratorium independen, dan pengiriman tepat jadwal.',
-                'order' => 5,
+                'order' => 6,
                 'is_active' => true,
             ],
         ];

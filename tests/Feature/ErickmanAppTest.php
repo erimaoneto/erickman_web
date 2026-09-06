@@ -17,7 +17,7 @@ class ErickmanAppTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('PT. Erickman Sarana Abadi');
-        $response->assertSee('Energy & Transportation', false);
+        $response->assertSee('Oil, Gas, &amp; Transportation', false);
         $response->assertSee('2211210015706'); // NIB Resmi
         $response->assertSee('18 Office Park'); // Alamat Resmi
         $response->assertSee('truck-cng-green.jpg');
@@ -26,10 +26,10 @@ class ErickmanAppTest extends TestCase
 
     public function test_service_detail_page_loads()
     {
-        $response = $this->get('/layanan/distribusi-pengadaan-gas-alam');
+        $response = $this->get('/layanan/lpg-liquified-petroleum-gas');
 
         $response->assertStatus(200);
-        $response->assertSee('Distribusi &amp; Pengadaan Gas Alam', false);
+        $response->assertSee('LPG (Liquified Petroleum Gas)', false);
     }
 
     public function test_public_contact_form_submits_inquiry()
@@ -39,9 +39,9 @@ class ErickmanAppTest extends TestCase
             'company' => 'PT Surya Energi Makmur',
             'email' => 'budi@suryaenergi.com',
             'phone' => '08123456789',
-            'service_interest' => 'Distribusi & Pengadaan Gas Alam (CNG / LNG)',
-            'subject' => 'Inquiry Gas CNG 1000 m3',
-            'message' => 'Mohon penawaran harga pengadaan gas CNG untuk boiler industri kami.',
+            'service_interest' => 'LPG (Liquified Petroleum Gas)',
+            'subject' => 'Inquiry Gas LPG 1000 tabung',
+            'message' => 'Mohon penawaran harga pengadaan gas LPG untuk pabrik kami.',
         ];
 
         $response = $this->post('/kirim-pesan', $inquiryData);
@@ -49,7 +49,7 @@ class ErickmanAppTest extends TestCase
         $response->assertSessionHas('success_inquiry');
         $this->assertDatabaseHas('inquiries', [
             'email' => 'budi@suryaenergi.com',
-            'subject' => 'Inquiry Gas CNG 1000 m3',
+            'subject' => 'Inquiry Gas LPG 1000 tabung',
         ]);
     }
 

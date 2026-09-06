@@ -173,12 +173,45 @@
                     </div>
 
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight leading-tight">
-                        Mitra Transportasi Energi & Rantai Pasok Terdepan
+                        Pendistribusian Gas LPG, CNG, &amp; Transportasi Migas
                     </h2>
 
                     <p class="text-slate-600 leading-relaxed text-base">
-                        {{ $settings['about_story'] ?? 'Didirikan dengan komitmen kuat terhadap efisiensi energi dan logistik industri di Indonesia, PT Erickman beroperasi di bawah legalitas Perizinan Berusaha Berbasis Risiko (NIB: 2211210015706).' }}
+                        {{ $settings['about_story'] ?? 'PT. Erickman Sarana Abadi berkedudukan dan berkantor pusat di kota Jakarta adalah perusahaan yang bergerak di bidang pendistribusian gas LPG (Liquified Petroleum Gas) dan CNG (Compressed Natural Gas), juga penyedia sarana transportasi migas.' }}
                     </p>
+
+                    <!-- 3 Pilar Bisnis Utama -->
+                    <div class="space-y-2.5 pt-1">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
+                                <i class="fa-solid fa-fire-flame-simple"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Distributor Resmi Gas LPG (HARIGAS)</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Pengadaan LPG merk HARIGAS untuk industri dan retail di area JABODETABEK & Jawa Barat.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
+                                <i class="fa-solid fa-gauge-high"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Pengadaan Gas CNG &amp; Peralatan Sistem</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Solusi gas CNG hemat dan ramah lingkungan beserta instalasi PRS/skid untuk kebutuhan manufaktur.</p>
+                            </div>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
+                                <i class="fa-solid fa-truck-moving"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs sm:text-sm text-navy-900">Transportasi Migas &amp; Batu Bara (Darat &amp; Laut)</h4>
+                                <p class="text-xs text-slate-500 mt-0.5">Armada prime mover, tangki bulk, gas trailer, serta tongkang/barge pengangkutan batu bara.</p>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Office Location Badge -->
                     <div class="p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm flex items-start gap-3">
@@ -186,7 +219,7 @@
                         <div>
                             <h4 class="font-bold text-sm text-navy-900">Kantor Pusat Resmi:</h4>
                             <p class="text-xs text-slate-600 mt-0.5 leading-normal">
-                                {{ $settings['company_address'] ?? '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, Jakarta Selatan 12520' }}
+                                {{ $settings['company_address'] ?? '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, Pasar Minggu, Jakarta Selatan (12520)' }}
                             </p>
                         </div>
                     </div>
@@ -198,7 +231,7 @@
                                 <i class="fa-solid fa-bullseye"></i> Visi Kami
                             </div>
                             <p class="text-xs text-slate-600 leading-relaxed">
-                                {{ $settings['company_vision'] ?? 'Menjadi perusahaan transportasi energi gas dan logistik khusus nomor satu yang mengutamakan keselamatan dan kepuasan pelanggan.' }}
+                                {{ $settings['company_vision'] ?? 'Menjadi mitra terdepan dan terpercaya dalam distribusi gas LPG, CNG, serta penyedia armada transportasi migas dan komoditas energi dengan standar keselamatan dan kehandalan tertinggi di Indonesia.' }}
                             </p>
                         </div>
 
@@ -207,7 +240,7 @@
                                 <i class="fa-solid fa-compass"></i> Misi Kami
                             </div>
                             <p class="text-xs text-slate-600 leading-relaxed">
-                                Standar HSE tertinggi, perawatan armada tepat waktu, kehandalan rantai pasok energi bersih tanpa henti.
+                                Standar HSE & K3LL tanpa kompromi, kepuasan pelanggan melalui pasokan energi stabil dan tepat waktu di seluruh Indonesia.
                             </p>
                         </div>
                     </div>
@@ -400,6 +433,86 @@
         </div>
     </section>
 
+    <!-- Rekanan Kami (Partner & Client Network) -->
+    <section id="rekanan" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-100 text-brand-800 text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-handshake-simple text-xs"></i> Rekanan &amp; Kemitraan Strategis
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy-900 tracking-tight">
+                    Rekanan Kami
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base">
+                    PT. Erickman Sarana Abadi dipercaya oleh berbagai perusahaan energi dan logistik terkemuka dalam rantai pasok gas dan transportasi migas.
+                </p>
+            </div>
+
+            <!-- 6 Partner Cards -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+                <!-- Partner 1: d-gas -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900">d-gas</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">PT Citra Dwi Gas</span>
+                </div>
+
+                <!-- Partner 2: Waskita Precast -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Waskita Precast</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">PT Waskita Beton Precast Tbk</span>
+                </div>
+
+                <!-- Partner 3: Cipta Niaga Gas -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-gas-pump"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Cipta Niaga Gas</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">Distribusi Gas CNG</span>
+                </div>
+
+                <!-- Partner 4: TIS -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-truck-moving"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900">TIS</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">PT Transportasi Industri Serasi</span>
+                </div>
+
+                <!-- Partner 5: Pertamina Gas / LPG -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-oil-well"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">Pertamina Gas</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">Mitra Distribusi LPG</span>
+                </div>
+
+                <!-- Partner 6: VTP Logistics -->
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-500 transition text-center flex flex-col items-center justify-center min-h-[150px] group">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-black mb-2.5 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </div>
+                    <h4 class="font-extrabold text-sm text-navy-900 leading-tight">VTP Logistics</h4>
+                    <span class="text-[11px] text-slate-500 mt-1">Mitra Solusi Logistik</span>
+                </div>
+            </div>
+
+            <!-- Banner Logo Asli Dokumen Company Profile PDF -->
+            <div class="mt-10 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 text-center max-w-4xl mx-auto shadow-sm">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-4">Logo Rekanan Resmi Sesuai Profil Perusahaan</div>
+                <img src="{{ asset('/images/rekanan-kami-logos.png') }}" alt="Logo Rekanan Resmi PT Erickman Sarana Abadi" class="mx-auto max-h-20 sm:max-h-24 w-auto object-contain">
+            </div>
+        </div>
+    </section>
+
     <!-- Kontak & Kantor Operasional (Formulir RFQ Disembunyikan Sementara) -->
     <section id="kontak" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -411,7 +524,7 @@
                     Kontak Resmi &amp; Kantor Operasional
                 </h2>
                 <p class="text-slate-600 text-sm mt-3 leading-relaxed">
-                    Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas alam, kontrak pengiriman khusus, atau persewaan truk komersial.
+                    Hubungi tim sales dan operasi kami untuk mendiskusikan kebutuhan pasokan gas LPG (HARIGAS), gas CNG industri, atau transportasi migas &amp; batu bara.
                 </p>
             </div>
 
@@ -425,7 +538,7 @@
                         </div>
                         <h3 class="font-bold text-lg text-navy-900">Kantor Pusat</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">
-                            {{ $settings['company_address'] ?? '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Jakarta Selatan 12520' }}
+                            {{ $settings['company_address'] ?? '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, Pasar Minggu, Jakarta Selatan (12520)' }}
                         </p>
                         <div class="pt-2">
                             <span class="inline-block px-2.5 py-1 bg-white rounded-lg border border-slate-200 text-brand-700 font-mono text-[11px] font-bold">
