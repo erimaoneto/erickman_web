@@ -54,6 +54,67 @@
 
     <style>
         [x-cloak] { display: none !important; }
+
+        /* Glowing (Berpendar) Nav Menu Hover Effect */
+        .nav-glow-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.85rem;
+            border-radius: 9999px;
+            color: #334155;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid transparent;
+        }
+
+        .nav-glow-link:hover {
+            color: #047857;
+            background: radial-gradient(circle at 50% 120%, rgba(16, 185, 129, 0.22) 0%, rgba(16, 185, 129, 0.06) 60%, transparent 100%);
+            border-color: rgba(52, 211, 153, 0.45);
+            box-shadow: 0 0 18px -2px rgba(16, 185, 129, 0.5), 0 0 30px -4px rgba(52, 211, 153, 0.35), inset 0 0 10px rgba(16, 185, 129, 0.12);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.6), 0 0 20px rgba(52, 211, 153, 0.4);
+            transform: translateY(-1.5px);
+        }
+
+        /* Ambient Glowing Underline Indicator */
+        .nav-glow-link::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 50%;
+            height: 2.5px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, transparent, #10b981, #34d399, transparent);
+            box-shadow: 0 0 8px #10b981, 0 0 14px #34d399;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .nav-glow-link:hover::after {
+            transform: translateX(-50%) scaleX(1);
+            opacity: 1;
+        }
+
+        /* Mobile Glowing Link */
+        .mobile-nav-glow-link {
+            position: relative;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 3px solid transparent;
+        }
+
+        .mobile-nav-glow-link:hover, .mobile-nav-glow-link:active {
+            color: #047857;
+            border-left-color: #10b981;
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.14) 0%, rgba(16, 185, 129, 0.03) 80%, transparent 100%);
+            box-shadow: inset 8px 0 14px -5px rgba(16, 185, 129, 0.35);
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.45);
+            padding-left: 1.15rem;
+        }
     </style>
 </head>
 <body class="font-sans text-slate-800 bg-slate-50 antialiased selection:bg-brand-600 selection:text-white overflow-x-hidden" x-data="{ mobileMenu: false }">
@@ -96,33 +157,33 @@
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden lg:flex items-center gap-5 xl:gap-7 2xl:gap-8 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
+                <nav class="hidden lg:flex items-center gap-1 xl:gap-2 2xl:gap-3 text-[13px] xl:text-sm font-semibold text-slate-700 whitespace-nowrap">
                     @if(isset($navMenus) && $navMenus->count() > 0)
                         @foreach($navMenus as $navItem)
-                            <a href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="hover:text-brand-600 transition py-2">
+                            <a href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="nav-glow-link">
                                 {{ $navItem->title }}
                             </a>
                         @endforeach
                     @else
-                        <a href="{{ route('home') }}#beranda" class="hover:text-brand-600 transition py-2">Beranda</a>
-                        <a href="{{ route('home') }}#tentang" class="hover:text-brand-600 transition py-2">Tentang Kami</a>
-                        <a href="{{ route('home') }}#armada" class="hover:text-brand-600 transition py-2">Armada Kami</a>
-                        <a href="{{ route('home') }}#rekanan" class="hover:text-brand-600 transition py-2">Rekanan Kami</a>
-                        <a href="{{ route('home') }}#keunggulan" class="hover:text-brand-600 transition py-2">Keunggulan HSE</a>
-                        <a href="{{ route('home') }}#kontak" class="hover:text-brand-600 transition py-2">Kontak</a>
+                        <a href="{{ route('home') }}#beranda" class="nav-glow-link">Beranda</a>
+                        <a href="{{ route('home') }}#tentang" class="nav-glow-link">Tentang Kami</a>
+                        <a href="{{ route('home') }}#armada" class="nav-glow-link">Armada Kami</a>
+                        <a href="{{ route('home') }}#rekanan" class="nav-glow-link">Rekanan Kami</a>
+                        <a href="{{ route('home') }}#keunggulan" class="nav-glow-link">Keunggulan HSE</a>
+                        <a href="{{ route('home') }}#kontak" class="nav-glow-link">Kontak</a>
                     @endif
                 </nav>
 
                 <!-- Admin Portal Login Icon -->
                 <div class="hidden lg:flex items-center flex-shrink-0">
-                    <a href="{{ route('login') }}" class="p-2.5 rounded-xl text-slate-500 hover:text-navy-900 hover:bg-slate-100 transition" title="Portal Admin Erickman">
+                    <a href="{{ route('login') }}" class="p-2.5 rounded-xl text-slate-500 hover:text-brand-600 hover:bg-emerald-50/80 hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition" title="Portal Admin Erickman">
                         <i class="fa-solid fa-lock text-base"></i>
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center lg:hidden gap-2">
-                    <a href="{{ route('login') }}" class="p-2 rounded text-slate-600 hover:bg-slate-100 text-sm">
+                    <a href="{{ route('login') }}" class="p-2 rounded-lg text-slate-600 hover:text-brand-600 hover:bg-slate-100 text-sm">
                         <i class="fa-solid fa-lock"></i>
                     </a>
                     <button @click="mobileMenu = !mobileMenu" type="button" class="p-2 rounded-lg text-slate-700 hover:bg-slate-100 focus:outline-none">
@@ -133,20 +194,20 @@
         </div>
 
         <!-- Mobile Menu Dropdown -->
-        <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
+        <div x-show="mobileMenu" x-cloak class="lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-1 shadow-xl">
             @if(isset($navMenus) && $navMenus->count() > 0)
                 @foreach($navMenus as $navItem)
-                    <a @click="mobileMenu = false" href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">
+                    <a @click="mobileMenu = false" href="{{ Str::startsWith($navItem->url, '#') ? route('home') . $navItem->url : $navItem->url }}" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">
                         {{ $navItem->title }}
                     </a>
                 @endforeach
             @else
-                <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Beranda</a>
-                <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Tentang Kami</a>
-                <a @click="mobileMenu = false" href="{{ route('home') }}#armada" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Armada Kami</a>
-                <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Rekanan Kami</a>
-                <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Keunggulan HSE</a>
-                <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="block px-3 py-2 rounded-md font-medium text-slate-700 hover:bg-slate-50">Kontak</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#beranda" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Beranda</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#tentang" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Tentang Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#armada" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Armada Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#rekanan" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Rekanan Kami</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#keunggulan" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Keunggulan HSE</a>
+                <a @click="mobileMenu = false" href="{{ route('home') }}#kontak" class="mobile-nav-glow-link block px-3 py-2.5 rounded-lg font-medium text-slate-700">Kontak</a>
             @endif
         </div>
     </header>
