@@ -148,18 +148,6 @@
                         <img src="{{ asset($settings['about_image_secondary'] ?? '/images/truck-box-red.jpg') }}" alt="Foto Armada PT Erickman" class="w-full h-44 object-cover">
                     </div>
                     @endif
-                    <!-- Floating Badge NIB -->
-                    <div class="absolute -top-4 left-3 sm:-top-6 sm:-left-6 z-30 bg-navy-900 text-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl shadow-xl border border-slate-800">
-                        <div class="flex items-center gap-2.5 sm:gap-3">
-                            <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-brand-600 flex items-center justify-center text-white text-base sm:text-xl shrink-0">
-                                <i class="fa-solid fa-stamp"></i>
-                            </div>
-                            <div>
-                                <span class="block text-[9px] sm:text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Perizinan Berusaha</span>
-                                <span class="block text-xs sm:text-base font-extrabold text-white">NIB Resmi Terverifikasi</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Story & Compliance Content -->
