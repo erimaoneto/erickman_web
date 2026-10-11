@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             
             // Contact & Address (Official Company Profile PDF)
             ['key' => 'company_address', 'value' => '18 Office Park 21st Floor, Jl. TB Simatupang Kav. 18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, DKI Jakarta 12520', 'group' => 'contact', 'type' => 'textarea', 'label' => 'Alamat Kantor Pusat'],
-            ['key' => 'company_phone', 'value' => '+62 21 2278 1818', 'group' => 'contact', 'type' => 'text', 'label' => 'Nomor Telepon'],
+            ['key' => 'company_phone', 'value' => '+622130931188', 'group' => 'contact', 'type' => 'text', 'label' => 'Nomor Telepon'],
             ['key' => 'company_email', 'value' => 'info@erickman.co.id', 'group' => 'contact', 'type' => 'text', 'label' => 'Email Resmi'],
             ['key' => 'company_whatsapp', 'value' => '+6281188881234', 'group' => 'contact', 'type' => 'text', 'label' => 'WhatsApp Hotline'],
             ['key' => 'operational_hours', 'value' => 'Senin - Sabtu: 08.00 - 17.00 WIB (Layanan Dispatch Armada 24/7)', 'group' => 'contact', 'type' => 'text', 'label' => 'Jam Operasional'],

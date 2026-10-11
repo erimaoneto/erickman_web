@@ -260,7 +260,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-phone text-brand-500"></i>
-                            <span>{{ $settings['company_phone'] ?? '+62 21 2278 1818' }}</span>
+                            <span>{{ $settings['company_phone'] ?? '+622130931188' }}</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <i class="fa-solid fa-envelope text-brand-500"></i>

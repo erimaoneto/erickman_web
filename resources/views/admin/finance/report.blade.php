@@ -33,7 +33,7 @@
                 <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Transportasi Gas Alam & Logistik Khusus</p>
                 <p class="text-[11px] text-slate-500 mt-1">
                     18 Office Park Building Lt. 12 Unit A & H, Jl. TB Simatupang No.18, Jakarta Selatan 12520<br>
-                    NIB: 2211210015706 &bull; Email: info@erickman.co.id &bull; Telp: +62 21 2278 1818
+                    NIB: 2211210015706 &bull; Email: info@erickman.co.id &bull; Telp: +622130931188
                 </p>
             </div>
             <div class="text-right">

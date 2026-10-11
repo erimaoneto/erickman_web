@@ -399,7 +399,7 @@
                             </div>
                             <div>
                                 <span class="text-slate-400 font-semibold block text-[11px] uppercase">Telepon Kantor</span>
-                                <strong class="text-navy-900 text-sm font-bold block">{{ $settings['company_phone'] ?? '+62 21 2278 1818' }}</strong>
+                                <strong class="text-navy-900 text-sm font-bold block">{{ $settings['company_phone'] ?? '+622130931188' }}</strong>
                             </div>
                         </div>
                     </div>

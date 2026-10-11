@@ -53,7 +53,7 @@ INSERT INTO `site_settings` (`key`, `value`, `group`, `type`, `label`, `created_
 ('company_description', 'Penyedia terpercaya untuk solusi pengadaan dan transportasi gas alam (CNG/LNG), angkutan barang khusus, serta penyewaan armada truk berstandar keselamatan tinggi di Indonesia.', 'company', 'textarea', 'Deskripsi Singkat', NOW(), NOW()),
 ('company_nib', '2211210015706', 'company', 'text', 'Nomor Induk Berusaha (NIB)', NOW(), NOW()),
 ('company_address', '18 Office Park Building, 12th Floor Unit A & H, Jl. TB Simatupang No.18, RT 002 RW 001, Kel. Kebagusan, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, DKI Jakarta 12520', 'contact', 'textarea', 'Alamat Kantor Pusat', NOW(), NOW()),
-('company_phone', '+62 21 2278 1818', 'contact', 'text', 'Nomor Telepon', NOW(), NOW()),
+('company_phone', '+622130931188', 'contact', 'text', 'Nomor Telepon', NOW(), NOW()),
 ('company_email', 'info@erickman.co.id', 'contact', 'text', 'Email Resmi', NOW(), NOW()),
 ('company_whatsapp', '+6281188881234', 'contact', 'text', 'WhatsApp Hotline', NOW(), NOW()),
 ('operational_hours', 'Senin - Sabtu: 08.00 - 17.00 WIB (Layanan Dispatch Armada 24/7)', 'contact', 'text', 'Jam Operasional', NOW(), NOW()),
