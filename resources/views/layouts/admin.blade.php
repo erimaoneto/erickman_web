@@ -113,6 +113,10 @@
                             <i class="fa-solid fa-print w-5 text-center text-xs"></i>
                             <span>Laporan Cetak</span>
                         </a>
+                        <a href="{{ route('admin.finance.signatures') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.finance.signatures') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                            <i class="fa-solid fa-signature w-5 text-center text-xs"></i>
+                            <span>Penanda Tangan Laporan</span>
+                        </a>
                     </div>
 
                     @if(Auth::user()->role === 'superadmin')

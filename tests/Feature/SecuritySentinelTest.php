@@ -131,4 +131,49 @@ class SecuritySentinelTest extends TestCase
         $responseAll->assertStatus(200);
         $responseAll->assertSee('Periode Tahun 2026 (Semua Bulan)');
     }
+
+    public function test_finance_signatures_can_be_configured_and_reflected_on_report()
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@erickman.co.id'],
+            [
+                'name' => 'Erima Oneto',
+                'password' => bcrypt('admin123'),
+                'role' => 'superadmin',
+                'is_active' => true,
+            ]
+        );
+
+        $this->actingAs($admin);
+
+        // 1. Can view signatures form
+        $response = $this->get('/admin/finance/signatures');
+        $response->assertStatus(200);
+        $response->assertSee('Pengaturan Penanda Tangan Laporan');
+
+        // 2. Can update signatures
+        $postData = [
+            'report_city' => 'Padang',
+            'report_signer_1_title' => 'Disiapkan Oleh,',
+            'report_signer_1_name' => 'Erima Oneto',
+            'report_signer_1_role' => 'Finance Specialist',
+            'report_signer_2_title' => 'Disetujui Oleh,',
+            'report_signer_2_name' => 'Erickman Direktur',
+            'report_signer_2_role' => 'Direktur Utama',
+        ];
+
+        $postResponse = $this->post('/admin/finance/signatures', $postData);
+        $postResponse->assertRedirect('/admin/finance/signatures');
+        $postResponse->assertSessionHas('success');
+
+        // 3. Reflected in report
+        $reportResponse = $this->get('/admin/finance/report');
+        $reportResponse->assertStatus(200);
+        $reportResponse->assertSee('Padang,');
+        $reportResponse->assertSee('Erima Oneto');
+        $reportResponse->assertSee('Finance Specialist');
+        $reportResponse->assertSee('Erickman Direktur');
+        $reportResponse->assertSee('Direktur Utama');
+    }
 }
+

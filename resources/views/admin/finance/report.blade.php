@@ -26,10 +26,16 @@
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Kembali ke Dashboard Keuangan</span>
                 </a>
-                <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-print"></i>
-                    <span>Cetak / Simpan PDF</span>
-                </button>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('admin.finance.signatures') }}" target="_blank" class="px-4 py-2 rounded-xl bg-white border border-slate-300 text-slate-700 hover:text-navy-900 font-bold text-xs shadow-sm flex items-center gap-2 transition">
+                        <i class="fa-solid fa-signature text-brand-600"></i>
+                        <span>Atur Penanda Tangan</span>
+                    </a>
+                    <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Cetak / Simpan PDF</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Filter Periode Bar -->
@@ -149,16 +155,21 @@
         @endif
 
         <!-- Signatures -->
-        <div class="grid grid-cols-2 gap-8 mt-16 pt-8 border-t border-slate-200 text-xs text-center">
-            <div>
-                <span class="text-slate-400 block mb-12">Disiapkan Oleh,</span>
-                <span class="font-bold text-slate-800 block underline">Staff Keuangan & Logistik</span>
-                <span class="text-slate-500">PT. Erickman Sarana Abadi</span>
+        <div class="mt-14 pt-6 border-t border-slate-200">
+            <div class="text-right text-xs text-slate-600 mb-8 font-medium">
+                {{ $settings['report_city'] ?? 'Jakarta' }}, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}
             </div>
-            <div>
-                <span class="text-slate-400 block mb-12">Disetujui Oleh,</span>
-                <span class="font-bold text-slate-800 block underline">Direksi / Manajemen</span>
-                <span class="text-slate-500">PT. Erickman Sarana Abadi</span>
+            <div class="grid grid-cols-2 gap-8 text-xs text-center">
+                <div>
+                    <span class="text-slate-500 block mb-14 font-medium">{{ $settings['report_signer_1_title'] ?? 'Disiapkan Oleh,' }}</span>
+                    <span class="font-bold text-slate-900 block underline text-[13px]">{{ $settings['report_signer_1_name'] ?? 'Staff Keuangan & Logistik' }}</span>
+                    <span class="text-slate-500 text-[11px] block mt-0.5">{{ $settings['report_signer_1_role'] ?? 'PT. Erickman Sarana Abadi' }}</span>
+                </div>
+                <div>
+                    <span class="text-slate-500 block mb-14 font-medium">{{ $settings['report_signer_2_title'] ?? 'Disetujui Oleh,' }}</span>
+                    <span class="font-bold text-slate-900 block underline text-[13px]">{{ $settings['report_signer_2_name'] ?? 'Direksi / Manajemen' }}</span>
+                    <span class="text-slate-500 text-[11px] block mt-0.5">{{ $settings['report_signer_2_role'] ?? 'PT. Erickman Sarana Abadi' }}</span>
+                </div>
             </div>
         </div>
     </div>

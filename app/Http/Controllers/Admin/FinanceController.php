@@ -15,32 +15,8 @@ class FinanceController extends Controller
     {
         $query = Transaction::with(['fleet', 'creator']);
 
-        $selectedYear = $request->get('year');
-        if ($selectedYear === null) {
-            $selectedYear = (string) Carbon::now()->year;
-        }
-
-        if ($request->has('month')) {
-            $selectedMonth = $request->get('month'); // can be 'all', '1'..'12', or ''
-        } else {
-            // Smart default: check if current month has records
-            $hasCurrentMonth = Transaction::whereMonth('transaction_date', Carbon::now()->month)
-                ->whereYear('transaction_date', (int)$selectedYear)
-                ->exists();
-
-            if ($hasCurrentMonth) {
-                $selectedMonth = (string) Carbon::now()->month;
-            } else {
-                // If current month has no records, fallback to latest recorded transaction month
-                $latestTrx = Transaction::orderBy('transaction_date', 'desc')->first();
-                if ($latestTrx) {
-                    $selectedMonth = (string) $latestTrx->transaction_date->month;
-                    $selectedYear = (string) $latestTrx->transaction_date->year;
-                } else {
-                    $selectedMonth = 'all';
-                }
-            }
-        }
+        $selectedYear = $request->get('year', (string) Carbon::now()->year);
+        $selectedMonth = $request->get('month', 'all');
 
         if ($selectedMonth && $selectedMonth !== 'all') {
             $query->whereMonth('transaction_date', (int)$selectedMonth);
@@ -164,31 +140,8 @@ class FinanceController extends Controller
 
     public function report(Request $request)
     {
-        $selectedYear = $request->get('year');
-        $selectedMonth = $request->get('month');
-
-        if ($selectedYear === null) {
-            $selectedYear = (string) Carbon::now()->year;
-        }
-
-        if ($selectedMonth === null) {
-            // Check if current month has records
-            $hasCurrentMonth = Transaction::whereMonth('transaction_date', Carbon::now()->month)
-                ->whereYear('transaction_date', (int)$selectedYear)
-                ->exists();
-
-            if ($hasCurrentMonth) {
-                $selectedMonth = (string) Carbon::now()->month;
-            } else {
-                $latestTrx = Transaction::orderBy('transaction_date', 'desc')->first();
-                if ($latestTrx) {
-                    $selectedMonth = (string) $latestTrx->transaction_date->month;
-                    $selectedYear = (string) $latestTrx->transaction_date->year;
-                } else {
-                    $selectedMonth = 'all';
-                }
-            }
-        }
+        $selectedYear = $request->get('year', (string) Carbon::now()->year);
+        $selectedMonth = $request->get('month', 'all');
 
         $query = Transaction::with(['fleet', 'creator']);
 
@@ -230,5 +183,38 @@ class FinanceController extends Controller
             'incomeByCategory',
             'expenseByCategory'
         ));
+    }
+
+    public function signatures()
+    {
+        return view('admin.finance.signatures');
+    }
+
+    public function updateSignatures(Request $request)
+    {
+        $validated = $request->validate([
+            'report_city' => 'nullable|string|max:100',
+            'report_signer_1_title' => 'required|string|max:100',
+            'report_signer_1_name' => 'required|string|max:100',
+            'report_signer_1_role' => 'nullable|string|max:100',
+            'report_signer_2_title' => 'required|string|max:100',
+            'report_signer_2_name' => 'required|string|max:100',
+            'report_signer_2_role' => 'nullable|string|max:100',
+        ]);
+
+        foreach ($validated as $key => $value) {
+            \App\Models\SiteSetting::updateOrCreate(
+                ['key' => $key],
+                [
+                    'value' => $value ?? '',
+                    'group' => 'finance_report',
+                    'type' => 'text',
+                    'label' => ucwords(str_replace('_', ' ', $key)),
+                ]
+            );
+        }
+
+        return redirect()->route('admin.finance.signatures')
+            ->with('success', 'Pengaturan penanda tangan cetak laporan berhasil diperbarui!');
     }
 }

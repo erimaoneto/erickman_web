@@ -36,10 +36,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [FinanceController::class, 'index'])->name('index');
         Route::get('/create', [FinanceController::class, 'create'])->name('create');
         Route::post('/', [FinanceController::class, 'store'])->name('store');
+        Route::get('/report', [FinanceController::class, 'report'])->name('report');
+        Route::get('/signatures', [FinanceController::class, 'signatures'])->name('signatures');
+        Route::post('/signatures', [FinanceController::class, 'updateSignatures'])->name('signatures.update');
         Route::get('/{id}/edit', [FinanceController::class, 'edit'])->name('edit');
         Route::put('/{id}', [FinanceController::class, 'update'])->name('update');
         Route::delete('/{id}', [FinanceController::class, 'destroy'])->name('destroy');
-        Route::get('/report', [FinanceController::class, 'report'])->name('report');
     });
 
     // Modules Restricted Exclusively to Superadmin

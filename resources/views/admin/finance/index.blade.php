@@ -12,8 +12,12 @@
                 <h2 class="text-xl font-bold text-navy-900">Arus Kas & Pembukuan Operasional</h2>
                 <p class="text-xs text-slate-500">Pencatatan pendapatan distribusi/sewa armada dan pengeluaran operasional (BBM, supir, servis).</p>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="{{ route('admin.finance.report', ['month' => $selectedMonth, 'year' => $selectedYear]) }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-navy-900 font-bold text-xs uppercase tracking-wider transition flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2.5">
+                <a href="{{ route('admin.finance.signatures') }}" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-navy-900 font-bold text-xs uppercase tracking-wider transition flex items-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-signature text-brand-600"></i>
+                    <span>Atur Penanda Tangan</span>
+                </a>
+                <a href="{{ route('admin.finance.report', ['month' => $selectedMonth, 'year' => $selectedYear]) }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:text-navy-900 font-bold text-xs uppercase tracking-wider transition flex items-center gap-2 shadow-sm">
                     <i class="fa-solid fa-print"></i>
                     <span>Cetak Laporan</span>
                 </a>
