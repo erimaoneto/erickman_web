@@ -18,7 +18,7 @@
     @endif
 
     <!-- Hero Slider Section -->
-    <section id="beranda" class="relative bg-navy-950 overflow-hidden" 
+    <section id="beranda" class="relative bg-slate-100 overflow-hidden" 
              x-data="{
                 activeSlide: 0,
                 slidesCount: {{ count($banners) }},
@@ -48,38 +48,35 @@
                  class="absolute inset-0 w-full h-full"
                  style="{{ $index !== 0 ? 'display: none;' : '' }}">
                 
-                <!-- Background Image (Bright, Natural & Clear) -->
-                <img src="{{ asset($banner->image_path) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover object-center brightness-100">
-                <!-- Soft ambient gradient on the left side only to keep the truck on the right clear and vibrant -->
-                <div class="absolute inset-0 bg-gradient-to-r from-navy-950/90 sm:from-navy-950/80 via-navy-950/50 sm:via-navy-950/30 to-transparent"></div>
-                <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"></div>
+                <!-- Background Image (Bright, Natural & Clear - No Dark Overlay) -->
+                <img src="{{ asset($banner->image_path) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover object-center">
 
-                <!-- Slide Content in Sleek Frosted Glass Container -->
+                <!-- Slide Content in Modern Clean Frosted Glass Container -->
                 <div class="relative max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 h-full flex items-center pt-6 pb-20 sm:pt-8 sm:pb-16">
-                    <div class="max-w-xl lg:max-w-2xl 2xl:max-w-3xl text-white space-y-4 sm:space-y-5 bg-navy-950/80 sm:bg-navy-950/75 backdrop-blur-md p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border border-white/15 shadow-2xl">
+                    <div class="max-w-xl lg:max-w-2xl 2xl:max-w-3xl space-y-4 sm:space-y-5 bg-white/85 sm:bg-white/90 backdrop-blur-md p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl border border-white/80 shadow-2xl">
                         @if($banner->tagline)
-                        <div class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-500/20 border border-brand-400/30 text-brand-300 text-[11px] sm:text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
-                            <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-[11px] sm:text-xs font-semibold uppercase tracking-wider shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
                             {{ $banner->tagline }}
                         </div>
                         @endif
 
-                        <h1 class="text-xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-snug sm:leading-tight">
+                        <h1 class="text-xl sm:text-3xl lg:text-5xl font-extrabold tracking-tight leading-snug sm:leading-tight text-navy-950">
                             {{ $banner->title }}
                         </h1>
 
-                        <p class="text-xs sm:text-base text-slate-200 leading-relaxed font-normal line-clamp-3 sm:line-clamp-none">
+                        <p class="text-xs sm:text-base text-slate-600 leading-relaxed font-medium line-clamp-3 sm:line-clamp-none">
                             {{ $banner->description }}
                         </p>
 
                         <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3.5 w-full sm:w-auto">
                             @if($banner->button_text)
-                            <a href="{{ $banner->button_url ?? '#kontak' }}" class="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-brand-600/30 hover:shadow-brand-500/50 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <a href="{{ $banner->button_url ?? '#kontak' }}" class="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-brand-600/25 hover:shadow-brand-500/40 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                 <span>{{ $banner->button_text }}</span>
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
                             @endif
-                            <a href="#tentang" class="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm backdrop-blur-md border border-white/20 transition text-center justify-center">
+                            <a href="#tentang" class="px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm shadow-sm border border-slate-200 transition text-center justify-center">
                                 Profil Perusahaan
                             </a>
                         </div>
@@ -92,11 +89,11 @@
         <!-- Slider Controls & Dots -->
         <div class="absolute bottom-4 sm:bottom-6 inset-x-0 z-20">
             <div class="max-w-7xl xl:max-w-[1360px] 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between">
-                <!-- Dots Indicator -->
-                <div class="flex items-center gap-2 sm:gap-2.5">
+                <!-- Dots Indicator in Frosted Capsule -->
+                <div class="flex items-center gap-2 sm:gap-2.5 bg-white/80 backdrop-blur-md px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-white/60 shadow-md">
                     @foreach($banners as $index => $banner)
                     <button @click="activeSlide = {{ $index }}" 
-                            :class="activeSlide === {{ $index }} ? 'w-8 sm:w-10 bg-brand-500' : 'w-2 sm:w-2.5 bg-white/40 hover:bg-white/70'" 
+                            :class="activeSlide === {{ $index }} ? 'w-7 sm:w-9 bg-brand-600' : 'w-2 sm:w-2.5 bg-slate-300 hover:bg-slate-400'" 
                             class="h-2 sm:h-2.5 rounded-full transition-all duration-300"
                             title="Slide {{ $index + 1 }}"></button>
                     @endforeach
@@ -105,11 +102,11 @@
                 <!-- Prev/Next Navigation -->
                 <div class="flex items-center gap-2">
                     <button @click="activeSlide = (activeSlide - 1 + slidesCount) % slidesCount" 
-                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition">
+                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/85 hover:bg-white text-navy-900 flex items-center justify-center backdrop-blur-md border border-white/60 shadow-md hover:shadow-lg transition transform hover:scale-105">
                         <i class="fa-solid fa-chevron-left text-[10px] sm:text-xs"></i>
                     </button>
                     <button @click="activeSlide = (activeSlide + 1) % slidesCount" 
-                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center backdrop-blur-md border border-white/20 transition">
+                            class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/85 hover:bg-white text-navy-900 flex items-center justify-center backdrop-blur-md border border-white/60 shadow-md hover:shadow-lg transition transform hover:scale-105">
                         <i class="fa-solid fa-chevron-right text-[10px] sm:text-xs"></i>
                     </button>
                 </div>
