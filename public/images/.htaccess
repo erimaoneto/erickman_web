@@ -1,0 +1,27 @@
+# ----------------------------------------------------------------------
+# PT. ERICKMAN SARANA ABADI - PUBLIC ASSET SECURITY SHIELD
+# Block any PHP or script execution within uploaded asset directories
+# ----------------------------------------------------------------------
+
+# 1. Deny execution of scripts in this directory
+<FilesMatch "(?i)\.(php|php[0-9]|phtml|phar|pl|py|cgi|sh|asp|aspx|exe|bat|cmd|vbs|msi|js|jsp)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# 2. Disable PHP script engine if active
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+
+# 3. Forbid CGI execution & directory browsing
+Options -ExecCGI -Indexes
+
+# 4. Remove script handlers
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar

@@ -177,6 +177,10 @@
                             <i class="fa-solid fa-users-gear w-5 text-center"></i>
                             <span>Manajemen Pengguna</span>
                         </a>
+                        <a href="{{ route('admin.security.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.security.*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                            <i class="fa-solid fa-shield-halved w-5 text-center"></i>
+                            <span>Audit & Keamanan Server</span>
+                        </a>
                     </div>
                     @endif
                 </nav>

@@ -5,17 +5,43 @@
 
     RewriteEngine On
 
-    # Handle Authorization Header
+    # 1. Block access to hidden files and directories (e.g. .git, .env, .htaccess)
+    RewriteRule "(^|/)\.(?!well-known)" - [F,L]
+
+    # 2. Block direct access to sensitive file extensions
+    <FilesMatch "(?i)\.(sql|bak|backup|log|sh|ini|conf|env|yml|yaml|twig|md)$">
+        Order Deny,Allow
+        Deny from all
+    </FilesMatch>
+
+    # 3. Block direct execution of any PHP file in public EXCEPT index.php
+    <FilesMatch "(?i)\.(php|phtml|phar)$">
+        Order Deny,Allow
+        Deny from all
+    </FilesMatch>
+    <Files "index.php">
+        Allow from all
+    </Files>
+
+    # 4. Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # Redirect Trailing Slashes If Not A Folder...
+    # 5. Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Send Requests To Front Controller...
+    # 6. Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>

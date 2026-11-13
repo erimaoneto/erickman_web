@@ -111,5 +111,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
         // User Management (Kelola Pengguna)
         Route::resource('users', UserController::class)->except(['show']);
+
+        // Security Sentinel & Server Audit
+        Route::prefix('security')->name('security.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Admin\SecurityController::class, 'index'])->name('index');
+            Route::post('/scan', [\App\Http\Controllers\Admin\SecurityController::class, 'scan'])->name('scan');
+        });
     });
 });
