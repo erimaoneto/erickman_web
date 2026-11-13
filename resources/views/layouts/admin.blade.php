@@ -143,6 +143,13 @@
                             <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i>
                             <span>Riwayat Terkirim</span>
                         </a>
+                        <a href="https://mail.hostinger.com" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-400 hover:text-amber-400 hover:bg-slate-900 transition group" title="Buka Hostinger Webmail di tab baru">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-envelope-open-text w-5 text-center text-amber-400"></i>
+                                <span>Webmail Hostinger</span>
+                            </div>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-500 group-hover:text-amber-400"></i>
+                        </a>
                     </div>
 
                     <!-- CMS Web Content -->

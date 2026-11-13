@@ -17,6 +17,23 @@
                 </a>
             </div>
 
+            <!-- Active Sender Badge -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-brand-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                        <i class="fa-solid fa-at"></i>
+                    </div>
+                    <div>
+                        <span class="block text-slate-500 text-[11px]">Akun Pengirim Resmi (SMTP Hostinger):</span>
+                        <span class="font-bold text-navy-900">{{ config('mail.from.address', 'finance@erickman.co.id') }} <span class="text-slate-500 font-normal">({{ config('mail.from.name', 'PT. Erickman Sarana Abadi') }})</span></span>
+                    </div>
+                </div>
+                <a href="https://mail.hostinger.com" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-[11px] uppercase tracking-wider transition flex items-center gap-1.5 self-start sm:self-auto shadow-sm">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                    <span>Webmail Hostinger</span>
+                </a>
+            </div>
+
             <form action="{{ route('admin.email.send') }}" method="POST" class="space-y-4">
                 @csrf
                 @if(isset($inquiryId))

@@ -10,12 +10,24 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
                 <h2 class="text-xl font-bold text-navy-900">Kotak Masuk Website (Inquiries)</h2>
-                <p class="text-xs text-slate-500">Pesan permintaan penawaran dan pertanyaan yang dikirimkan oleh calon mitra melalui formulir kontak.</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <p class="text-xs text-slate-500">Pesan permintaan penawaran dan pertanyaan yang dikirimkan oleh calon mitra melalui formulir kontak.</p>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Hostinger Mail: finance@erickman.co.id
+                    </span>
+                </div>
             </div>
-            <a href="{{ route('admin.email.compose') }}" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 transition flex items-center gap-2">
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Tulis Email Baru (SMTP)</span>
-            </a>
+            <div class="flex items-center gap-2.5">
+                <a href="https://mail.hostinger.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs uppercase tracking-wider transition flex items-center gap-2 shadow-sm" title="Buka webmail resmi Hostinger di tab baru">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-amber-600"></i>
+                    <span>Webmail Hostinger</span>
+                </a>
+                <a href="{{ route('admin.email.compose') }}" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 transition flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <span>Tulis Email Baru (SMTP)</span>
+                </a>
+            </div>
         </div>
 
         <!-- Filter Bar -->
