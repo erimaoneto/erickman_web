@@ -29,8 +29,9 @@
             <form action="{{ route('admin.finance.index') }}" method="GET" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
                 <div>
                     <select name="month" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600">
+                        <option value="all" {{ $selectedMonth === 'all' || empty($selectedMonth) ? 'selected' : '' }}>-- Semua Bulan (Tahunan) --</option>
                         @for($m = 1; $m <= 12; $m++)
-                        <option value="{{ $m }}" {{ $selectedMonth == $m ? 'selected' : '' }}>
+                        <option value="{{ $m }}" {{ (string)$selectedMonth === (string)$m ? 'selected' : '' }}>
                             {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
                         </option>
                         @endfor

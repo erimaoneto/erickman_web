@@ -15,15 +15,40 @@ class FinanceController extends Controller
     {
         $query = Transaction::with(['fleet', 'creator']);
 
-        $selectedMonth = $request->get('month', Carbon::now()->month);
-        $selectedYear = $request->get('year', Carbon::now()->year);
+        $selectedYear = $request->get('year');
+        if ($selectedYear === null) {
+            $selectedYear = (string) Carbon::now()->year;
+        }
 
-        if ($request->filled('month')) {
-            $query->whereMonth('transaction_date', $selectedMonth);
+        if ($request->has('month')) {
+            $selectedMonth = $request->get('month'); // can be 'all', '1'..'12', or ''
+        } else {
+            // Smart default: check if current month has records
+            $hasCurrentMonth = Transaction::whereMonth('transaction_date', Carbon::now()->month)
+                ->whereYear('transaction_date', (int)$selectedYear)
+                ->exists();
+
+            if ($hasCurrentMonth) {
+                $selectedMonth = (string) Carbon::now()->month;
+            } else {
+                // If current month has no records, fallback to latest recorded transaction month
+                $latestTrx = Transaction::orderBy('transaction_date', 'desc')->first();
+                if ($latestTrx) {
+                    $selectedMonth = (string) $latestTrx->transaction_date->month;
+                    $selectedYear = (string) $latestTrx->transaction_date->year;
+                } else {
+                    $selectedMonth = 'all';
+                }
+            }
         }
-        if ($request->filled('year')) {
-            $query->whereYear('transaction_date', $selectedYear);
+
+        if ($selectedMonth && $selectedMonth !== 'all') {
+            $query->whereMonth('transaction_date', (int)$selectedMonth);
         }
+        if ($selectedYear && $selectedYear !== 'all') {
+            $query->whereYear('transaction_date', (int)$selectedYear);
+        }
+
         if ($request->filled('type')) {
             $query->where('type', $request->type);
         }
@@ -139,14 +164,47 @@ class FinanceController extends Controller
 
     public function report(Request $request)
     {
-        $month = $request->get('month', Carbon::now()->month);
-        $year = $request->get('year', Carbon::now()->year);
+        $selectedYear = $request->get('year');
+        $selectedMonth = $request->get('month');
 
-        $transactions = Transaction::with(['fleet', 'creator'])
-            ->whereMonth('transaction_date', $month)
-            ->whereYear('transaction_date', $year)
-            ->orderBy('transaction_date', 'asc')
-            ->get();
+        if ($selectedYear === null) {
+            $selectedYear = (string) Carbon::now()->year;
+        }
+
+        if ($selectedMonth === null) {
+            // Check if current month has records
+            $hasCurrentMonth = Transaction::whereMonth('transaction_date', Carbon::now()->month)
+                ->whereYear('transaction_date', (int)$selectedYear)
+                ->exists();
+
+            if ($hasCurrentMonth) {
+                $selectedMonth = (string) Carbon::now()->month;
+            } else {
+                $latestTrx = Transaction::orderBy('transaction_date', 'desc')->first();
+                if ($latestTrx) {
+                    $selectedMonth = (string) $latestTrx->transaction_date->month;
+                    $selectedYear = (string) $latestTrx->transaction_date->year;
+                } else {
+                    $selectedMonth = 'all';
+                }
+            }
+        }
+
+        $query = Transaction::with(['fleet', 'creator']);
+
+        if ($selectedMonth && $selectedMonth !== 'all') {
+            $query->whereMonth('transaction_date', (int)$selectedMonth);
+            $monthName = Carbon::create()->month((int)$selectedMonth)->translatedFormat('F');
+            $periodLabel = "Periode {$monthName} {$selectedYear}";
+        } else {
+            $periodLabel = "Periode Tahun {$selectedYear} (Semua Bulan)";
+        }
+
+        if ($selectedYear && $selectedYear !== 'all') {
+            $query->whereYear('transaction_date', (int)$selectedYear);
+        }
+
+        $transactions = $query->orderBy('transaction_date', 'asc')->get();
 
         $incomeTotal = $transactions->where('type', 'pemasukan')->sum('amount');
         $expenseTotal = $transactions->where('type', 'pengeluaran')->sum('amount');
@@ -155,10 +213,17 @@ class FinanceController extends Controller
         $incomeByCategory = $transactions->where('type', 'pemasukan')->groupBy('category')->map->sum('amount');
         $expenseByCategory = $transactions->where('type', 'pengeluaran')->groupBy('category')->map->sum('amount');
 
+        // Backward compatibility variables
+        $month = $selectedMonth;
+        $year = $selectedYear;
+
         return view('admin.finance.report', compact(
             'transactions',
             'month',
             'year',
+            'selectedMonth',
+            'selectedYear',
+            'periodLabel',
             'incomeTotal',
             'expenseTotal',
             'netProfit',

@@ -105,4 +105,30 @@ class SecuritySentinelTest extends TestCase
         $response = $this->get('/admin/security');
         $response->assertRedirect('/admin/finance');
     }
+
+    public function test_finance_report_displays_transactions_and_supports_all_months()
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@erickman.co.id'],
+            [
+                'name' => 'Erima Oneto',
+                'password' => bcrypt('admin123'),
+                'role' => 'superadmin',
+                'is_active' => true,
+            ]
+        );
+
+        $this->actingAs($admin);
+
+        // 1. Fresh report access without query param
+        $response = $this->get('/admin/finance/report');
+        $response->assertStatus(200);
+        $response->assertSee('PT. ERICKMAN SARANA ABADI');
+        $response->assertSee('Rincian Transaksi');
+
+        // 2. Report for all months (Tahunan)
+        $responseAll = $this->get('/admin/finance/report?month=all&year=2026');
+        $responseAll->assertStatus(200);
+        $responseAll->assertSee('Periode Tahun 2026 (Semua Bulan)');
+    }
 }
