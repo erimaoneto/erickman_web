@@ -175,5 +175,63 @@ class SecuritySentinelTest extends TestCase
         $reportResponse->assertSee('Erickman Direktur');
         $reportResponse->assertSee('Direktur Utama');
     }
+
+    public function test_hostinger_webmail_inbox_and_inquiry_tabs_accessible_in_admin()
+    {
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@erickman.co.id'],
+            [
+                'name' => 'Erima Oneto',
+                'password' => bcrypt('admin123'),
+                'role' => 'superadmin',
+                'is_active' => true,
+            ]
+        );
+
+        $this->actingAs($admin);
+
+        // 1. Hostinger tab
+        $responseHostinger = $this->get('/admin/email/inbox?tab=hostinger');
+        $responseHostinger->assertStatus(200);
+        $responseHostinger->assertSee('finance@erickman.co.id');
+        $responseHostinger->assertSee('Email Hostinger');
+
+        // 2. Inquiries tab
+        $responseInquiries = $this->get('/admin/email/inbox?tab=inquiries');
+        $responseInquiries->assertStatus(200);
+        $responseInquiries->assertSee('Formulir Website (Inquiries)');
+    }
+
+    public function test_keuangan_user_can_access_email_module()
+    {
+        $keuangan = User::firstOrCreate(
+            ['email' => 'keuangan@erickman.co.id'],
+            [
+                'name' => 'Staf Keuangan',
+                'password' => bcrypt('keuangan123'),
+                'role' => 'keuangan',
+                'is_active' => true,
+            ]
+        );
+
+        $this->actingAs($keuangan);
+
+        // Keuangan can access inbox
+        $responseInbox = $this->get('/admin/email/inbox');
+        $responseInbox->assertStatus(200);
+        $responseInbox->assertSee('Kotak Masuk (Webmail)');
+
+        // Keuangan can access compose
+        $responseCompose = $this->get('/admin/email/compose');
+        $responseCompose->assertStatus(200);
+        $responseCompose->assertSee('finance@erickman.co.id');
+
+        // Keuangan can access outbox
+        $responseOutbox = $this->get('/admin/email/outbox');
+        $responseOutbox->assertStatus(200);
+        $responseOutbox->assertSee('Log Email Terkirim');
+    }
 }
+
+
 

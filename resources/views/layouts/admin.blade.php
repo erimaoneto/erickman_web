@@ -119,14 +119,13 @@
                         </a>
                     </div>
 
-                    @if(Auth::user()->role === 'superadmin')
-                    <!-- Email Module -->
+                    <!-- Email Module (Accessible by superadmin & staf keuangan) -->
                     <div class="space-y-1">
                         <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">Modul Email</div>
-                        <a href="{{ route('admin.email.inbox') }}" class="flex items-center justify-between px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.inbox', 'admin.email.show') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                        <a href="{{ route('admin.email.inbox') }}" class="flex items-center justify-between px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.email.inbox', 'admin.email.show', 'admin.email.hostinger.show') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-inbox w-5 text-center"></i>
-                                <span>Pesan Masuk</span>
+                                <span>Kotak Masuk (Webmail)</span>
                             </div>
                             @php
                                 $unread = \App\Models\Inquiry::where('is_read', false)->count();
@@ -152,6 +151,7 @@
                         </a>
                     </div>
 
+                    @if(Auth::user()->role === 'superadmin')
                     <!-- CMS Web Content -->
                     <div class="space-y-1">
                         <div class="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400">CMS Konten Website</div>

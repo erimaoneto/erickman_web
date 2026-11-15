@@ -44,6 +44,18 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::delete('/{id}', [FinanceController::class, 'destroy'])->name('destroy');
     });
 
+    // Email Management (Accessible by superadmin and staf keuangan)
+    Route::middleware(['role:superadmin,keuangan'])->prefix('email')->name('email.')->group(function () {
+        Route::get('/inbox', [EmailController::class, 'inbox'])->name('inbox');
+        Route::get('/hostinger/{msgno}', [EmailController::class, 'showHostingerEmail'])->name('hostinger.show');
+        Route::delete('/hostinger/{msgno}', [EmailController::class, 'deleteHostingerEmail'])->name('hostinger.delete');
+        Route::get('/inbox/{id}', [EmailController::class, 'showInquiry'])->name('show');
+        Route::delete('/inbox/{id}', [EmailController::class, 'deleteInquiry'])->name('delete');
+        Route::get('/compose', [EmailController::class, 'compose'])->name('compose');
+        Route::post('/send', [EmailController::class, 'sendEmail'])->name('send');
+        Route::get('/outbox', [EmailController::class, 'outbox'])->name('outbox');
+    });
+
     // Modules Restricted Exclusively to Superadmin
     Route::middleware(['role:superadmin'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -100,16 +112,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('fleets', FleetController::class);
         Route::post('/fleets/{id}/maintenance', [FleetController::class, 'storeMaintenance'])->name('fleets.maintenance.store');
         Route::delete('/maintenance/{id}', [FleetController::class, 'deleteMaintenance'])->name('fleets.maintenance.delete');
-
-        // Email Management (Inbox, Compose, Outbox)
-        Route::prefix('email')->name('email.')->group(function () {
-            Route::get('/inbox', [EmailController::class, 'inbox'])->name('inbox');
-            Route::get('/inbox/{id}', [EmailController::class, 'showInquiry'])->name('show');
-            Route::delete('/inbox/{id}', [EmailController::class, 'deleteInquiry'])->name('delete');
-            Route::get('/compose', [EmailController::class, 'compose'])->name('compose');
-            Route::post('/send', [EmailController::class, 'sendEmail'])->name('send');
-            Route::get('/outbox', [EmailController::class, 'outbox'])->name('outbox');
-        });
 
         // User Management (Kelola Pengguna)
         Route::resource('users', UserController::class)->except(['show']);

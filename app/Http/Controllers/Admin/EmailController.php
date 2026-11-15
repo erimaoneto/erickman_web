@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Inquiry;
 use App\Models\SentEmail;
+use App\Services\HostingerMailService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -13,20 +14,35 @@ use Throwable;
 
 class EmailController extends Controller
 {
-    // --- INBOX (Pesan Masuk dari Form Web) ---
-    public function inbox(Request $request)
+    // --- INBOX (Hostinger Webmail + Pesan Masuk Form Web) ---
+    public function inbox(Request $request, HostingerMailService $mailService)
     {
-        $query = Inquiry::query();
+        $tab = $request->get('tab', 'hostinger');
+        $search = $request->get('search');
+        $page = (int) $request->get('page', 1);
 
-        if ($request->filter == 'unread') {
-            $query->where('is_read', false);
-        } elseif ($request->filter == 'replied') {
-            $query->whereNotNull('replied_at');
+        // Hostinger Webmail IMAP Data
+        $hostingerEmails = null;
+        $hostingerUnread = 0;
+        $isImapAvailable = $mailService->isAvailable();
+
+        if ($isImapAvailable) {
+            $hostingerUnread = $mailService->getUnreadCount();
+            if ($tab === 'hostinger') {
+                $hostingerEmails = $mailService->getInboxMessages($page, 15, $search);
+            }
         }
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
+        // Web Inquiries Data
+        $inquiriesQuery = Inquiry::query();
+        if ($request->filter == 'unread') {
+            $inquiriesQuery->where('is_read', false);
+        } elseif ($request->filter == 'replied') {
+            $inquiriesQuery->whereNotNull('replied_at');
+        }
+
+        if ($request->filled('search') && $tab === 'inquiries') {
+            $inquiriesQuery->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                   ->orWhere('company', 'like', "%{$search}%")
                   ->orWhere('email', 'like', "%{$search}%")
@@ -34,12 +50,47 @@ class EmailController extends Controller
             });
         }
 
-        $inquiries = $query->latest()->paginate(12);
-        $unreadCount = Inquiry::where('is_read', false)->count();
+        $inquiries = $inquiriesQuery->latest()->paginate(12);
+        $webUnreadCount = Inquiry::where('is_read', false)->count();
 
-        return view('admin.email.inbox', compact('inquiries', 'unreadCount'));
+        return view('admin.email.inbox', compact(
+            'tab',
+            'hostingerEmails',
+            'hostingerUnread',
+            'isImapAvailable',
+            'inquiries',
+            'webUnreadCount'
+        ));
     }
 
+    // --- HOSTINGER EMAIL DETAIL (Buka & Baca Email Langsung di Web) ---
+    public function showHostingerEmail($msgno, HostingerMailService $mailService)
+    {
+        $email = $mailService->getMessageDetail((int) $msgno);
+
+        if (!$email) {
+            return redirect()->route('admin.email.inbox', ['tab' => 'hostinger'])
+                ->with('warning', 'Email tidak ditemukan atau sesi koneksi IMAP telah berakhir.');
+        }
+
+        return view('admin.email.hostinger_show', compact('email'));
+    }
+
+    // --- HOSTINGER EMAIL DELETE ---
+    public function deleteHostingerEmail($msgno, HostingerMailService $mailService)
+    {
+        $deleted = $mailService->deleteMessage((int) $msgno);
+
+        if ($deleted) {
+            return redirect()->route('admin.email.inbox', ['tab' => 'hostinger'])
+                ->with('success', 'Email berhasil dihapus dari kotak masuk Hostinger.');
+        }
+
+        return redirect()->route('admin.email.inbox', ['tab' => 'hostinger'])
+            ->with('warning', 'Email gagal dihapus atau server IMAP sedang sibuk.');
+    }
+
+    // --- WEB INQUIRY DETAIL ---
     public function showInquiry($id)
     {
         $inquiry = Inquiry::with('sentEmails')->findOrFail($id);
@@ -56,7 +107,7 @@ class EmailController extends Controller
         $inquiry = Inquiry::findOrFail($id);
         $inquiry->delete();
 
-        return redirect()->route('admin.email.inbox')->with('success', 'Pesan penawaran berhasil dihapus!');
+        return redirect()->route('admin.email.inbox', ['tab' => 'inquiries'])->with('success', 'Pesan penawaran berhasil dihapus!');
     }
 
     // --- COMPOSE & SEND EMAIL ---
@@ -117,7 +168,7 @@ class EmailController extends Controller
         }
 
         if ($status === 'failed') {
-            return redirect()->route('admin.email.outbox')->with('warning', 'Pesan disimpan di Log Email, namun pengiriman SMTP mengembalikan respon: ' . $errorMessage . ' (Pastikan konfigurasi SMTP di .env Hostinger telah diisi dengan benar).');
+            return redirect()->route('admin.email.outbox')->with('warning', 'Pesan disimpan di Log Email, namun pengiriman SMTP mengembalikan respon: ' . $errorMessage);
         }
 
         return redirect()->route('admin.email.outbox')->with('success', 'Email resmi berhasil dikirim ke ' . $validated['to_email'] . '!');
