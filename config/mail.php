@@ -131,4 +131,16 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | IMAP Webmail Settings (Hostinger / Mail Provider)
+    |--------------------------------------------------------------------------
+    */
+    'imap' => [
+        'host' => env('IMAP_HOST', 'imap.hostinger.com'),
+        'port' => (int) env('IMAP_PORT', 993),
+        'encryption' => env('IMAP_ENCRYPTION', 'ssl'),
+    ],
+
 ];
+

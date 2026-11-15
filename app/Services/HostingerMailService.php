@@ -17,11 +17,11 @@ class HostingerMailService
 
     public function __construct()
     {
-        $this->host = env('IMAP_HOST', 'imap.hostinger.com');
-        $this->port = (int) env('IMAP_PORT', 993);
-        $this->encryption = env('IMAP_ENCRYPTION', 'ssl');
-        $this->username = env('MAIL_USERNAME');
-        $this->password = env('MAIL_PASSWORD');
+        $this->host = config('mail.imap.host', 'imap.hostinger.com');
+        $this->port = (int) config('mail.imap.port', 993);
+        $this->encryption = config('mail.imap.encryption', 'ssl');
+        $this->username = config('mail.mailers.smtp.username');
+        $this->password = config('mail.mailers.smtp.password');
     }
 
     /**
