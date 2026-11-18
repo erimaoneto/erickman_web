@@ -19,6 +19,7 @@ class GtmModule extends Model
         'manufacture_year',
         'fleet_id',
         'location',
+        'coi_mdr',
         'hydrotest_expiry',
         'status',
         'notes',

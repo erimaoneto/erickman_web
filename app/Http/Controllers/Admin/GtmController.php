@@ -20,6 +20,7 @@ class GtmController extends Controller
                   ->orWhere('tube_brand', 'like', "%{$search}%")
                   ->orWhere('capacity', 'like', "%{$search}%")
                   ->orWhere('location', 'like', "%{$search}%")
+                  ->orWhere('coi_mdr', 'like', "%{$search}%")
                   ->orWhere('manufacture_year', 'like', "%{$search}%");
             });
         }
@@ -67,6 +68,7 @@ class GtmController extends Controller
             'manufacture_year' => 'required|string|max:10',
             'fleet_id' => 'nullable|exists:fleets,id',
             'location' => 'nullable|string|max:150',
+            'coi_mdr' => 'nullable|string|max:150',
             'hydrotest_expiry' => 'nullable|date',
             'status' => 'required|string|in:aktif,standby,rekualifikasi,perbaikan',
             'notes' => 'nullable|string',
@@ -101,6 +103,7 @@ class GtmController extends Controller
             'manufacture_year' => 'required|string|max:10',
             'fleet_id' => 'nullable|exists:fleets,id',
             'location' => 'nullable|string|max:150',
+            'coi_mdr' => 'nullable|string|max:150',
             'hydrotest_expiry' => 'nullable|date',
             'status' => 'required|string|in:aktif,standby,rekualifikasi,perbaikan',
             'notes' => 'nullable|string',
@@ -130,6 +133,7 @@ class GtmController extends Controller
                   ->orWhere('tube_brand', 'like', "%{$search}%")
                   ->orWhere('capacity', 'like', "%{$search}%")
                   ->orWhere('location', 'like', "%{$search}%")
+                  ->orWhere('coi_mdr', 'like', "%{$search}%")
                   ->orWhere('manufacture_year', 'like', "%{$search}%");
             });
         }

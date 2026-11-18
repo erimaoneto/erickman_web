@@ -159,6 +159,7 @@
                         <th class="p-3.5">Tahun Pembuatan</th>
                         <th class="p-3.5">Unit Armada Terpasang</th>
                         <th class="p-3.5">Lokasi Tabung</th>
+                        <th class="p-3.5">COI / MDR</th>
                         <th class="p-3.5 text-center">Status</th>
                         <th class="p-3.5 text-right w-28">Aksi</th>
                     </tr>
@@ -199,6 +200,16 @@
                             <span class="inline-flex items-center gap-1.5 text-slate-700 font-medium">
                                 <i class="fa-solid fa-location-dot text-rose-500 text-[10px]"></i>
                                 <span>{{ $gtm->location }}</span>
+                            </span>
+                            @else
+                            <span class="text-slate-400 italic text-[11px]">-</span>
+                            @endif
+                        </td>
+                        <td class="p-3.5 whitespace-nowrap">
+                            @if($gtm->coi_mdr)
+                            <span class="inline-flex items-center gap-1.5 text-slate-700 font-mono text-[11px] bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                                <i class="fa-solid fa-stamp text-amber-600 text-[10px]"></i>
+                                <span>{{ $gtm->coi_mdr }}</span>
                             </span>
                             @else
                             <span class="text-slate-400 italic text-[11px]">-</span>

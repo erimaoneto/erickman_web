@@ -295,6 +295,7 @@ class SecuritySentinelTest extends TestCase
             'capacity' => '1.200 Nm3',
             'manufacture_year' => '2023',
             'location' => 'Depo Cikarang',
+            'coi_mdr' => 'COI-MIGAS-2024/09',
             'status' => 'aktif',
             'notes' => 'Tabung pengujian sistem otomatis',
         ]);
@@ -302,6 +303,7 @@ class SecuritySentinelTest extends TestCase
         $this->assertDatabaseHas('gtm_modules', [
             'tube_code' => $testCode,
             'location' => 'Depo Cikarang',
+            'coi_mdr' => 'COI-MIGAS-2024/09',
         ]);
 
         // GTM print report
@@ -310,6 +312,7 @@ class SecuritySentinelTest extends TestCase
         $responseReport->assertSee('DATA GTM (GAS TRANSPORT MODULE)');
         $responseReport->assertSee('Worthington');
         $responseReport->assertSee('Depo Cikarang');
+        $responseReport->assertSee('COI-MIGAS-2024/09');
 
         // Clean up
         \App\Models\GtmModule::where('tube_code', $testCode)->delete();

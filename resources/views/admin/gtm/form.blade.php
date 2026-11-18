@@ -129,13 +129,13 @@
                     <span class="text-[11px] text-slate-400 mt-1 block">Ketik nama depo, stasiun gas, pabrik, atau lokasi fisik tabung saat ini.</span>
                 </div>
 
-                <!-- Jatuh Tempo Uji Hidrostatik (Opsional) -->
+                <!-- COI / MDR -->
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
-                        Jatuh Tempo Uji Hidrostatik (Hydrotest)
+                        COI / MDR
                     </label>
-                    <input type="date" name="hydrotest_expiry" value="{{ old('hydrotest_expiry', isset($gtm->hydrotest_expiry) ? $gtm->hydrotest_expiry->format('Y-m-d') : '') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600 focus:outline-none font-mono">
-                    <span class="text-[11px] text-slate-400 mt-1 block">Jadwal sertifikasi ulang tabung bertekanan berikutnya.</span>
+                    <input type="text" name="coi_mdr" value="{{ old('coi_mdr', $gtm->coi_mdr ?? '') }}" placeholder="Ketik status / masa berlaku / No. Sertifikat COI & MDR" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600 focus:outline-none">
+                    <span class="text-[11px] text-slate-400 mt-1 block">Certificate of Inspection (COI) / Manufacturer Data Report (MDR).</span>
                 </div>
 
             </div>
