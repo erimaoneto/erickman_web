@@ -75,7 +75,7 @@
         <div class="flex items-start justify-between pb-6 border-b-2 border-slate-900 gap-4">
             <div>
                 <h1 class="text-2xl font-black text-slate-900 tracking-tight">PT. ERICKMAN SARANA ABADI</h1>
-                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Transportasi Gas Alam (CNG) & Logistik Khusus</p>
+                <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Transportasi Gas Alam (CNG) & Equipment</p>
                 <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
                     18 Office Park Building Lt. 12 Unit A & H, Jl. TB Simatupang No.18, Jakarta Selatan 12520<br>
                     NIB: 2211210015706 &bull; Email: info@erickman.co.id &bull; Telp: +622130931188

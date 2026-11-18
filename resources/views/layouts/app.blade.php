@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'PT. Erickman Sarana Abadi - Transportasi Gas Alam & Logistik Khusus')</title>
+    <title>@yield('title', 'PT. Erickman Sarana Abadi - Transportasi Gas Alam (CNG) & Equipment')</title>
     <meta name="description" content="@yield('meta_description', 'PT. Erickman Sarana Abadi - Solusi Transportasi Gas Alam (CNG/LNG), Angkutan Barang Khusus & Sewa Armada Truk Terpercaya di Indonesia.')">
     
     <!-- Favicon -->

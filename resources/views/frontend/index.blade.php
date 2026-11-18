@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', ($settings['company_name'] ?? 'PT Erickman') . ' - ' . ($settings['company_tagline'] ?? 'Solusi Transportasi Gas Alam & Logistik Khusus'))
+@section('title', ($settings['company_name'] ?? 'PT Erickman') . ' - ' . ($settings['company_tagline'] ?? 'Transportasi Gas Alam (CNG) & Equipment'))
 
 @section('content')
 
