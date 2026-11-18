@@ -120,6 +120,15 @@
                     <span class="text-[11px] text-slate-400 mt-1 block">Opsional: pilih unit armada yang membawa tabung ini.</span>
                 </div>
 
+                <!-- Lokasi Tabung (Ketik Bebas) -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                        Lokasi Tabung
+                    </label>
+                    <input type="text" name="location" value="{{ old('location', $gtm->location ?? '') }}" placeholder="Ketik lokasi tabung (contoh: Depo Cikarang, SPBG Cilegon, Trailer 02)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-600 focus:outline-none">
+                    <span class="text-[11px] text-slate-400 mt-1 block">Ketik nama depo, stasiun gas, pabrik, atau lokasi fisik tabung saat ini.</span>
+                </div>
+
                 <!-- Jatuh Tempo Uji Hidrostatik (Opsional) -->
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">

@@ -294,17 +294,22 @@ class SecuritySentinelTest extends TestCase
             'tube_brand' => 'Worthington',
             'capacity' => '1.200 Nm3',
             'manufacture_year' => '2023',
+            'location' => 'Depo Cikarang',
             'status' => 'aktif',
             'notes' => 'Tabung pengujian sistem otomatis',
         ]);
         $responseStore->assertRedirect('/admin/gtm');
-        $this->assertDatabaseHas('gtm_modules', ['tube_code' => $testCode]);
+        $this->assertDatabaseHas('gtm_modules', [
+            'tube_code' => $testCode,
+            'location' => 'Depo Cikarang',
+        ]);
 
         // GTM print report
         $responseReport = $this->get('/admin/gtm/report');
         $responseReport->assertStatus(200);
         $responseReport->assertSee('DATA GTM (GAS TRANSPORT MODULE)');
         $responseReport->assertSee('Worthington');
+        $responseReport->assertSee('Depo Cikarang');
 
         // Clean up
         \App\Models\GtmModule::where('tube_code', $testCode)->delete();

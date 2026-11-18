@@ -128,6 +128,7 @@
                         <th class="p-2 border-r border-slate-300">Kapasitas</th>
                         <th class="p-2 border-r border-slate-300 text-center">Tahun Pembuatan</th>
                         <th class="p-2 border-r border-slate-300">Unit Armada Terpasang</th>
+                        <th class="p-2 border-r border-slate-300">Lokasi Tabung</th>
                         <th class="p-2 border-r border-slate-300">Jatuh Tempo Hydrotest</th>
                         <th class="p-2 text-center">Status</th>
                     </tr>
@@ -157,6 +158,9 @@
                             @else
                                 <span class="text-slate-400 italic">Standby / Depo</span>
                             @endif
+                        </td>
+                        <td class="p-2 border-r border-slate-200 whitespace-nowrap">
+                            {{ $gtm->location ?? '-' }}
                         </td>
                         <td class="p-2 border-r border-slate-200 whitespace-nowrap font-mono">
                             {{ $gtm->hydrotest_expiry ? $gtm->hydrotest_expiry->format('d/m/Y') : '-' }}
