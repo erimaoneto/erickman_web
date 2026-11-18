@@ -44,6 +44,11 @@ class Fleet extends Model
         return $this->hasMany(Transaction::class)->orderBy('transaction_date', 'desc');
     }
 
+    public function gtmModules()
+    {
+        return $this->hasMany(GtmModule::class, 'fleet_id')->orderByRaw('COALESCE(order_number, 999999) ASC');
+    }
+
     public function getKirStatusAttribute()
     {
         if (!$this->kir_expiry) return ['status' => 'unknown', 'label' => 'Belum Ada Data', 'class' => 'bg-gray-100 text-gray-700'];

@@ -97,6 +97,10 @@
                             <i class="fa-solid fa-tags w-5 text-center text-xs"></i>
                             <span>Tipe Armada</span>
                         </a>
+                        <a href="{{ route('admin.gtm.index') }}" class="flex items-center gap-3 px-3.5 py-2 rounded-xl text-sm font-semibold transition {{ request()->routeIs('admin.gtm.*') ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20' : 'text-slate-400 hover:text-white hover:bg-slate-900' }}">
+                            <i class="fa-solid fa-cubes-stacked w-5 text-center text-xs"></i>
+                            <span>Data GTM</span>
+                        </a>
                     </div>
                     @endif
 

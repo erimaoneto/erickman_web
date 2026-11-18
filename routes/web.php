@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\FleetController;
 use App\Http\Controllers\Admin\FleetTypeController;
+use App\Http\Controllers\Admin\GtmController;
 use App\Http\Controllers\Admin\FinanceController;
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\UserController;
@@ -120,6 +121,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::resource('fleets', FleetController::class);
         Route::post('/fleets/{id}/maintenance', [FleetController::class, 'storeMaintenance'])->name('fleets.maintenance.store');
         Route::delete('/maintenance/{id}', [FleetController::class, 'deleteMaintenance'])->name('fleets.maintenance.delete');
+
+        // GTM (Gas Transport Module) Management
+        Route::get('/gtm/report', [GtmController::class, 'report'])->name('gtm.report');
+        Route::resource('gtm', GtmController::class);
 
         // User Management (Kelola Pengguna)
         Route::resource('users', UserController::class)->except(['show']);

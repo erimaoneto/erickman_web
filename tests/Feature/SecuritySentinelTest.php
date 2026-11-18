@@ -268,7 +268,49 @@ class SecuritySentinelTest extends TestCase
         $responseStore->assertRedirect('/admin/fleets/types');
         $this->assertDatabaseHas('fleet_types', ['name' => 'Armada Khusus Testing']);
     }
+
+    public function test_gtm_crud_and_report_access()
+    {
+        $admin = User::where('role', 'superadmin')->first();
+        $this->actingAs($admin);
+
+        \App\Models\GtmModule::where('tube_code', 'like', 'GTM-TEST-%')->delete();
+        $testCode = 'GTM-TEST-' . time();
+
+        // GTM index
+        $responseIndex = $this->get('/admin/gtm');
+        $responseIndex->assertStatus(200);
+        $responseIndex->assertSee('Data GTM (Gas Transport Module)');
+
+        // GTM create form
+        $responseCreate = $this->get('/admin/gtm/create');
+        $responseCreate->assertStatus(200);
+        $responseCreate->assertSee('Tambah Tabung GTM Baru');
+
+        // GTM store
+        $responseStore = $this->post('/admin/gtm', [
+            'order_number' => 1,
+            'tube_code' => $testCode,
+            'tube_brand' => 'Worthington',
+            'capacity' => '1.200 Nm3',
+            'manufacture_year' => '2023',
+            'status' => 'aktif',
+            'notes' => 'Tabung pengujian sistem otomatis',
+        ]);
+        $responseStore->assertRedirect('/admin/gtm');
+        $this->assertDatabaseHas('gtm_modules', ['tube_code' => $testCode]);
+
+        // GTM print report
+        $responseReport = $this->get('/admin/gtm/report');
+        $responseReport->assertStatus(200);
+        $responseReport->assertSee('DATA GTM (GAS TRANSPORT MODULE)');
+        $responseReport->assertSee('Worthington');
+
+        // Clean up
+        \App\Models\GtmModule::where('tube_code', $testCode)->delete();
+    }
 }
+
 
 
 
