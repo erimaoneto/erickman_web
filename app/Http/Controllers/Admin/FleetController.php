@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Fleet;
 use App\Models\FleetMaintenance;
+use App\Models\FleetType;
 use Carbon\Carbon;
 
 class FleetController extends Controller
@@ -19,7 +20,8 @@ class FleetController extends Controller
             $query->where(function ($q) use ($search) {
                 $q->where('plate_number', 'like', "%{$search}%")
                   ->orWhere('vehicle_name', 'like', "%{$search}%")
-                  ->orWhere('driver_name', 'like', "%{$search}%");
+                  ->orWhere('driver_name', 'like', "%{$search}%")
+                  ->orWhere('order_number', 'like', "%{$search}%");
             });
         }
 
@@ -37,23 +39,37 @@ class FleetController extends Controller
             $query->whereDate('stnk_expiry', '<=', Carbon::now()->addDays(30));
         }
 
-        $fleets = $query->withCount('maintenances')->latest()->paginate(10);
-        $types = Fleet::select('type')->distinct()->pluck('type');
+        $view = $request->get('view', 'grid');
 
-        return view('admin.fleets.index', compact('fleets', 'types'));
+        // Order by nomor urut (order_number) ASC, then ID ASC
+        $fleets = $query->withCount('maintenances')
+            ->orderByRaw('COALESCE(order_number, 999999) ASC')
+            ->orderBy('id', 'asc')
+            ->paginate($view === 'table' ? 25 : 12);
+
+        $types = FleetType::orderBy('name')->pluck('name');
+        if ($types->isEmpty()) {
+            $types = Fleet::select('type')->distinct()->pluck('type');
+        }
+
+        return view('admin.fleets.index', compact('fleets', 'types', 'view'));
     }
 
     public function create()
     {
-        return view('admin.fleets.form');
+        $fleetTypes = FleetType::orderBy('name')->get();
+        $nextOrder = (Fleet::max('order_number') ?? 0) + 1;
+
+        return view('admin.fleets.form', compact('fleetTypes', 'nextOrder'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'order_number' => 'nullable|integer|min:1',
             'plate_number' => 'required|string|max:20|unique:fleets,plate_number',
             'vehicle_name' => 'required|string|max:100',
-            'type' => 'required|string|max:50',
+            'type' => 'required|string|max:100',
             'brand' => 'nullable|string|max:50',
             'year' => 'nullable|string|max:10',
             'capacity' => 'nullable|string|max:50',
@@ -63,16 +79,52 @@ class FleetController extends Controller
             'stnk_expiry' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'image_path' => 'nullable|string',
+            'stnk_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'bpkb_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'kir_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
         ]);
 
+        if (empty($validated['order_number'])) {
+            $validated['order_number'] = (Fleet::max('order_number') ?? 0) + 1;
+        }
+
+        // Upload main vehicle photo
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = 'fleet_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = 'fleet_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $filename);
             $validated['image_path'] = '/images/' . $filename;
         } elseif (empty($validated['image_path'])) {
             $validated['image_path'] = str_contains($validated['type'], 'CNG') ? '/images/truck-cng-green.jpg' : '/images/truck-box-red.jpg';
+        }
+
+        // Upload documents (STNK, BPKB, KIR)
+        $cleanPlate = preg_replace('/[^A-Za-z0-9]/', '', $validated['plate_number']);
+        $docFolder = public_path('uploads/fleets/documents');
+        if (!file_exists($docFolder)) {
+            mkdir($docFolder, 0755, true);
+        }
+
+        if ($request->hasFile('stnk_file')) {
+            $file = $request->file('stnk_file');
+            $filename = 'stnk_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['stnk_file'] = '/uploads/fleets/documents/' . $filename;
+        }
+
+        if ($request->hasFile('bpkb_file')) {
+            $file = $request->file('bpkb_file');
+            $filename = 'bpkb_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['bpkb_file'] = '/uploads/fleets/documents/' . $filename;
+        }
+
+        if ($request->hasFile('kir_file')) {
+            $file = $request->file('kir_file');
+            $filename = 'kir_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['kir_file'] = '/uploads/fleets/documents/' . $filename;
         }
 
         Fleet::create($validated);
@@ -94,7 +146,9 @@ class FleetController extends Controller
     public function edit($id)
     {
         $fleet = Fleet::findOrFail($id);
-        return view('admin.fleets.form', compact('fleet'));
+        $fleetTypes = FleetType::orderBy('name')->get();
+
+        return view('admin.fleets.form', compact('fleet', 'fleetTypes'));
     }
 
     public function update(Request $request, $id)
@@ -102,9 +156,10 @@ class FleetController extends Controller
         $fleet = Fleet::findOrFail($id);
 
         $validated = $request->validate([
+            'order_number' => 'nullable|integer|min:1',
             'plate_number' => 'required|string|max:20|unique:fleets,plate_number,' . $fleet->id,
             'vehicle_name' => 'required|string|max:100',
-            'type' => 'required|string|max:50',
+            'type' => 'required|string|max:100',
             'brand' => 'nullable|string|max:50',
             'year' => 'nullable|string|max:10',
             'capacity' => 'nullable|string|max:50',
@@ -113,14 +168,50 @@ class FleetController extends Controller
             'kir_expiry' => 'nullable|date',
             'stnk_expiry' => 'nullable|date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'stnk_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'bpkb_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'kir_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
         ]);
 
+        if (empty($validated['order_number'])) {
+            $validated['order_number'] = $fleet->order_number ?: ((Fleet::max('order_number') ?? 0) + 1);
+        }
+
+        // Upload main vehicle photo
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = 'fleet_' . time() . '.' . $file->getClientOriginalExtension();
+            $filename = 'fleet_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('images'), $filename);
             $validated['image_path'] = '/images/' . $filename;
+        }
+
+        // Upload documents (STNK, BPKB, KIR)
+        $cleanPlate = preg_replace('/[^A-Za-z0-9]/', '', $validated['plate_number']);
+        $docFolder = public_path('uploads/fleets/documents');
+        if (!file_exists($docFolder)) {
+            mkdir($docFolder, 0755, true);
+        }
+
+        if ($request->hasFile('stnk_file')) {
+            $file = $request->file('stnk_file');
+            $filename = 'stnk_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['stnk_file'] = '/uploads/fleets/documents/' . $filename;
+        }
+
+        if ($request->hasFile('bpkb_file')) {
+            $file = $request->file('bpkb_file');
+            $filename = 'bpkb_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['bpkb_file'] = '/uploads/fleets/documents/' . $filename;
+        }
+
+        if ($request->hasFile('kir_file')) {
+            $file = $request->file('kir_file');
+            $filename = 'kir_' . $cleanPlate . '_' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($docFolder, $filename);
+            $validated['kir_file'] = '/uploads/fleets/documents/' . $filename;
         }
 
         $fleet->update($validated);
@@ -136,6 +227,43 @@ class FleetController extends Controller
         return redirect()->route('admin.fleets.index')->with('success', 'Data armada berhasil dihapus!');
     }
 
+    // Print / PDF Report of Fleet Table
+    public function report(Request $request)
+    {
+        $query = Fleet::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('plate_number', 'like', "%{$search}%")
+                  ->orWhere('vehicle_name', 'like', "%{$search}%")
+                  ->orWhere('driver_name', 'like', "%{$search}%")
+                  ->orWhere('order_number', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->filter == 'urgent_kir') {
+            $query->whereDate('kir_expiry', '<=', Carbon::now()->addDays(30));
+        } elseif ($request->filter == 'urgent_stnk') {
+            $query->whereDate('stnk_expiry', '<=', Carbon::now()->addDays(30));
+        }
+
+        $fleets = $query->withCount('maintenances')
+            ->orderByRaw('COALESCE(order_number, 999999) ASC')
+            ->orderBy('id', 'asc')
+            ->get();
+
+        return view('admin.fleets.report', compact('fleets'));
+    }
+
     public function storeMaintenance(Request $request, $fleetId)
     {
         $fleet = Fleet::findOrFail($fleetId);
@@ -149,11 +277,9 @@ class FleetController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $validated['fleet_id'] = $fleet->id;
+        $fleet->maintenances()->create($validated);
 
-        FleetMaintenance::create($validated);
-
-        return redirect()->route('admin.fleets.show', $fleet->id)->with('success', 'Catatan servis/pemeliharaan berhasil ditambahkan!');
+        return redirect()->route('admin.fleets.show', $fleet->id)->with('success', 'Catatan servis baru berhasil ditambahkan!');
     }
 
     public function deleteMaintenance($id)

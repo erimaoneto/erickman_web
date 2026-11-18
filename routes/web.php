@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\FleetController;
+use App\Http\Controllers\Admin\FleetTypeController;
 use App\Http\Controllers\Admin\FinanceController;
 use App\Http\Controllers\Admin\EmailController;
 use App\Http\Controllers\Admin\UserController;
@@ -109,6 +110,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         });
 
         // Fleet Dashboard & Management
+        Route::get('/fleets/report', [FleetController::class, 'report'])->name('fleets.report');
+        Route::prefix('fleets/types')->name('fleets.types.')->group(function () {
+            Route::get('/', [FleetTypeController::class, 'index'])->name('index');
+            Route::post('/', [FleetTypeController::class, 'store'])->name('store');
+            Route::put('/{id}', [FleetTypeController::class, 'update'])->name('update');
+            Route::delete('/{id}', [FleetTypeController::class, 'destroy'])->name('destroy');
+        });
         Route::resource('fleets', FleetController::class);
         Route::post('/fleets/{id}/maintenance', [FleetController::class, 'storeMaintenance'])->name('fleets.maintenance.store');
         Route::delete('/maintenance/{id}', [FleetController::class, 'deleteMaintenance'])->name('fleets.maintenance.delete');

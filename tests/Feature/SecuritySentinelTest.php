@@ -231,7 +231,45 @@ class SecuritySentinelTest extends TestCase
         $responseOutbox->assertStatus(200);
         $responseOutbox->assertSee('Log Email Terkirim');
     }
+
+    public function test_fleet_table_view_and_report_access()
+    {
+        $admin = User::where('role', 'superadmin')->first();
+        $this->actingAs($admin);
+
+        // Table view
+        $responseTable = $this->get('/admin/fleets?view=table');
+        $responseTable->assertStatus(200);
+        $responseTable->assertSee('Tampilan Tabel');
+        $responseTable->assertSee('No. Urut');
+
+        // Print report
+        $responseReport = $this->get('/admin/fleets/report');
+        $responseReport->assertStatus(200);
+        $responseReport->assertSee('REKAPITULASI DATA ARMADA');
+        $responseReport->assertSee('PT. ERICKMAN SARANA ABADI');
+    }
+
+    public function test_fleet_types_crud()
+    {
+        $admin = User::where('role', 'superadmin')->first();
+        $this->actingAs($admin);
+
+        // Fleet types list
+        $responseTypes = $this->get('/admin/fleets/types');
+        $responseTypes->assertStatus(200);
+        $responseTypes->assertSee('Kelola Tipe Armada');
+
+        // Create new fleet type
+        $responseStore = $this->post('/admin/fleets/types', [
+            'name' => 'Armada Khusus Testing',
+            'description' => 'Tipe khusus untuk pengujian sistem',
+        ]);
+        $responseStore->assertRedirect('/admin/fleets/types');
+        $this->assertDatabaseHas('fleet_types', ['name' => 'Armada Khusus Testing']);
+    }
 }
+
 
 
 

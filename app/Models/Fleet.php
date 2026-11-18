@@ -11,6 +11,7 @@ class Fleet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'order_number',
         'plate_number',
         'vehicle_name',
         'type',
@@ -21,6 +22,9 @@ class Fleet extends Model
         'driver_name',
         'kir_expiry',
         'stnk_expiry',
+        'stnk_file',
+        'bpkb_file',
+        'kir_file',
         'image_path',
         'notes',
     ];

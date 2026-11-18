@@ -14,6 +14,7 @@
                 </a>
                 <div>
                     <div class="flex items-center gap-3">
+                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-navy-900 text-white shadow-sm font-mono">No. #{{ $fleet->order_number ?? '-' }}</span>
                         <h2 class="text-2xl font-black text-navy-900 font-mono">{{ $fleet->plate_number }}</h2>
                         <span class="px-3 py-1 rounded-full text-xs font-bold {{ $fleet->status === 'Tersedia' ? 'bg-emerald-500 text-white' : ($fleet->status === 'Dalam Perjalanan' ? 'bg-blue-500 text-white' : 'bg-amber-500 text-white') }}">
                             {{ $fleet->status }}
@@ -97,6 +98,81 @@
                                 {{ $fleet->stnk_expiry ? $fleet->stnk_expiry->format('d M Y') : 'Belum Ada Data' }}
                             </div>
                             <p class="text-xs">{{ $stnk['label'] }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Berkas Dokumen Fisik / Digital -->
+                    <div class="pt-4 border-t border-slate-100 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-navy-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-folder-open text-brand-600"></i>
+                                <span>Berkas Dokumen Digital (Arsip)</span>
+                            </h4>
+                            <a href="{{ route('admin.fleets.edit', $fleet->id) }}" class="text-[11px] font-bold text-brand-600 hover:underline">
+                                <i class="fa-solid fa-cloud-arrow-up"></i> Upload / Perbarui Berkas
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <!-- STNK -->
+                            <div class="p-3.5 rounded-xl border {{ $fleet->stnk_file ? 'bg-emerald-50/50 border-emerald-200' : 'bg-slate-50 border-slate-200' }} flex flex-col justify-between space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-navy-900">STNK</span>
+                                    @if($fleet->stnk_file)
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Tersedia</span>
+                                    @else
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-500">Belum Ada</span>
+                                    @endif
+                                </div>
+                                @if($fleet->stnk_file)
+                                <a href="{{ asset($fleet->stnk_file) }}" target="_blank" class="w-full py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-solid fa-eye text-[11px]"></i>
+                                    <span>Lihat Berkas</span>
+                                </a>
+                                @else
+                                <span class="text-[11px] text-slate-400 italic">Belum diunggah</span>
+                                @endif
+                            </div>
+
+                            <!-- BPKB -->
+                            <div class="p-3.5 rounded-xl border {{ $fleet->bpkb_file ? 'bg-amber-50/50 border-amber-200' : 'bg-slate-50 border-slate-200' }} flex flex-col justify-between space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-navy-900">BPKB</span>
+                                    @if($fleet->bpkb_file)
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Tersedia</span>
+                                    @else
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-500">Belum Ada</span>
+                                    @endif
+                                </div>
+                                @if($fleet->bpkb_file)
+                                <a href="{{ asset($fleet->bpkb_file) }}" target="_blank" class="w-full py-1.5 px-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-solid fa-eye text-[11px]"></i>
+                                    <span>Lihat Berkas</span>
+                                </a>
+                                @else
+                                <span class="text-[11px] text-slate-400 italic">Belum diunggah</span>
+                                @endif
+                            </div>
+
+                            <!-- KIR -->
+                            <div class="p-3.5 rounded-xl border {{ $fleet->kir_file ? 'bg-blue-50/50 border-blue-200' : 'bg-slate-50 border-slate-200' }} flex flex-col justify-between space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-navy-900">Buku / Kartu KIR</span>
+                                    @if($fleet->kir_file)
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">Tersedia</span>
+                                    @else
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-200 text-slate-500">Belum Ada</span>
+                                    @endif
+                                </div>
+                                @if($fleet->kir_file)
+                                <a href="{{ asset($fleet->kir_file) }}" target="_blank" class="w-full py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                                    <i class="fa-solid fa-eye text-[11px]"></i>
+                                    <span>Lihat Berkas</span>
+                                </a>
+                                @else
+                                <span class="text-[11px] text-slate-400 italic">Belum diunggah</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
